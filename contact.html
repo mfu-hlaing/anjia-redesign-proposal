@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Private Consultation — Anjia Residences</title>
+<meta name="description" content="Tell us what you are trying to do. An adviser who speaks your language replies within one working day.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0f172a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=IBM+Plex+Sans+Thai:wght@200;300;400;500&display=swap">
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="notice" role="note">
+  <span><b>Redesign concept</b> — an independent proposal for anjia-home.net. Not the official Anjia Property website.</span>
+  <a href="compare.html">Compare with the live site</a>
+</div>
+
+<header class="hdr" id="hdr">
+  <div class="wrap hdr__in">
+    <a class="mark" href="index.html" aria-label="Anjia, home">
+      <span class="mark__glyph" aria-hidden="true">安</span>
+      <span class="mark__word">Anjia<em>Residences</em></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="residences.html">The Collection</a>
+      <a href="ownership.html">Ownership</a>
+      <a href="index.html#stewardship">Stewardship</a>
+      <a href="index.html#process">Process</a>
+      <a href="index.html#journal">Journal</a>
+    </nav>
+    <div class="hdr__act">
+      <button class="ibtn" id="themeBtn" aria-label="Switch colour theme">
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="ic-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>
+      </button>
+      <div class="lang">
+        <button class="lang__btn" id="langBtn" aria-expanded="false" aria-haspopup="listbox">
+          <span id="langCur">EN</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+        </button>
+        <ul class="menu" id="langMenu" role="listbox" aria-label="Language">
+          <li><button role="option" aria-selected="true" data-code="EN">English<i>English</i></button></li>
+          <li><button role="option" aria-selected="false" data-code="TH">ไทย<i>Thai</i></button></li>
+          <li><button role="option" aria-selected="false" data-code="ZH">中文<i>Chinese</i></button></li>
+          <li><button role="option" aria-selected="false" data-code="JA">日本語<i>Japanese</i></button></li>
+        </ul>
+      </div>
+      <a class="btn btn--sm btn--primary hdr__cta" href="contact.html" aria-current="page">Private consultation</a>
+      <button class="ibtn burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Menu" aria-hidden="true">
+  <div class="drawer__top">
+    <span class="micro">Menu</span>
+    <button class="ibtn" id="drawerClose" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <nav class="drawer__nav" aria-label="Mobile">
+    <a href="residences.html"><span>The Collection</span></a>
+    <a href="ownership.html"><span>Ownership</span></a>
+    <a href="index.html#stewardship"><span>Stewardship</span></a>
+    <a href="index.html#process"><span>Process</span></a>
+    <a href="contact.html"><span>Contact</span></a>
+  </nav>
+  <div class="drawer__foot">
+    <a class="btn btn--primary btn--block" href="contact.html">Private consultation</a>
+    <a class="btn btn--outline btn--block" href="tel:+66123443888">+66 1234 43888</a>
+  </div>
+</aside>
+
+<main id="main">
+  <section class="pageHead">
+    <div class="wrap">
+      <p class="kicker">Private consultation</p>
+      <h1 class="pageHead__h">Tell us what you are trying to do.</h1>
+      <p class="lede pageHead__b">Not which unit you want — what you are trying to achieve. The
+        residence follows from that, and occasionally the honest answer is that nothing in our
+        collection fits. We would rather say so on the first call.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="contactGrid">
+        <form class="formGrid" id="contactForm" novalidate>
+          <div class="field">
+            <label for="cName">Your name</label>
+            <input class="input" id="cName" name="name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="cReach">Email, WeChat or LINE</label>
+            <input class="input" id="cReach" name="contact" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label id="lblPurpose">What is this for?</label>
+            <div class="pick pick--light" data-pick>
+              <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lblPurpose">
+                <span class="pick__val">Select a purpose</span>
+                <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+              </button>
+              <ul class="pick__menu" role="listbox">
+                <li><button class="pick__opt" role="option" aria-selected="true">Select a purpose</button></li>
+                <li><button class="pick__opt" role="option">Rental income</button></li>
+                <li><button class="pick__opt" role="option">Somewhere to live</button></li>
+                <li><button class="pick__opt" role="option">Retirement or holidays</button></li>
+                <li><button class="pick__opt" role="option">Children's education</button></li>
+                <li><button class="pick__opt" role="option">Stewardship of a property I own</button></li>
+              </ul>
+            </div>
+          </div>
+          <div class="field">
+            <label id="lblLang">Language you prefer</label>
+            <div class="pick pick--light" data-pick>
+              <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lblLang">
+                <span class="pick__val">English</span>
+                <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+              </button>
+              <ul class="pick__menu" role="listbox">
+                <li><button class="pick__opt" role="option" aria-selected="true">English</button></li>
+                <li><button class="pick__opt" role="option">ไทย — Thai</button></li>
+                <li><button class="pick__opt" role="option">中文 — Chinese</button></li>
+                <li><button class="pick__opt" role="option">日本語 — Japanese</button></li>
+              </ul>
+            </div>
+          </div>
+          <div class="field">
+            <label for="cNote">Anything else worth knowing</label>
+            <textarea class="input" id="cNote" name="note" rows="5"
+              placeholder="Budget, timing, whether you can travel, whether you have bought in Thailand before…"></textarea>
+          </div>
+          <div>
+            <button class="btn btn--primary btn--block" type="submit">Request a consultation</button>
+            <p class="formNote" id="formNote" style="color:var(--muted)">Demonstration form — this concept sends nothing anywhere.</p>
+          </div>
+        </form>
+
+        <div style="display:grid;gap:var(--s-4);align-content:start">
+          <div class="contactCard">
+            <h3>The office</h3>
+            <p>Anjia Property Management Co., Ltd.<br>
+              1517-9 Moo 11, Thepprasit Road<br>
+              Nong Prue, Bang Lamung District<br>
+              Chon Buri 20150, Thailand</p>
+            <a class="tlink" href="tel:+66123443888">+66 1234 43888</a>
+          </div>
+          <div class="contactCard">
+            <h3>What happens next</h3>
+            <p>An adviser replies within one working day, in the language you chose. The first
+              conversation is about your circumstances, not our inventory — where you are tax-resident,
+              how the money would move, how often you would actually be here.</p>
+            <p>Nothing is charged until a transfer completes.</p>
+          </div>
+          <div class="contactCard">
+            <h3>Before you write</h3>
+            <p>If your question is about what a foreigner may lawfully own, the answer is probably
+              already set out in full on the ownership page — including the 49% quota, the FET form,
+              and what a transfer actually costs.</p>
+            <a class="tlink" href="ownership.html">Read that first <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr__top">
+      <div class="ftr__brand">
+        <span class="mark mark--ftr">
+          <span class="mark__glyph" aria-hidden="true">安</span>
+          <span class="mark__word">Anjia<em>Residences</em></span>
+        </span>
+        <p class="ftr__addr">Anjia Property Management Co., Ltd.<br>
+          1517-9 Moo 11, Thepprasit Road<br>Nong Prue, Bang Lamung<br>Chon Buri 20150, Thailand</p>
+        <a class="tlink" href="tel:+66123443888">+66 1234 43888</a>
+      </div>
+      <nav class="ftr__col" aria-label="Collection">
+        <h4 class="micro">Collection</h4>
+        <a href="residences.html">All residences</a>
+        <a href="residences.html">Condominiums</a>
+        <a href="residences.html">Villas &amp; houses</a>
+      </nav>
+      <nav class="ftr__col" aria-label="Counsel">
+        <h4 class="micro">Counsel</h4>
+        <a href="ownership.html">Owning as a foreigner</a>
+        <a href="index.html#process">Process</a>
+        <a href="index.html#stewardship">Stewardship</a>
+      </nav>
+      <nav class="ftr__col" aria-label="Practice">
+        <h4 class="micro">Practice</h4>
+        <a href="contact.html">Private consultation</a>
+        <a href="compare.html">Old vs new</a>
+        <a href="audit-report.pdf">The audit (PDF)</a>
+      </nav>
+    </div>
+    <div class="ftr__bot">
+      <span>Redesign concept. Not affiliated with, endorsed by, or operated by Anjia Property Management Co., Ltd.</span>
+      <span>Property data and photography from the live site. No personal data is reproduced.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script>
+document.getElementById('contactForm')?.addEventListener('submit', e => {
+  e.preventDefault();
+  const note = document.getElementById('formNote');
+  const n = document.getElementById('cName').value.trim();
+  const r = document.getElementById('cReach').value.trim();
+  if (!n || !r) { note.textContent = 'Please add your name and a way to reach you.'; note.style.color = '#8c3a2e'; return; }
+  note.textContent = 'Thank you — on the real site an adviser would reply within one working day.';
+  note.style.color = 'var(--gulf-600)';
+});
+</script>
+</body>
+</html>

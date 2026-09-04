@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Before &amp; After — Anjia Residences</title>
+<meta name="description" content="The live anjia-home.net beside the redesign proposal, at ten screen sizes, with the measured differences.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0f172a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=IBM+Plex+Sans+Thai:wght@200;300;400;500&display=swap">
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+/* ---- comparison-only components ------------------------------------- */
+.devbar{position:sticky; top:var(--hdr); z-index:30; padding-block:var(--s-4);
+  background:color-mix(in srgb, var(--bg) 94%, transparent); backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--rule)}
+.devbar__in{display:flex; align-items:center; gap:var(--s-3); flex-wrap:wrap}
+.chips2{display:flex; gap:var(--s-1); overflow-x:auto; padding-bottom:2px; scrollbar-width:thin}
+.dchip{min-height:46px; padding:0 var(--s-4); border:1px solid var(--line-2); background:transparent;
+  border-radius:var(--r-xs); cursor:pointer; white-space:nowrap; display:flex; flex-direction:column;
+  justify-content:center; line-height:1.2; color:var(--muted); transition:all .3s var(--ease)}
+.dchip b{font-family:Fraunces,serif; font-size:var(--t-base); font-weight:400}
+.dchip small{font-size:var(--t-2xs); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-300)}
+.dchip[aria-selected="true"]{background:var(--slate-900); border-color:var(--slate-900); color:#fff}
+.dchip[aria-selected="true"] small{color:rgba(255,255,255,.62)}
+.stage{padding-block:var(--s-7)}
+.stage__grid{display:grid; gap:var(--s-6); align-items:start}
+.pane{display:flex; flex-direction:column; gap:var(--s-3); align-items:center}
+.pane__head{display:flex; align-items:center; gap:var(--s-3); flex-wrap:wrap; justify-content:center}
+.tag{display:inline-flex; align-items:center; gap:7px; padding:6px 12px; font-size:var(--t-2xs);
+  letter-spacing:.16em; text-transform:uppercase}
+.tag--old{background:#fbeae6; color:#a5342a}
+.tag--new{background:var(--amber-100); color:var(--amber-800)}
+:root[data-theme="dark"] .tag--old{background:#2a1512; color:#e79484}
+.shot{position:relative; overflow:hidden; border:1px solid var(--card-line);
+  box-shadow:var(--e-3); max-width:max-content; margin-inline:auto; width:100%}
+.shot img{max-width:100%; width:auto; display:block}
+.shot--old{border-color:#d9a99e}
+.shot--new{border-color:var(--amber-300)}
+.shot__cut{position:absolute; top:0; bottom:0; width:2px; background:#a5342a}
+.shot__lbl{position:absolute; top:10px; transform:translateX(6px); background:#a5342a; color:#fff;
+  font-size:var(--t-2xs); letter-spacing:.08em; padding:4px 8px; white-space:nowrap}
+.verdict{display:flex; flex-wrap:wrap; gap:var(--s-2); justify-content:center}
+.vpill{font-size:var(--t-2xs); letter-spacing:.1em; text-transform:uppercase; padding:6px 11px;
+  border:1px solid var(--line-2); color:var(--muted)}
+.vpill--bad{border-color:#d9a99e; color:#a5342a}
+.vpill--good{border-color:var(--amber-300); color:var(--amber-800)}
+:root[data-theme="dark"] .vpill--good{color:var(--amber-500)}
+.mtable{width:100%; border-collapse:collapse; font-size:var(--t-sm)}
+.mtable th,.mtable td{text-align:left; padding:12px 14px; border-bottom:1px solid var(--rule); vertical-align:top}
+.mtable th{font-size:var(--t-2xs); letter-spacing:.16em; text-transform:uppercase; color:var(--muted);
+  font-weight:400; background:var(--surface); white-space:nowrap}
+.mtable td:first-child{font-family:Fraunces,serif}
+.mtable td.was{color:#a5342a; white-space:nowrap}
+.mtable td.now{color:var(--amber-800); white-space:nowrap}
+:root[data-theme="dark"] .mtable td.now{color:var(--amber-500)}
+:root[data-theme="dark"] .mtable td.was{color:#e79484}
+@media (min-width:960px){ .stage__grid{grid-template-columns:1fr 1fr} }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="notice" role="note">
+  <span><b>Redesign concept</b> — an independent proposal for anjia-home.net. Not the official Anjia Property website.</span>
+  <a href="index.html">Open the proposal</a>
+</div>
+
+<header class="hdr" id="hdr">
+  <div class="wrap hdr__in">
+    <a class="mark" href="index.html" aria-label="Anjia, home">
+      <span class="mark__glyph" aria-hidden="true">安</span>
+      <span class="mark__word">Anjia<em>Residences</em></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="residences.html">The Collection</a>
+      <a href="ownership.html">Ownership</a>
+      <a href="compare.html" aria-current="page">Before &amp; After</a>
+    </nav>
+    <div class="hdr__act">
+      <button class="ibtn" id="themeBtn" aria-label="Switch colour theme">
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="ic-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>
+      </button>
+      <a class="btn btn--sm btn--primary hdr__cta" href="redesign-proposal.pdf">The proposal (PDF)</a>
+      <button class="ibtn burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Menu" aria-hidden="true">
+  <div class="drawer__top">
+    <span class="micro">Menu</span>
+    <button class="ibtn" id="drawerClose" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <nav class="drawer__nav" aria-label="Mobile">
+    <a href="index.html"><span>The proposal</span></a>
+    <a href="residences.html"><span>The Collection</span></a>
+    <a href="ownership.html"><span>Ownership</span></a>
+    <a href="compare.html"><span>Before &amp; After</span></a>
+    <a href="contact.html"><span>Contact</span></a>
+  </nav>
+  <div class="drawer__foot">
+    <a class="btn btn--primary btn--block" href="redesign-proposal.pdf">The proposal (PDF)</a>
+    <a class="btn btn--outline btn--block" href="audit-report.pdf">The audit (PDF)</a>
+  </div>
+</aside>
+
+<main id="main">
+  <section class="pageHead">
+    <div class="wrap">
+      <p class="kicker">Before &amp; after</p>
+      <h1 class="pageHead__h">The same homepage, at the same width, twice.</h1>
+      <p class="lede pageHead__b">Left is anjia-home.net as it renders today. Right is the proposal.
+        Both were captured in the same browser, at the same emulated device size, minutes apart.
+        Nothing is retouched. Pick a screen.</p>
+    </div>
+  </section>
+
+  <div class="devbar">
+    <div class="wrap devbar__in">
+      <span class="micro">Screen</span>
+      <div class="chips2" role="tablist" aria-label="Screen size">
+        <button class="dchip" role="tab" data-w="320"  aria-selected="false"><b>320</b><small>Small Android</small></button>
+        <button class="dchip" role="tab" data-w="360"  aria-selected="true"><b>360</b><small>Galaxy S</small></button>
+        <button class="dchip" role="tab" data-w="375"  aria-selected="false"><b>375</b><small>iPhone SE</small></button>
+        <button class="dchip" role="tab" data-w="390"  aria-selected="false"><b>390</b><small>iPhone 14</small></button>
+        <button class="dchip" role="tab" data-w="412"  aria-selected="false"><b>412</b><small>Pixel 7</small></button>
+        <button class="dchip" role="tab" data-w="430"  aria-selected="false"><b>430</b><small>15 Pro Max</small></button>
+        <button class="dchip" role="tab" data-w="768"  aria-selected="false"><b>768</b><small>iPad</small></button>
+        <button class="dchip" role="tab" data-w="1024" aria-selected="false"><b>1024</b><small>iPad Pro</small></button>
+        <button class="dchip" role="tab" data-w="1440" aria-selected="false"><b>1440</b><small>Desktop</small></button>
+        <button class="dchip" role="tab" data-w="1920" aria-selected="false"><b>1920</b><small>Desktop HD</small></button>
+      </div>
+    </div>
+  </div>
+
+  <section class="stage">
+    <div class="wrap">
+      <div class="stage__grid">
+        <div class="pane">
+          <div class="pane__head"><span class="tag tag--old">● Live site</span>
+            <span class="micro" id="oldNote"></span></div>
+          <figure class="shot shot--old" id="oldShot" style="margin:0">
+            <img id="oldImg" src="assets/compare/old-360.jpg" alt="The live anjia-home.net homepage" decoding="async">
+          </figure>
+          <div class="verdict" id="oldVerdict"></div>
+        </div>
+        <div class="pane">
+          <div class="pane__head"><span class="tag tag--new">● Proposal</span>
+            <span class="micro" id="newNote"></span></div>
+          <figure class="shot shot--new" style="margin:0">
+            <img id="newImg" src="assets/compare/new-360.jpg" alt="The redesign proposal homepage" decoding="async">
+          </figure>
+          <div class="verdict" id="newVerdict"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--tint">
+    <div class="wrap">
+      <div class="secHead">
+        <div><p class="kicker">Measured, not asserted</p>
+          <h2 class="secHead__h">What actually changed</h2></div>
+        <p class="secHead__note">Geometry read out of the browser's own layout engine on both sites,
+          the same way, on the same day.</p>
+      </div>
+      <div class="tblScroll">
+        <table class="mtable">
+          <thead><tr><th scope="col">Measure</th><th scope="col">Live site</th><th scope="col">Proposal</th><th scope="col">Why it matters</th></tr></thead>
+          <tbody>
+            <tr><td>Off-screen at 320px</td><td class="was">159 px</td><td class="now">none</td><td>Half a phone-width becomes visible</td></tr>
+            <tr><td>Off-screen at 360px</td><td class="was">119 px</td><td class="now">none</td><td>The most common Android width in the world</td></tr>
+            <tr><td>Off-screen at 390px</td><td class="was">89 px</td><td class="now">none</td><td>iPhone 14 and 15</td></tr>
+            <tr><td>Menu on a phone</td><td class="was">0 of 6</td><td class="now">all 6</td><td>Phone visitors can reach the rest of the site</td></tr>
+            <tr><td>Call to action on a phone</td><td class="was">none</td><td class="now">always present</td><td>The enquiry route survives the small screen</td></tr>
+            <tr><td>OS dropdowns</td><td class="was">9</td><td class="now">0</td><td>The brand stays on screen while choosing</td></tr>
+            <tr><td>Touch targets under 44px</td><td class="was">30 of 58</td><td class="now">0</td><td>Nobody mis-taps a price</td></tr>
+            <tr><td>Colours in the stylesheet</td><td class="was">383</td><td class="now">67</td><td>A palette, not ad-hoc values</td></tr>
+            <tr><td>Text sizes</td><td class="was">25</td><td class="now">9-step scale</td><td>Type that looks deliberate</td></tr>
+            <tr><td>Breakpoints</td><td class="was">18</td><td class="now">3</td><td>The page reflows as one design</td></tr>
+            <tr><td>Code before the first picture</td><td class="was">1.08 MB</td><td class="now">no framework</td><td>The page paints immediately</td></tr>
+            <tr><td>Listings visible to search</td><td class="was">0</td><td class="now">all 67</td><td>Organic enquiries become possible</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="disclaimer">Every property, price, photograph and testimonial in the proposal comes from
+        Anjia's own site. Owner contact details returned by the live interface were excluded at source and
+        appear nowhere.
+        <a href="redesign-proposal.pdf">Read the full proposal (PDF) →</a></p>
+    </div>
+  </section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr__bot" style="margin-top:0;border-top:0">
+      <span>Redesign concept. Not affiliated with, endorsed by, or operated by Anjia Property Management Co., Ltd.</span>
+      <span>Captured 4 September 2026 · <a href="index.html">Open the proposal</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script>
+(() => {
+  const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const OVF = {320:159, 360:119, 375:104, 390:89, 412:67, 430:49, 768:0, 1024:0, 1440:0, 1920:0};
+  const oldImg = $('#oldImg'), newImg = $('#newImg'), shot = $('#oldShot');
+
+  const paint = w => {
+    oldImg.src = `assets/compare/old-${w}.jpg`;
+    newImg.src = `assets/compare/new-${w}.jpg`;
+    oldImg.alt = `The live anjia-home.net homepage at ${w} pixels wide`;
+    newImg.alt = `The redesign proposal homepage at ${w} pixels wide`;
+    const ovf = OVF[w];
+    $('#oldNote').textContent = `${w}px viewport`;
+    $('#newNote').textContent = `${w}px viewport`;
+    $('#oldVerdict').innerHTML = ovf
+      ? `<span class="vpill vpill--bad">${ovf}px off screen</span><span class="vpill vpill--bad">no menu</span><span class="vpill vpill--bad">buttons over the text</span>`
+      : `<span class="vpill">fits at this width</span><span class="vpill vpill--bad">9 OS dropdowns</span>`;
+    $('#newVerdict').innerHTML = ovf
+      ? `<span class="vpill vpill--good">fits exactly</span><span class="vpill vpill--good">full menu</span><span class="vpill vpill--good">44px+ targets</span>`
+      : `<span class="vpill vpill--good">fits exactly</span><span class="vpill vpill--good">one design system</span>`;
+    shot.querySelectorAll('.shot__cut,.shot__lbl').forEach(n => n.remove());
+    if (ovf) {
+      const frac = w / (w + ovf);
+      const cut = document.createElement('span');
+      cut.className = 'shot__cut'; cut.style.left = (frac * 100) + '%';
+      const lbl = document.createElement('span');
+      lbl.className = 'shot__lbl'; lbl.style.left = (frac * 100) + '%';
+      lbl.textContent = `${ovf}px hidden →`;
+      shot.append(cut, lbl);
+    }
+  };
+  $$('.dchip').forEach(c => c.addEventListener('click', () => {
+    $$('.dchip').forEach(x => x.setAttribute('aria-selected', 'false'));
+    c.setAttribute('aria-selected', 'true');
+    paint(+c.dataset.w);
+  }));
+  paint(360);
+})();
+</script>
+</body>
+</html>

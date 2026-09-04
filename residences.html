@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Collection — Anjia Residences</title>
+<meta name="description" content="Every residence we currently hold in Pattaya and Bangkok, filterable by the thing that actually decides your purchase: what a foreigner may lawfully own.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0f172a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=IBM+Plex+Sans+Thai:wght@200;300;400;500&display=swap">
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="notice" role="note">
+  <span><b>Redesign concept</b> — an independent proposal for anjia-home.net. Not the official Anjia Property website.</span>
+  <a href="compare.html">Compare with the live site</a>
+</div>
+
+<header class="hdr" id="hdr">
+  <div class="wrap hdr__in">
+    <a class="mark" href="index.html" aria-label="Anjia, home">
+      <span class="mark__glyph" aria-hidden="true">安</span>
+      <span class="mark__word">Anjia<em>Residences</em></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="residences.html" aria-current="page">The Collection</a>
+      <a href="ownership.html">Ownership</a>
+      <a href="index.html#stewardship">Stewardship</a>
+      <a href="index.html#process">Process</a>
+      <a href="index.html#journal">Journal</a>
+    </nav>
+    <div class="hdr__act">
+      <button class="ibtn" id="themeBtn" aria-label="Switch colour theme">
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="ic-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>
+      </button>
+      <div class="lang">
+        <button class="lang__btn" id="langBtn" aria-expanded="false" aria-haspopup="listbox">
+          <span id="langCur">EN</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+        </button>
+        <ul class="menu" id="langMenu" role="listbox" aria-label="Language">
+          <li><button role="option" aria-selected="true" data-code="EN">English<i>English</i></button></li>
+          <li><button role="option" aria-selected="false" data-code="TH">ไทย<i>Thai</i></button></li>
+          <li><button role="option" aria-selected="false" data-code="ZH">中文<i>Chinese</i></button></li>
+          <li><button role="option" aria-selected="false" data-code="JA">日本語<i>Japanese</i></button></li>
+        </ul>
+      </div>
+      <a class="btn btn--sm btn--primary hdr__cta" href="contact.html">Private consultation</a>
+      <button class="ibtn burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Menu" aria-hidden="true">
+  <div class="drawer__top">
+    <span class="micro">Menu</span>
+    <button class="ibtn" id="drawerClose" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <nav class="drawer__nav" aria-label="Mobile">
+    <a href="residences.html"><span>The Collection</span></a>
+    <a href="ownership.html"><span>Ownership</span></a>
+    <a href="index.html#stewardship"><span>Stewardship</span></a>
+    <a href="index.html#process"><span>Process</span></a>
+    <a href="index.html#journal"><span>Journal</span></a>
+    <a href="contact.html"><span>Contact</span></a>
+  </nav>
+  <div class="drawer__foot">
+    <a class="btn btn--primary btn--block" href="contact.html">Private consultation</a>
+    <a class="btn btn--outline btn--block" href="tel:+66123443888">+66 1234 43888</a>
+  </div>
+</aside>
+
+<main id="main">
+  <section class="pageHead">
+    <div class="wrap">
+      <p class="kicker">The collection</p>
+      <h1 class="pageHead__h">Every residence we currently hold.</h1>
+      <p class="lede pageHead__b">Filtered first by the question that actually decides a foreign
+        purchase — <em>what may you lawfully own here</em> — and only then by price. Most portals bury
+        that field. It is the first control on this page.</p>
+    </div>
+  </section>
+
+  <section class="filters" aria-label="Filter the collection">
+    <div class="wrap">
+      <div class="filters__grid">
+        <div class="field">
+          <label id="lblTenure">Ownership</label>
+          <div class="pick pick--light" data-pick data-filter="tenure">
+            <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lblTenure">
+              <span class="pick__val">Any tenure</span>
+              <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+            </button>
+            <ul class="pick__menu" role="listbox">
+              <li><button class="pick__opt" role="option" aria-selected="true" data-v="">Any tenure</button></li>
+              <li><button class="pick__opt" role="option" data-v="Freehold">Freehold — own it outright</button></li>
+              <li><button class="pick__opt" role="option" data-v="Foreign quota">Foreign quota available</button></li>
+              <li><button class="pick__opt" role="option" data-v="Thai quota">Thai quota — company or lease</button></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="field">
+          <label id="lblArea">Where</label>
+          <div class="pick pick--light" data-pick data-filter="area">
+            <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lblArea">
+              <span class="pick__val">All of Pattaya</span>
+              <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+            </button>
+            <ul class="pick__menu" role="listbox" id="areaMenu">
+              <li><button class="pick__opt" role="option" aria-selected="true" data-v="">All of Pattaya</button></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="field">
+          <label id="lblType">Kind</label>
+          <div class="pick pick--light" data-pick data-filter="type">
+            <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lblType">
+              <span class="pick__val">Any kind</span>
+              <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+            </button>
+            <ul class="pick__menu" role="listbox">
+              <li><button class="pick__opt" role="option" aria-selected="true" data-v="">Any kind</button></li>
+              <li><button class="pick__opt" role="option" data-v="Condominium">Condominium</button></li>
+              <li><button class="pick__opt" role="option" data-v="Villa">Villa</button></li>
+              <li><button class="pick__opt" role="option" data-v="House">House</button></li>
+              <li><button class="pick__opt" role="option" data-v="Townhouse">Townhouse</button></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="field">
+          <label id="lblPrice">Budget</label>
+          <div class="pick pick--light" data-pick data-filter="price">
+            <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lblPrice">
+              <span class="pick__val">Any budget</span>
+              <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+            </button>
+            <ul class="pick__menu" role="listbox">
+              <li><button class="pick__opt" role="option" aria-selected="true" data-v="">Any budget</button></li>
+              <li><button class="pick__opt" role="option" data-v="0-3">Under 3M THB</button></li>
+              <li><button class="pick__opt" role="option" data-v="3-8">3M – 8M THB</button></li>
+              <li><button class="pick__opt" role="option" data-v="8-20">8M – 20M THB</button></li>
+              <li><button class="pick__opt" role="option" data-v="20-60">20M – 60M THB</button></li>
+              <li><button class="pick__opt" role="option" data-v="60-9999">60M THB and above</button></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="field">
+          <label id="lblSort">Order</label>
+          <div class="pick pick--light" data-pick data-filter="sort">
+            <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lblSort">
+              <span class="pick__val">Highest value</span>
+              <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+            </button>
+            <ul class="pick__menu" role="listbox">
+              <li><button class="pick__opt" role="option" aria-selected="true" data-v="desc">Highest value</button></li>
+              <li><button class="pick__opt" role="option" data-v="asc">Lowest entry price</button></li>
+              <li><button class="pick__opt" role="option" data-v="area">Largest residence</button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="filters__bar">
+        <p class="filters__count" id="count" role="status" aria-live="polite"></p>
+        <button class="tlink" id="clearBtn" type="button">Clear all</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec collectionSec">
+    <div class="wrap">
+      <div class="grid" id="grid"></div>
+      <p class="empty" id="empty" hidden>
+        Nothing in the collection matches that combination just now.<br>
+        <a class="tlink" href="contact.html">Tell us what you are looking for →</a>
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr__top">
+      <div class="ftr__brand">
+        <span class="mark mark--ftr">
+          <span class="mark__glyph" aria-hidden="true">安</span>
+          <span class="mark__word">Anjia<em>Residences</em></span>
+        </span>
+        <p class="ftr__addr">Anjia Property Management Co., Ltd.<br>
+          1517-9 Moo 11, Thepprasit Road<br>Nong Prue, Bang Lamung<br>Chon Buri 20150, Thailand</p>
+        <a class="tlink" href="tel:+66123443888">+66 1234 43888</a>
+      </div>
+      <nav class="ftr__col" aria-label="Collection">
+        <h4 class="micro">Collection</h4>
+        <a href="residences.html">All residences</a>
+        <a href="residences.html">Condominiums</a>
+        <a href="residences.html">Villas &amp; houses</a>
+      </nav>
+      <nav class="ftr__col" aria-label="Counsel">
+        <h4 class="micro">Counsel</h4>
+        <a href="ownership.html">Owning as a foreigner</a>
+        <a href="index.html#process">Process</a>
+        <a href="index.html#stewardship">Stewardship</a>
+      </nav>
+      <nav class="ftr__col" aria-label="Practice">
+        <h4 class="micro">Practice</h4>
+        <a href="contact.html">Private consultation</a>
+        <a href="compare.html">Old vs new</a>
+        <a href="audit-report.pdf">The audit (PDF)</a>
+      </nav>
+    </div>
+    <div class="ftr__bot">
+      <span>Redesign concept. Not affiliated with, endorsed by, or operated by Anjia Property Management Co., Ltd.</span>
+      <span>Property data and photography from the live site. No personal data is reproduced.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="dock" id="dock" data-show>
+  <a class="btn btn--outline btn--sm" href="tel:+66123443888">Call</a>
+  <a class="btn btn--primary btn--sm" href="contact.html">Consultation</a>
+</div>
+
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/collection.js"></script>
+</body>
+</html>

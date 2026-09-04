@@ -1,0 +1,223 @@
+/* ===========================================================================
+   ANJIA — design system
+   Fraunces (display) + IBM Plex Sans Thai (interface) on Anjia's own slate and amber.
+   One stack serves Latin, Thai, Chinese and Japanese.
+   One palette, one type scale, four radii, four elevations, three breakpoints.
+   ======================================================================== */
+
+:root{
+  /* ---- ink & ground — Anjia's own slate, kept -------------------------
+     The live site's ink is #0f172a and its brand orange is #ff9418. Both are
+     retained; what changes is the discipline around them.                */
+  /* Warm-biased neutrals: every grey carries a little of the brand amber,
+     so nothing on the page reads cold. Their slate is kept as --slate and
+     still does real work on buttons and chrome.                          */
+  --ink-900:#241d15;
+  --ink-800:#3a2f23;
+  --ink-700:#54473a;
+  --ink-500:#7b6b5b;
+  --ink-400:#9c8c7b;
+  --ink-300:#bdb0a1;
+  --paper:#fbf6ef;     /* warm cream, the dominant ground                 */
+  --paper-2:#f5ece0;
+  --paper-3:#ece0cf;
+  --line:#e0d3c0;
+  --line-2:#cbb9a1;
+
+  /* ---- deep ground: warm espresso, with Anjia's slate kept alongside -- */
+  --deep-900:#1a1410;
+  --deep-800:#241c15;
+  --deep-700:#33281e;
+  --deep-500:#5b4a39;
+  --deep-100:#efe6da;
+  --slate-900:#0f172a; /* their original ink, retained for chrome         */
+  --slate-700:#1c2740;
+
+  /* ---- amber: Anjia's brand hue, deepened for large areas ------------ */
+  --amber-800:#7c4409;
+  --amber-700:#a8600e;
+  --amber-600:#d47c13;
+  --amber-500:#ff9418;   /* their exact brand orange — unchanged         */
+  --amber-400:#ffab48;
+  --amber-300:#ffc884;
+  --amber-100:#fdeed8;
+
+  /* ---- fixed values for surfaces that are dark in BOTH themes -------- */
+  --on-dark-fg:#fbf6ef;
+  --on-dark-muted:rgba(251,246,239,.76);
+  --on-dark-accent:#ffb257;
+  --on-dark-ink:#241d15;
+  --on-dark-line:rgba(251,246,239,.24);
+
+  /* ---- compatibility aliases: components speak 'gulf'/'brass', the
+     palette speaks Anjia. One place to re-point, no component edits. --- */
+  --gulf-900:var(--deep-900); --gulf-700:var(--slate-900); --gulf-600:var(--amber-700);
+  --gulf-400:var(--amber-500); --gulf-100:var(--amber-100);
+  --brass-700:var(--amber-800); --brass-600:var(--amber-600);
+  --brass-400:var(--amber-500); --brass-100:var(--amber-100);
+
+  /* ---- semantic ------------------------------------------------------ */
+  --good:#1a6b4a; --warn:var(--amber-700); --bad:#a5342a;
+
+  /* ---- type scale — 9 steps, ratio ~1.28 ----------------------------- */
+  --t-2xs:.6875rem; --t-xs:.75rem;  --t-sm:.8125rem; --t-base:.9375rem;
+  --t-md:1.0625rem; --t-lg:1.3125rem; --t-xl:1.75rem; --t-2xl:2.375rem; --t-3xl:3.25rem;
+  --t-display:clamp(2.6rem, 7vw, 5.25rem);
+
+  /* ---- spacing — 4px base -------------------------------------------- */
+  --s-1:4px;  --s-2:8px;  --s-3:12px; --s-4:16px; --s-5:24px;
+  --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px; --s-10:140px;
+
+  /* ---- radius — deliberately small; luxury reads as square ----------- */
+  --r-xs:2px; --r-sm:4px; --r-md:8px; --r-full:999px;
+
+  /* ---- elevation ------------------------------------------------------ */
+  --e-1:0 1px 2px rgba(60,42,24,.06);
+  --e-2:0 2px 10px rgba(60,42,24,.09);
+  --e-3:0 14px 34px rgba(60,42,24,.13);
+  --e-4:0 30px 70px rgba(48,33,18,.20);
+
+  /* ---- motion --------------------------------------------------------- */
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --dur:.62s;
+
+  /* ---- layout --------------------------------------------------------- */
+  --wrap:1320px; --measure:66ch; --gut:22px; --hdr:68px;
+
+  /* ---- role tokens (everything below points at these) ----------------- */
+  --bg:var(--paper); --fg:var(--ink-900); --muted:var(--ink-500);
+  --surface:var(--paper-2); --surface-2:var(--paper-3);
+  --card:#ffffff; --card-line:var(--line);
+  --rule:var(--line); --accent:var(--amber-500); --accent-ink:var(--amber-700);
+  color-scheme:light;
+}
+
+/* dark: the same system, re-grounded. Only tokens change below this line. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#15100c; --fg:#f4ece1; --muted:#a89684;
+    --surface:#1c1610; --surface-2:#261e16;
+    --card:#211a13; --card-line:#3a2e22;
+    --rule:#3a2e22; --line:#3a2e22; --line-2:#4d3d2d;
+    --paper-2:#1c1610; --paper-3:#261e16;
+    --ink-900:#f4ece1; --ink-800:#e6dacb; --ink-700:#cdbfad;
+    --ink-500:#a89684; --ink-400:#8d7a67; --ink-300:#6e5d4c;
+    --amber-100:#33230f; --amber-600:#ff9418; --amber-700:#ffb257;
+    --slate-900:#0f172a;
+    --accent:var(--amber-500); --accent-ink:#ffb968;
+    --e-1:0 1px 2px rgba(0,0,0,.55); --e-2:0 2px 10px rgba(0,0,0,.6);
+    --e-3:0 14px 34px rgba(0,0,0,.65); --e-4:0 30px 70px rgba(0,0,0,.72);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15100c; --fg:#f4ece1; --muted:#a89684;
+  --surface:#1c1610; --surface-2:#261e16;
+  --card:#211a13; --card-line:#3a2e22;
+  --rule:#3a2e22; --line:#3a2e22; --line-2:#4d3d2d;
+  --paper-2:#1c1610; --paper-3:#261e16;
+  --ink-900:#f4ece1; --ink-800:#e6dacb; --ink-700:#cdbfad;
+  --ink-500:#a89684; --ink-400:#8d7a67; --ink-300:#6e5d4c;
+  --amber-100:#33230f; --amber-600:#ff9418; --amber-700:#ffb257;
+  --slate-900:#0f172a;
+  --accent:var(--amber-500); --accent-ink:#ffb968;
+  --e-1:0 1px 2px rgba(0,0,0,.55); --e-2:0 2px 10px rgba(0,0,0,.6);
+  --e-3:0 14px 34px rgba(0,0,0,.65); --e-4:0 30px 70px rgba(0,0,0,.72);
+  color-scheme:dark;
+}
+
+/* ---------------------------------------------------------------- reset */
+*,*::before,*::after{box-sizing:border-box}
+*{min-width:0}                 /* no grid/flex item may burst its track   */
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth; overflow-x:clip}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0; background:var(--bg); color:var(--fg); overflow-x:clip;
+  font-family:"IBM Plex Sans Thai","IBM Plex Sans",system-ui,-apple-system,"Segoe UI",
+              "Noto Sans SC","PingFang SC","Hiragino Sans",sans-serif;
+  font-size:var(--t-base); font-weight:300; line-height:1.7;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+h1,h2,h3,h4,.display{
+  font-family:Fraunces,Georgia,"Times New Roman",serif;
+  font-weight:400; line-height:1.1; letter-spacing:-.014em; margin:0; text-wrap:balance;
+  font-optical-sizing:auto;
+}
+h1{font-size:var(--t-2xl)} h2{font-size:var(--t-xl)} h3{font-size:var(--t-lg)} h4{font-size:var(--t-md)}
+p{margin:0} ul,ol{list-style:none;margin:0;padding:0}
+img,video{max-width:100%; height:auto; display:block}
+a{color:inherit; text-decoration:none}
+button{font:inherit; color:inherit}
+:where(a,button,input,select,textarea,[tabindex]):focus-visible{
+  outline:2px solid var(--accent); outline-offset:3px; border-radius:var(--r-xs);
+}
+
+/* ---------------------------------------------------------------- layout */
+.wrap{width:100%; max-width:var(--wrap); margin-inline:auto; padding-inline:var(--gut)}
+.wrap--narrow{max-width:920px}
+.sec{padding-block:var(--s-8)}
+.sec--tint{background:var(--surface)}
+.sec--dark{background:var(--gulf-900); color:var(--on-dark-fg)}
+.measure{max-width:var(--measure)}
+
+/* ---------------------------------------------------------------- type */
+.kicker{
+  font-size:var(--t-2xs); font-weight:400; letter-spacing:.26em; text-transform:uppercase;
+  color:var(--accent-ink); display:flex; align-items:center; gap:var(--s-3);
+}
+.kicker::after{content:""; flex:1; height:1px; background:var(--rule); max-width:64px}
+.kicker--plain::after{display:none}
+.lede{font-size:var(--t-md); color:var(--muted); line-height:1.72; font-weight:300}
+.micro{font-size:var(--t-2xs); letter-spacing:.18em; text-transform:uppercase; color:var(--muted)}
+.num{font-family:Fraunces,Georgia,serif; font-variant-numeric:tabular-nums; font-weight:400; font-optical-sizing:auto}
+
+/* ---------------------------------------------------------------- controls */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:var(--s-2);
+  min-height:52px; padding:0 var(--s-6); border:1px solid transparent;
+  border-radius:var(--r-xs); font-size:var(--t-2xs); font-weight:400;
+  letter-spacing:.2em; text-transform:uppercase; cursor:pointer; white-space:nowrap;
+  transition:background-color .3s var(--ease), color .3s var(--ease),
+             border-color .3s var(--ease), transform .3s var(--ease);
+}
+.btn:active{transform:translateY(1px)}
+.btn--primary{background:var(--gulf-700); color:var(--on-dark-fg); border-color:var(--gulf-700)}
+.btn--primary:hover{background:var(--gulf-900); border-color:var(--gulf-900)}
+.btn--outline{background:transparent; color:var(--fg); border-color:var(--line-2)}
+.btn--outline:hover{border-color:var(--fg)}
+.btn--onDark{background:transparent; color:var(--on-dark-fg); border-color:var(--on-dark-line)}
+.btn--onDark:hover{background:var(--on-dark-fg); color:var(--on-dark-ink); border-color:var(--on-dark-fg)}
+.btn--solidLight{background:var(--on-dark-fg); color:var(--on-dark-ink); border-color:var(--on-dark-fg)}
+.btn--solidLight:hover{background:transparent; color:var(--on-dark-fg)}
+.btn--sm{min-height:42px; padding:0 var(--s-4)}
+.btn--block{width:100%}
+
+/* a text link that underlines on hover, brass rule */
+.tlink{
+  display:inline-flex; align-items:center; gap:var(--s-2); font-size:var(--t-2xs);
+  letter-spacing:.2em; text-transform:uppercase; color:var(--accent-ink);
+  padding-bottom:4px; border-bottom:1px solid var(--line-2); transition:border-color .3s var(--ease)
+}
+.tlink:hover{border-color:var(--accent)}
+
+/* ---------------------------------------------------------------- motion */
+.rv{opacity:0; transform:translateY(20px); transition:opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out)}
+.rv[data-in]{opacity:1; transform:none}
+.rv--d1{transition-delay:.08s} .rv--d2{transition-delay:.16s} .rv--d3{transition-delay:.24s}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important}
+  .rv{opacity:1; transform:none}
+}
+
+/* ---------------------------------------------------------------- breakpoints */
+@media (min-width:680px){
+  :root{--gut:32px}
+  .sec{padding-block:var(--s-9)}
+}
+@media (min-width:1000px){
+  :root{--gut:48px; --hdr:80px}
+  h1{font-size:var(--t-3xl)} h2{font-size:var(--t-2xl)} h3{font-size:var(--t-xl)}
+  .sec{padding-block:var(--s-10)}
+}
+@media (min-width:1400px){ :root{--gut:64px} }

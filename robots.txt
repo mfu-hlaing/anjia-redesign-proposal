@@ -1,0 +1,5 @@
+# An independent redesign *proposal* for anjia-home.net.
+# Not the official Anjia Property website, and must not be indexed —
+# so it can never be confused with, or compete against, the real site.
+User-agent: *
+Disallow: /
