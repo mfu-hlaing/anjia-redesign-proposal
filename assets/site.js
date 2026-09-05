@@ -170,7 +170,7 @@
       specs.push(r.type);
       const sig = r.tenure === 'Freehold' || r.tenure === 'Foreign quota';
       return `
-      <a class="res" href="residence.html?id=${encodeURIComponent(r.id)}">
+      <a class="res" href="residence/${encodeURIComponent(r.id)}.html">
         <div class="res__media">
           <img src="assets/img/${r.img}-600.jpg"
                srcset="assets/img/${r.img}-400.jpg 400w, assets/img/${r.img}-600.jpg 600w, assets/img/${r.img}-900.jpg 900w"

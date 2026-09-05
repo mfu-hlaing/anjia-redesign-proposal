@@ -34,13 +34,18 @@
   --slate-700:#1c2740;
 
   /* ---- amber: Anjia's brand hue, deepened for large areas ------------ */
-  --amber-800:#7c4409;
-  --amber-700:#a8600e;
-  --amber-600:#d47c13;
-  --amber-500:#ff9418;   /* their exact brand orange — unchanged         */
-  --amber-400:#ffab48;
-  --amber-300:#ffc884;
-  --amber-100:#fdeed8;
+  /* Sampled straight out of their logo file (company-brand/logo.png):
+     the mark is a single flat #fe7d05. The ramp is that hue, lightened and
+     darkened — so every orange on the site is literally their orange.     */
+  --amber-900:#4d2704;
+  --amber-800:#743b07;
+  --amber-700:#a85101;
+  --amber-600:#e06c01;
+  --amber-500:#fe7d05;   /* the logo orange, exactly                      */
+  --amber-400:#fea552;
+  --amber-300:#ffc58f;
+  --amber-200:#ffdcbd;
+  --amber-100:#ffefe1;
 
   /* ---- fixed values for surfaces that are dark in BOTH themes -------- */
   --on-dark-fg:#fbf6ef;
@@ -182,8 +187,8 @@ button{font:inherit; color:inherit}
              border-color .3s var(--ease), transform .3s var(--ease);
 }
 .btn:active{transform:translateY(1px)}
-.btn--primary{background:var(--gulf-700); color:var(--on-dark-fg); border-color:var(--gulf-700)}
-.btn--primary:hover{background:var(--gulf-900); border-color:var(--gulf-900)}
+.btn--primary{background:var(--amber-600); color:#fff; border-color:var(--amber-600)}
+.btn--primary:hover{background:var(--amber-700); border-color:var(--amber-700)}
 .btn--outline{background:transparent; color:var(--fg); border-color:var(--line-2)}
 .btn--outline:hover{border-color:var(--fg)}
 .btn--onDark{background:transparent; color:var(--on-dark-fg); border-color:var(--on-dark-line)}

@@ -1,0 +1,392 @@
+/* ===========================================================================
+   ANJIA — feature parity layer
+   Everything the live site does that the first redesign pass dropped: real
+   search, the customer-service rail, concierge, saved residences, currency,
+   the cookie notice, list/map views, galleries.
+   Same tokens as system.css. No new colours, no new type sizes.
+   ======================================================================== */
+
+/* ============================================================ service rail
+   The live site pins three circular buttons on top of the running text at
+   every width. Here the rail lives in the page gutter, and only while there
+   is a gutter to live in; below that the bottom dock carries the same four
+   affordances and reserves its own height so nothing is ever covered. */
+.svc{
+  position:fixed; right:6px; top:50%; transform:translateY(-50%); z-index:58;
+  display:none; flex-direction:column; gap:2px; padding:5px 3px;
+  background:color-mix(in srgb, var(--amber-100) 92%, transparent);
+  backdrop-filter:blur(14px); border:1px solid var(--amber-200); border-radius:var(--r-sm);
+  box-shadow:var(--e-2);
+}
+@media (min-width:1200px){ .svc{display:flex} }
+.svc__b{
+  position:relative; width:40px; height:42px; display:grid; place-items:center;
+  background:transparent; border:0; cursor:pointer; color:var(--muted);
+  transition:color .25s var(--ease), background-color .25s var(--ease);
+}
+.svc__b{color:var(--amber-700)}
+.svc__b:hover,.svc__b[aria-expanded="true"]{color:#fff; background:var(--amber-600)}
+.svc__b svg{width:19px; height:19px; stroke:currentColor; fill:none; stroke-width:1.35;
+  stroke-linecap:round; stroke-linejoin:round}
+/* the label is a tooltip, so the rail stays 40px and never overflows its gutter */
+.svc__b span{
+  position:absolute; right:calc(100% + 9px); top:50%; transform:translateY(-50%) translateX(4px);
+  padding:6px 10px; white-space:nowrap; pointer-events:none; opacity:0;
+  background:var(--gulf-900); color:var(--on-dark-fg); font-size:var(--t-2xs);
+  letter-spacing:.14em; text-transform:uppercase; box-shadow:var(--e-2);
+  transition:opacity .2s var(--ease), transform .2s var(--ease);
+}
+.svc__b:hover span,.svc__b:focus-visible span{opacity:1; transform:translateY(-50%)}
+.svc__b--top{opacity:0; pointer-events:none; transition:opacity .3s var(--ease)}
+.svc[data-scrolled] .svc__b--top{opacity:1; pointer-events:auto}
+.svc__n[hidden],.dock__n[hidden]{display:none}
+.svc__n{
+  position:absolute; top:1px; right:1px; min-width:15px; height:15px; padding:0 3px;
+  display:grid; place-items:center; background:var(--accent); color:var(--on-dark-ink);
+  font-style:normal; font-size:9px; line-height:1; border-radius:var(--r-full);
+}
+
+/* follow / contact popover */
+.pop{
+  position:fixed; right:52px; top:50%; transform:translateY(-50%); z-index:59;
+  width:250px; padding:var(--s-4); background:var(--card); border:1px solid var(--card-line);
+  box-shadow:var(--e-3); display:grid; gap:2px;
+}
+.pop[hidden]{display:none}
+.pop .micro{margin-bottom:var(--s-2)}
+.pop a{display:block; padding:9px 0; font-size:var(--t-sm); color:var(--fg);
+  border-bottom:1px solid var(--rule)}
+.pop a:last-child{border-bottom:0}
+.pop a:hover{color:var(--accent-ink)}
+
+/* ============================================================== concierge
+   The live site labels this "AI Service". This one answers from Anjia's own
+   published guidance and says plainly when a human is the right next step —
+   it does not improvise. */
+.cx{
+  position:fixed; right:0; bottom:0; top:auto; z-index:95;
+  width:min(400px,100vw); max-height:min(620px,86vh);
+  display:flex; flex-direction:column;
+  background:var(--card); border:1px solid var(--card-line); box-shadow:var(--e-4);
+  animation:cxIn .34s var(--ease-out);
+}
+@media (min-width:700px){ .cx{right:var(--s-5); bottom:var(--s-5)} }
+@media (max-width:699px){ .cx{border-inline:0; border-bottom:0; max-height:82vh} }
+.cx[hidden]{display:none}
+@keyframes cxIn{from{opacity:0; transform:translateY(16px)}to{opacity:1; transform:none}}
+.cx__top{display:flex; align-items:flex-start; justify-content:space-between; gap:var(--s-3);
+  padding:var(--s-4) var(--s-5); border-bottom:1px solid var(--rule); background:var(--surface)}
+.cx__t{font-family:Fraunces,Georgia,serif; font-size:var(--t-md)}
+.cx__s{font-size:var(--t-2xs); color:var(--muted); letter-spacing:.04em}
+.cx__log{flex:1; overflow-y:auto; padding:var(--s-4) var(--s-5); display:grid; gap:var(--s-3);
+  align-content:start}
+.cx__m{max-width:88%; padding:11px 14px; font-size:var(--t-sm); line-height:1.62;
+  border:1px solid var(--rule); background:var(--bg)}
+.cx__m--me{justify-self:end; background:var(--gulf-700); color:var(--on-dark-fg);
+  border-color:var(--gulf-700)}
+.cx__m b{font-weight:400; color:var(--accent-ink)}
+.cx__m a{color:var(--accent-ink); border-bottom:1px solid var(--line-2)}
+.cx__m ul{display:grid; gap:5px; margin-top:7px}
+.cx__m li{padding-left:14px; position:relative}
+.cx__m li::before{content:"·"; position:absolute; left:4px; color:var(--accent)}
+.cx__ask{display:flex; flex-wrap:wrap; gap:7px; padding:var(--s-3) var(--s-5);
+  border-top:1px solid var(--rule); max-height:170px; overflow-y:auto}
+.cx__q{padding:8px 13px; min-height:38px; background:transparent; border:1px solid var(--line-2);
+  border-radius:var(--r-full); font-size:var(--t-2xs); color:var(--fg); cursor:pointer; text-align:left;
+  transition:border-color .25s var(--ease), color .25s var(--ease)}
+.cx__q:hover{border-color:var(--accent); color:var(--accent-ink)}
+.cx__foot{padding:var(--s-3) var(--s-5) var(--s-4); border-top:1px solid var(--rule)}
+
+/* ========================================================== cookie notice */
+.cookie{
+  position:fixed; left:0; right:0; bottom:0; z-index:92;
+  background:var(--gulf-900); color:var(--on-dark-fg); border-top:1px solid var(--on-dark-line);
+  animation:cxIn .4s var(--ease-out);
+}
+.cookie[hidden]{display:none}
+body:has(.cookie:not([hidden])){padding-bottom:var(--cookie-h,190px)}
+@media (min-width:860px){ body:has(.cookie:not([hidden])){--cookie-h:120px} }
+.cookie__in{max-width:var(--wrap); margin-inline:auto; padding:var(--s-4) var(--gut)
+  calc(var(--s-4) + env(safe-area-inset-bottom));
+  display:grid; gap:var(--s-3); align-items:center}
+@media (min-width:860px){ .cookie__in{grid-template-columns:1fr auto} }
+.cookie p{font-size:var(--t-sm); color:var(--on-dark-muted); line-height:1.62; max-width:74ch}
+.cookie b{color:var(--on-dark-fg); font-weight:400}
+.cookie a{color:var(--on-dark-accent); border-bottom:1px solid var(--on-dark-line)}
+.cookie__act{display:flex; gap:var(--s-2); flex-wrap:wrap}
+.cookie .btn--outline{color:var(--on-dark-fg); border-color:var(--on-dark-line)}
+.cookie .btn--outline:hover{border-color:var(--on-dark-fg)}
+.cookie .btn--primary{background:var(--on-dark-fg); color:var(--on-dark-ink); border-color:var(--on-dark-fg)}
+.cookie .btn--primary:hover{background:var(--on-dark-accent); border-color:var(--on-dark-accent)}
+
+/* ================================================================== dock
+   Four affordances on a phone, where the live site offers none. The body
+   reserves the dock's height, so it covers no text at any point. */
+.dock{gap:0; padding:0 !important; align-items:stretch}
+.dock__b{
+  position:relative; flex:1; display:grid; place-items:center; gap:3px;
+  padding:9px 4px calc(9px + env(safe-area-inset-bottom)); min-height:56px;
+  font-size:9px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted);
+  border-right:1px solid var(--rule);
+}
+.dock__b:last-child{border-right:0}
+.dock__b svg{width:19px; height:19px; stroke:currentColor; fill:none; stroke-width:1.35;
+  stroke-linecap:round; stroke-linejoin:round}
+.dock__b--cta{background:var(--gulf-700); color:var(--on-dark-fg)}
+.dock__n{position:absolute; top:5px; right:calc(50% - 20px); min-width:15px; height:15px;
+  padding:0 3px; display:grid; place-items:center; background:var(--accent);
+  color:var(--on-dark-ink); font-style:normal; font-size:9px; line-height:1; border-radius:var(--r-full)}
+@media (max-width:1199px){ body{padding-bottom:57px} }
+@media (min-width:1200px){ .dock{display:none} }
+
+/* ================================================================ search
+   A real search: free text over every field we hold, then facets, then sort.
+   One component, used on the home page and at the head of the collection. */
+.srch{display:grid; gap:var(--s-3)}
+.srch__seg{display:inline-flex; padding:3px; background:var(--surface-2);
+  border:1px solid var(--rule); border-radius:var(--r-full); width:fit-content; max-width:100%;
+  overflow-x:auto; scrollbar-width:none}
+.srch__seg::-webkit-scrollbar{display:none}
+.srch__seg button{
+  min-height:40px; padding:0 var(--s-5); background:transparent; border:0; cursor:pointer;
+  border-radius:var(--r-full); font-size:var(--t-2xs); letter-spacing:.18em;
+  text-transform:uppercase; color:var(--muted); white-space:nowrap;
+  transition:background-color .3s var(--ease), color .3s var(--ease);
+}
+.srch__seg button[aria-selected="true"]{background:var(--card); color:var(--fg); box-shadow:var(--e-1)}
+.srch__q{position:relative; display:flex; gap:var(--s-2); align-items:stretch; flex-wrap:wrap}
+@media (max-width:559px){
+  .srch__field{flex:1 0 100%}
+  .srch__go{flex:1 0 100%}
+}
+.srch__field{position:relative; flex:1; display:flex; align-items:center;
+  background:var(--card); border:1px solid var(--line-2)}
+.srch__field svg{width:18px; height:18px; margin-inline:14px 0; flex:0 0 auto;
+  stroke:var(--muted); fill:none; stroke-width:1.5; stroke-linecap:round}
+.srch__in{
+  flex:1; min-width:0; min-height:54px; padding:0 var(--s-3); background:transparent;
+  border:0; color:var(--fg); font:inherit; font-size:var(--t-base);
+}
+.srch__in::placeholder{color:var(--ink-400)}
+.srch__in:focus{outline:0}
+.srch__field:focus-within{border-color:var(--accent)}
+.srch__clr{width:40px; display:none; place-items:center; background:transparent; border:0;
+  cursor:pointer; color:var(--muted)}
+.srch__field[data-has] .srch__clr{display:grid}
+.srch__go{flex:0 0 auto; min-height:54px}
+.srch__row{display:grid; gap:var(--s-2); grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:760px){ .srch__row{grid-template-columns:repeat(4,minmax(0,1fr))} }
+@media (min-width:1080px){ .srch__row{grid-template-columns:repeat(5,minmax(0,1fr))} }
+.srch__hint{font-size:var(--t-2xs); color:var(--muted); letter-spacing:.04em}
+.srch__hint b{font-weight:400; color:var(--accent-ink)}
+.srch__hint button{background:none; border:0; padding:0; cursor:pointer; color:var(--accent-ink);
+  border-bottom:1px solid var(--line-2); font-size:inherit}
+
+/* suggestions */
+.sug{position:absolute; left:0; right:0; top:calc(100% + 5px); z-index:45; padding:5px;
+  background:var(--card); border:1px solid var(--card-line); box-shadow:var(--e-3);
+  max-height:320px; overflow-y:auto}
+.sug[hidden]{display:none}
+.sug button{display:flex; align-items:center; gap:11px; width:100%; min-height:46px;
+  padding:7px 11px; background:none; border:0; cursor:pointer; text-align:left; color:var(--fg)}
+.sug button:hover,.sug button[data-on]{background:var(--surface-2)}
+.sug img{width:44px; height:33px; object-fit:cover; flex:0 0 auto; background:var(--surface-2)}
+.sug em{font-style:normal; font-size:var(--t-sm); display:block; overflow:hidden;
+  text-overflow:ellipsis; white-space:nowrap}
+.sug i{font-style:normal; font-size:var(--t-2xs); color:var(--muted); letter-spacing:.1em;
+  text-transform:uppercase}
+.sug mark{background:transparent; color:var(--accent-ink)}
+.sug__k{padding:9px 11px 5px; font-size:var(--t-2xs); letter-spacing:.2em;
+  text-transform:uppercase; color:var(--muted)}
+
+/* hero variant — on the dark hero the field sits on glass */
+.hero .srch{margin-top:var(--s-6); max-width:900px}
+/* Their live site puts a white search bar on the hero. Keeping it light is
+   both warmer and more faithful than the dark slab this used to be. */
+.hero .srch__seg{background:rgba(255,250,243,.22); border-color:rgba(255,250,243,.34)}
+.hero .srch__seg button{color:rgba(255,250,243,.86)}
+.hero .srch__seg button[aria-selected="true"]{background:#fffaf3; color:var(--amber-800)}
+.hero .srch__field{background:rgba(255,250,243,.94); border-color:rgba(255,250,243,.7);
+  backdrop-filter:blur(10px)}
+.hero .srch__in{color:var(--amber-900)}
+.hero .srch__in::placeholder{color:rgba(77,39,4,.56)}
+.hero .srch__field svg{stroke:var(--amber-600)}
+.hero .srch__hint{color:rgba(251,246,239,.68)}
+.hero .srch__hint b,.hero .srch__hint button{color:var(--on-dark-accent)}
+.hero .pick--light .pick__btn{background:rgba(255,250,243,.92); border-color:rgba(255,250,243,.66);
+  color:var(--amber-900); backdrop-filter:blur(10px)}
+.hero .pick--light .pick__btn .chev{stroke:var(--amber-600)}
+.hero .pick--light .pick__btn:hover{background:#fffaf3}
+
+/* ======================================================== view + results */
+.results__bar{display:flex; align-items:center; justify-content:space-between; gap:var(--s-3);
+  flex-wrap:wrap; margin-bottom:var(--s-5)}
+.views{display:inline-flex; border:1px solid var(--line-2)}
+.hero .views{background:rgba(255,250,243,.92); border-color:rgba(255,250,243,.66);
+  backdrop-filter:blur(10px)}
+.hero .views button{color:var(--amber-800)}
+.views button{width:44px; height:44px; display:grid; place-items:center; background:transparent;
+  border:0; border-right:1px solid var(--line-2); cursor:pointer; color:var(--muted)}
+.views button:last-child{border-right:0}
+.views button svg{width:17px; height:17px; stroke:currentColor; fill:none; stroke-width:1.4;
+  stroke-linecap:round; stroke-linejoin:round}
+.views button[aria-selected="true"]{background:var(--amber-600); color:#fff}
+
+/* active filter chips */
+.active{display:flex; flex-wrap:wrap; gap:var(--s-2); margin-bottom:var(--s-4)}
+.active:empty{display:none}
+.active button{display:inline-flex; align-items:center; gap:8px; padding:7px 12px;
+  background:var(--surface-2); border:1px solid var(--line-2); cursor:pointer;
+  font-size:var(--t-2xs); letter-spacing:.12em; text-transform:uppercase; color:var(--fg)}
+.active button:hover{border-color:var(--accent); color:var(--accent-ink)}
+.active button svg{width:11px; height:11px; stroke:currentColor; fill:none; stroke-width:2}
+
+/* list mode */
+.grid[data-view="list"]{grid-template-columns:1fr; gap:var(--s-3)}
+.grid[data-view="list"] .res{flex-direction:row}
+.grid[data-view="list"] .res__media{aspect-ratio:auto; width:34%; max-width:300px; min-height:172px; flex:0 0 auto}
+.grid[data-view="list"] .res__body{padding:var(--s-4) var(--s-5)}
+@media (max-width:559px){
+  .grid[data-view="list"] .res{flex-direction:column}
+  .grid[data-view="list"] .res__media{width:100%; max-width:none; aspect-ratio:3/2}
+}
+
+/* ============================================================== map view */
+.map{position:relative; background:var(--surface); border:1px solid var(--rule);
+  aspect-ratio:4/3; max-height:74vh; overflow:hidden}
+@media (min-width:900px){ .map{aspect-ratio:16/9} }
+.map svg{position:absolute; inset:0; width:100%; height:100%}
+.map__sea{fill:color-mix(in srgb, var(--gulf-400) 12%, var(--surface))}
+.map__land{fill:var(--surface-2)}
+.map__coast{stroke:var(--line-2); stroke-width:1; fill:none}
+.map__pin{cursor:pointer}
+.map__dot{fill:var(--gulf-700); stroke:var(--bg); stroke-width:1.5; transition:r .2s var(--ease)}
+.map__pin:hover .map__dot,.map__pin[data-on] .map__dot{fill:var(--accent); r:8}
+.map__lbl{font-size:9px; letter-spacing:.14em; text-transform:uppercase; fill:var(--muted)}
+.map__card{position:absolute; left:var(--s-4); bottom:var(--s-4); width:min(290px,calc(100% - 32px));
+  background:var(--card); border:1px solid var(--card-line); box-shadow:var(--e-3); display:none}
+.map__card[data-on]{display:block}
+.map__card img{width:100%; aspect-ratio:3/2; object-fit:cover}
+.map__cb{padding:var(--s-3) var(--s-4)}
+.map__cb p{font-size:var(--t-2xs); letter-spacing:.2em; text-transform:uppercase; color:var(--accent-ink)}
+.map__cb h4{margin:4px 0 6px; font-size:var(--t-md)}
+.map__note{position:absolute; right:var(--s-4); bottom:var(--s-4); font-size:var(--t-2xs);
+  color:var(--muted); background:color-mix(in srgb, var(--bg) 82%, transparent);
+  padding:6px 10px; border:1px solid var(--rule); max-width:210px; line-height:1.5}
+
+/* ========================================================= saved / favourite */
+.fav{
+  position:absolute; top:9px; right:9px; z-index:2; width:38px; height:38px;
+  display:grid; place-items:center; background:color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter:blur(8px); border:1px solid var(--rule); cursor:pointer; color:var(--muted);
+  transition:color .25s var(--ease), border-color .25s var(--ease);
+}
+.fav svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:1.5;
+  stroke-linecap:round; stroke-linejoin:round}
+.fav:hover{color:var(--accent-ink); border-color:var(--accent)}
+.fav[aria-pressed="true"]{color:var(--accent); border-color:var(--accent)}
+.fav[aria-pressed="true"] svg{fill:var(--accent)}
+
+/* ============================================================== lightbox */
+.lb{position:fixed; inset:0; z-index:120; background:rgba(12,9,6,.94);
+  display:grid; grid-template-rows:auto 1fr auto; animation:cxIn .3s var(--ease-out)}
+.lb[hidden]{display:none}
+.lb__top{display:flex; align-items:center; justify-content:space-between; gap:var(--s-4);
+  padding:var(--s-4) var(--gut); color:var(--on-dark-fg)}
+.lb__top .micro{color:rgba(251,246,239,.7)}
+.lb__top .ibtn{color:var(--on-dark-fg); border-color:var(--on-dark-line)}
+.lb__top .ibtn:hover{background:rgba(251,246,239,.14)}
+.lb__stage{position:relative; display:grid; place-items:center; padding:0 var(--gut); min-height:0}
+.lb__stage img{max-width:100%; max-height:100%; object-fit:contain}
+.lb__nav{position:absolute; top:50%; transform:translateY(-50%); width:52px; height:52px;
+  display:grid; place-items:center; background:rgba(251,246,239,.1); border:1px solid var(--on-dark-line);
+  color:var(--on-dark-fg); cursor:pointer}
+.lb__nav:hover{background:rgba(251,246,239,.22)}
+.lb__nav svg{width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:1.4;
+  stroke-linecap:round; stroke-linejoin:round}
+.lb__nav--p{left:8px} .lb__nav--n{right:8px}
+.lb__dots{display:flex; gap:7px; justify-content:center; flex-wrap:wrap;
+  padding:var(--s-4) var(--gut) calc(var(--s-4) + env(safe-area-inset-bottom))}
+.lb__dots button{width:34px; height:5px; background:rgba(251,246,239,.3); border:0; cursor:pointer; padding:0}
+.lb__dots button[aria-selected="true"]{background:var(--on-dark-accent)}
+
+/* ============================================================ misc parts */
+.more{display:grid; place-items:center; margin-top:var(--s-7)}
+.phone{display:flex; gap:var(--s-2)}
+.phone .pick--code{flex:0 0 108px}
+.tabs{display:flex; flex-wrap:wrap; gap:var(--s-2); margin-top:var(--s-5)}
+.tabs button{min-height:42px; padding:0 var(--s-4); background:transparent;
+  border:1px solid var(--line-2); cursor:pointer; font-size:var(--t-2xs); letter-spacing:.18em;
+  text-transform:uppercase; color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--gulf-700); color:var(--on-dark-fg);
+  border-color:var(--gulf-700)}
+.drawer__langs{display:flex; flex-wrap:wrap; gap:6px; margin-top:var(--s-2)}
+.drawer__lang{padding:7px 11px; background:transparent; border:1px solid var(--rule);
+  font-size:var(--t-2xs); color:var(--muted); cursor:pointer}
+.drawer__lang[aria-pressed="true"]{border-color:var(--accent); color:var(--accent-ink)}
+.lang--cur{display:none}
+@media (min-width:560px){ .lang--cur{display:block} }
+.enquiry__pts{display:grid; gap:9px; margin-top:var(--s-5)}
+.enquiry__pts li{position:relative; padding-left:20px; font-size:var(--t-sm);
+  color:var(--on-dark-muted); line-height:1.6}
+.enquiry__pts li::before{content:""; position:absolute; left:0; top:9px; width:9px; height:1px;
+  background:var(--on-dark-accent)}
+@media (min-width:900px){
+  .enquiry__in{grid-template-columns:1fr 1.05fr; gap:var(--s-8)}
+  .enquiry__form{grid-template-columns:1fr 1fr; align-content:start}
+  .field--full{grid-column:1/-1}
+}
+.field--full{grid-column:1/-1}
+textarea.input{min-height:auto; padding:13px var(--s-4); line-height:1.6; resize:vertical}
+
+/* pick, on a light ground (filters + forms outside the dark enquiry band) */
+.pick--light .pick__btn{background:var(--card); border-color:var(--line-2); color:var(--fg)}
+.pick--light .pick__btn:hover{border-color:var(--fg)}
+.pick--light .pick__menu{background:var(--card); border-color:var(--card-line)}
+.pick--light .pick__opt{color:var(--fg)}
+.pick--light .pick__opt:hover{background:var(--surface-2)}
+
+/* ---------------------------------------------------------- hero + search
+   With the search in it the hero has real work to do, so the editorial
+   spacing gives way: the search has to be reachable without scrolling. */
+.hero:has(.srch) .hero__in{padding-block:calc(var(--hdr) + var(--s-6)) var(--s-6)}
+.hero:has(.srch) .hero__h{font-size:clamp(2.3rem,5.4vw,4rem)}
+.hero:has(.srch) .hero__sub{margin-top:var(--s-4); max-width:46ch; font-size:var(--t-base)}
+.hero:has(.srch) .srch{margin-top:var(--s-5)}
+@media (min-width:1000px){
+  .hero:has(.srch) .hero__in{padding-block:calc(var(--hdr) + var(--s-7)) var(--s-7)}
+}
+
+/* labels sit on the dark hero photograph, so they take the on-dark neutral */
+.hero .srch .micro{color:rgba(255,250,243,.88); text-shadow:0 1px 2px rgba(38,23,10,.5)}
+.hero .srch__row{align-items:end}
+/* the order row is a sort control and a view switch, not a full-width field */
+.srch__row--x{grid-template-columns:minmax(0,260px) auto !important; justify-content:start;
+  align-items:end; gap:var(--s-3)}
+@media (max-width:559px){ .srch__row--x{grid-template-columns:1fr auto !important} }
+
+/* on a phone the field and its button each take the full width — a 44px target
+   and a placeholder that is not cut off mid-word */
+@media (max-width:559px){
+  .srch__q .srch__field{flex:1 0 100%}
+  .srch__q .srch__go{flex:1 0 100%; min-height:52px}
+}
+
+/* the zoom control sits on the photograph it opens */
+.gallery__main{position:relative}
+
+/* ------------------------------------------------------------- language
+   Choosing a language the concept does not carry says so, plainly. */
+.langNote{
+  position:fixed; left:50%; bottom:var(--s-5); transform:translateX(-50%); z-index:96;
+  width:min(460px, calc(100vw - 32px)); padding:var(--s-4) var(--s-5);
+  background:var(--gulf-900); color:var(--on-dark-fg); box-shadow:var(--e-4);
+  font-size:var(--t-sm); line-height:1.6; animation:cxIn .3s var(--ease-out);
+}
+@media (max-width:1199px){ .langNote{bottom:calc(57px + var(--s-4))} }
+.langNote b{color:var(--on-dark-accent); font-weight:400}
+.langNote button{
+  display:block; margin-top:9px; padding:0; background:none; border:0; cursor:pointer;
+  color:var(--on-dark-accent); font-size:var(--t-2xs); letter-spacing:.18em;
+  text-transform:uppercase; border-bottom:1px solid var(--on-dark-line);
+}
