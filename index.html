@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="assets/parity.css">
 </head>
-<body data-base="">
+<body class="home-parity" data-base="">
 
 <a class="skip" href="#main">Skip to content</a>
 
@@ -33,12 +33,10 @@
     </a>
 
     <nav class="nav" aria-label="Primary">
-      <a href="residences.html">Residences</a>
-      <a href="projects.html">Developments</a>
-      <a href="ownership.html">Ownership</a>
+      <a href="residences.html">Thailand</a>
       <a href="about.html">About</a>
       <a href="process.html">Process</a>
-      <a href="journal.html">Journal</a>
+      <a href="journal.html">News</a>
       <a href="contact.html">Contact</a>
     </nav>
 
@@ -91,13 +89,15 @@
     </button>
   </div>
   <nav class="drawer__nav" aria-label="Mobile">
-    <a href="residences.html"><span>Residences</span><i>167</i></a>
-    <a href="projects.html"><span>Developments</span></a>
-    <a href="ownership.html"><span>Ownership</span></a>
+    <a href="residences.html"><span>Thailand</span><i>169</i></a>
     <a href="about.html"><span>About</span></a>
     <a href="process.html"><span>Process</span></a>
-    <a href="journal.html"><span>Journal</span></a>
+    <a href="journal.html"><span>News</span></a>
     <a href="contact.html"><span>Contact</span></a>
+    <a href="projects.html"><span>New projects</span></a>
+    <a href="houses.html"><span>Resale properties</span></a>
+    <a href="lands.html"><span>Land</span></a>
+    <a href="ownership.html"><span>Ownership guide</span></a>
     <a href="saved.html"><span>Saved residences</span><i data-savecount>0</i></a>
   </nav>
   <div class="drawer__foot">
@@ -113,27 +113,17 @@
 </aside>
 
 <main id="main">
-
-  <!-- ══ HERO ══════════════════════════════════════════════════════════ -->
-  <section class="hero">
-    <div class="hero__media" aria-hidden="true">
-      <picture>
-        <source media="(min-width:1000px)" srcset="assets/img/hero-1800.jpg">
-        <source media="(min-width:560px)" srcset="assets/img/hero-1200.jpg">
-        <img src="assets/img/hero-800.jpg" alt="" width="1800" height="1013" fetchpriority="high" decoding="async">
-      </picture>
-    </div>
-    <div class="wrap hero__in">
-      <p class="kicker kicker--plain hero__kick">Pattaya &nbsp;·&nbsp; Bangkok &nbsp;·&nbsp; Cross-border since 2019</p>
-      <h1 class="hero__h">Own the coast<br><em>without living on it.</em></h1>
-      <p class="hero__sub">Most of our owners have never stood in the building they bought. We verify the
-        title, explain what a foreigner may lawfully hold, complete the transfer in your absence — and
-        then run the residence while you are somewhere else entirely.</p>
-      <form class="srch" id="srchForm" role="search">
+  <section class="originHero" aria-label="Anjia property search">
+    <picture class="originHero__media">
+      <source media="(min-width:1000px)" srcset="assets/img/home-original-1800.jpg">
+      <source media="(min-width:560px)" srcset="assets/img/home-original-1200.jpg">
+      <img src="assets/img/home-original-800.jpg" alt="Pattaya skyline and rooftop pool" width="1800" height="1013" fetchpriority="high" decoding="async">
+    </picture>
+    <div class="wrap originHero__search">
+<form class="srch" id="srchForm" role="search">
       <div class="srch__seg" data-seg role="tablist" aria-label="What you want to do">
         <button type="button" role="tab" data-intent="buy" aria-selected="true">Buy</button>
         <button type="button" role="tab" data-intent="rent" aria-selected="false">Rent</button>
-        <button type="button" role="tab" data-intent="manage" aria-selected="false">Management</button>
       </div>
       <div class="srch__q">
         <div class="srch__field">
@@ -150,13 +140,13 @@
       </div>
       <div class="srch__row">
         <div class="pick pick--light" data-pick data-filter="type">
-          <span class="micro" id="lbl-type">Kind</span>
+          <span class="micro" id="lbl-type">Type</span>
           <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lbl-type">
-            <span class="pick__val">Any kind</span>
+            <span class="pick__val">All types</span>
             <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
           </button>
           <ul class="pick__menu" role="listbox" aria-labelledby="lbl-type">
-            <li><button class="pick__opt" role="option" aria-selected="true" data-v="">Any kind</button></li>
+            <li><button class="pick__opt" role="option" aria-selected="true" data-v="">All types</button></li>
             <li><button class="pick__opt" role="option" data-v="Condominium">Condominium</button></li>
             <li><button class="pick__opt" role="option" data-v="Villa">Villa</button></li>
             <li><button class="pick__opt" role="option" data-v="House">House</button></li>
@@ -194,228 +184,179 @@
           </ul>
         </div>
         <div class="pick pick--light" data-pick data-filter="status">
-          <span class="micro" id="lbl-status">Stage</span>
+          <span class="micro" id="lbl-status">Property stage</span>
           <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lbl-status">
-            <span class="pick__val">New and resale</span>
+            <span class="pick__val">New projects and resale</span>
             <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
           </button>
           <ul class="pick__menu" role="listbox" aria-labelledby="lbl-status">
-            <li><button class="pick__opt" role="option" aria-selected="true" data-v="">New and resale</button></li>
+            <li><button class="pick__opt" role="option" aria-selected="true" data-v="">New projects and resale</button></li>
             <li><button class="pick__opt" role="option" data-v="ready">Ready to move in</button></li>
             <li><button class="pick__opt" role="option" data-v="offplan">Off-plan</button></li>
           </ul>
         </div>
       </div>
-      <div class="srch__row srch__row--x" style="grid-template-columns:1fr auto">
-        <div class="pick pick--light" data-pick data-filter="sort">
-          <span class="micro" id="lbl-sort">Order</span>
-          <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lbl-sort">
-            <span class="pick__val">Highest value</span>
-            <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+      <p class="srch__hint">Search all <b>169 current property records</b> from Anjia.</p>
+
+      <div class="srch__tools">
+        <a class="srch__new" href="projects.html">New projects</a>
+        <div class="views" role="group" aria-label="How to show search results">
+          <button type="button" data-view="grid" aria-selected="true" aria-label="List view">
+            <svg viewBox="0 0 24 24"><path d="M5 6h14M5 12h14M5 18h14"/></svg>
           </button>
-          <ul class="pick__menu" role="listbox" aria-labelledby="lbl-sort">
-            <li><button class="pick__opt" role="option" aria-selected="true" data-v="desc">Highest value</button></li>
-            <li><button class="pick__opt" role="option" data-v="asc">Lowest entry price</button></li>
-            <li><button class="pick__opt" role="option" data-v="area">Largest residence</button></li>
-            <li><button class="pick__opt" role="option" data-v="rel">Best match</button></li>
-          </ul>
-        </div>
-        <div class="views" role="group" aria-label="How to show the results" style="align-self:end">
-          <button type="button" data-view="grid" aria-selected="true" aria-label="Grid">
-            <svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/></svg>
-          </button>
-          <button type="button" data-view="list" aria-selected="false" aria-label="List">
-            <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-          </button>
-          <button type="button" data-view="map" aria-selected="false" aria-label="Map">
+          <button type="button" data-view="map" aria-selected="false" aria-label="Map view">
             <svg viewBox="0 0 24 24"><path d="M9 4 4 6v14l5-2 6 2 5-2V4l-5 2-6-2Zm0 0v14m6-12v14"/></svg>
           </button>
         </div>
       </div>
-      <p class="srch__hint">Every field we hold is searchable — area, developer, facilities and what is nearby. <b>167 listings</b>: 43 developments, 123 resale residences and 1 land parcel, all published here.
-        &nbsp;·&nbsp; <a href="ownership.html" style="color:var(--on-dark-accent);border-bottom:1px solid var(--on-dark-line)">What may a foreigner own?</a></p>
       <p class="srch__hint" id="intentNote" hidden>
-        <b>Note.</b> Anjia's published inventory is for sale. Lettings and management are handled by
-        the desk rather than listed — <a href="contact.html">tell us what you need</a> and an adviser
-        will come back with what is available.</p>
+        <b>Note.</b> Availability differs by service. Advertised rentals are shown when you choose
+        Rent; property management is arranged by the desk — <a href="contact.html">tell us what you
+        need</a> and an adviser will come back with what is current.</p>
     </form>
     </div>
-    <div class="hero__ledger">
-      <div class="wrap ledger">
-        <div class="ledger__i"><span class="num ledger__n">167</span><span class="ledger__l">Listings in the collection</span></div>
-        <div class="ledger__i"><span class="num ledger__n">0.99–240<i>M THB</i></span><span class="ledger__l">Across the collection</span></div>
-        <div class="ledger__i"><span class="num ledger__n">4</span><span class="ledger__l">Languages of counsel</span></div>
-        <div class="ledger__i"><span class="num ledger__n">75</span><span class="ledger__l">Published with freehold or foreign quota</span></div>
-      </div>
-    </div>
   </section>
 
-  <!-- ══ STATEMENT ═════════════════════════════════════════════════════ -->
-  <section class="sec statement">
-    <div class="wrap statement__in">
-      <p class="kicker">The premise</p>
-      <p class="statement__t">Listings are a commodity. <em>Confidence is not.</em></p>
-      <p class="lede statement__b">Anyone can show you a photograph of a tower on the Jomtien beachfront.
-        The harder questions arrive afterwards — whether the chanote is clean, whether the building's
-        foreign quota has room left for your name, how the money legally enters the country, and who
-        answers the telephone when the air conditioning fails in March and you are in Shanghai.
-        That is the work. The photographs are only the invitation.</p>
-      <a class="tlink statement__link" href="ownership.html">Begin with what you may own <span aria-hidden="true">→</span></a>
-    </div>
-  </section>
-
-  <!-- ══ COLLECTION RAIL ═══════════════════════════════════════════════ -->
-  <section class="sec sec--tint" id="collection">
+  <section class="sec homeFeatured" id="featured">
     <div class="wrap">
-      <div class="secHead">
-        <div>
-          <p class="kicker">The collection</p>
-          <h2 class="secHead__h">Selected residences</h2>
-        </div>
-        <p class="secHead__note">A studio at 0.99M THB and a beachfront tower at 150M are not the same
-          instrument. Choose the intention and the collection reorders itself.</p>
+      <div class="homeTitle rv">
+        <h1>Featured Projects</h1>
+        <a class="tlink" href="residences.html">View all 169 properties →</a>
       </div>
-
-      <div class="briefs" role="tablist" aria-label="Intention">
-        <button class="brief" role="tab" aria-selected="true" data-brief="yield">Held for yield</button>
-        <button class="brief" role="tab" aria-selected="false" data-brief="live">Held to live in</button>
-        <button class="brief" role="tab" aria-selected="false" data-brief="signature">Signature</button>
-      </div>
-
-      <div class="rail" id="rail" tabindex="0" aria-label="Residences, scrollable"></div>
-
-      <div class="railFoot">
-        <div class="railNav">
-          <button class="ibtn ibtn--rail" id="railPrev" aria-label="Previous residences">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6l-6 6 6 6"/></svg>
-          </button>
-          <button class="ibtn ibtn--rail" id="railNext" aria-label="More residences">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6l6 6-6 6"/></svg>
-          </button>
-        </div>
-        <a class="tlink" href="residences.html">All 167 listings <span aria-hidden="true">→</span></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ OWNERSHIP ═════════════════════════════════════════════════════ -->
-  <section class="sec" id="ownership">
-    <div class="wrap">
-      <div class="secHead">
-        <div>
-          <p class="kicker">Ownership</p>
-          <h2 class="secHead__h">Three lawful routes.<br>Most agents explain none of them.</h2>
-        </div>
-        <p class="secHead__note">A foreigner may not hold Thai land outright — but that is where the
-          explanation usually stops, and it is not where the subject ends.</p>
-      </div>
-
-      <div class="routes">
-        <article class="route rv">
-          <p class="route__kind">Most common</p>
-          <h3 class="route__h">Freehold condominium</h3>
-          <p class="route__b">The unit is yours outright, in your own name, in perpetuity. The constraint
-            is the quota: no more than 49% of a building's saleable area may be held by foreigners. When
-            a building sits at quota you wait for a foreign seller to exit — or you take another route.</p>
-          <dl class="route__d">
-            <div><dt>Interest</dt><dd>Outright</dd></div>
-            <div><dt>Term</dt><dd>Perpetual</dd></div>
-            <div><dt>Constraint</dt><dd>49% quota</dd></div>
-          </dl>
+      <div class="homeProperties">
+        <article class="homeProperty rv" style="--rv-delay:0ms">
+          <a href="residence/886588106478720695.html" class="homeProperty__link">
+            <figure class="homeProperty__media">
+              <img src="assets/img/r478720695-600.jpg"
+                   srcset="assets/img/r478720695-400.jpg 400w, assets/img/r478720695-600.jpg 600w, assets/img/r478720695-900.jpg 900w"
+                   sizes="(min-width:1100px) 31vw, (min-width:680px) 48vw, 92vw"
+                   width="900" height="600" loading="eager" decoding="async"
+                   alt="The Riviera Ocean Drive, Jomtien">
+              <span class="homeProperty__badge">Resale</span>
+            </figure>
+            <div class="homeProperty__body">
+              <p class="homeProperty__loc">Jomtien</p>
+              <h3>The Riviera Ocean Drive</h3>
+              <p class="homeProperty__spec">1 bed · 1 bath · 30.9 m²</p>
+              <p class="homeProperty__type">Condominium</p>
+              <div class="homeProperty__tags"><span>Thai quota</span></div>
+              <p class="homeProperty__foot"><strong class="num">2.9M THB</strong><span>View details →</span></p>
+            </div>
+          </a>
         </article>
-        <article class="route rv rv--d1">
-          <p class="route__kind">Land &amp; villas</p>
-          <h3 class="route__h">Registered leasehold</h3>
-          <p class="route__b">A thirty-year lease registered at the Land Office, ordinarily written with
-            renewal options. This is how most foreigners hold a villa, or the land beneath a house.
-            Renewals are contractual rather than guaranteed — which is precisely why the drafting matters
-            more than the price.</p>
-          <dl class="route__d">
-            <div><dt>Interest</dt><dd>Leasehold</dd></div>
-            <div><dt>Term</dt><dd>30 yrs + renewals</dd></div>
-            <div><dt>Constraint</dt><dd>Renewal clause</dd></div>
-          </dl>
+        <article class="homeProperty rv" style="--rv-delay:65ms">
+          <a href="residence/886578274971423779.html" class="homeProperty__link">
+            <figure class="homeProperty__media">
+              <img src="assets/img/r971423779-600.jpg"
+                   srcset="assets/img/r971423779-400.jpg 400w, assets/img/r971423779-600.jpg 600w, assets/img/r971423779-900.jpg 900w"
+                   sizes="(min-width:1100px) 31vw, (min-width:680px) 48vw, 92vw"
+                   width="900" height="600" loading="eager" decoding="async"
+                   alt="La Santir, Jomtien">
+              <span class="homeProperty__badge">Resale</span>
+            </figure>
+            <div class="homeProperty__body">
+              <p class="homeProperty__loc">Jomtien</p>
+              <h3>La Santir</h3>
+              <p class="homeProperty__spec">1 bed · 1 bath · 32.93 m²</p>
+              <p class="homeProperty__type">Condominium</p>
+              <div class="homeProperty__tags"><span>Thai quota</span></div>
+              <p class="homeProperty__foot"><strong class="num">2.29M THB</strong><span>View details →</span></p>
+            </div>
+          </a>
         </article>
-        <article class="route rv rv--d2">
-          <p class="route__kind">Newer instrument</p>
-          <h3 class="route__h">Right over Property</h3>
-          <p class="route__b">Sap-Ing-Sith: a registrable right created under Thailand's Right over
-            Property Act, running up to thirty years, transferable and capable of securing a loan —
-            closer to ownership than a lease in several practical respects. Still uncommon, so both
-            sides need proper counsel.</p>
-          <dl class="route__d">
-            <div><dt>Interest</dt><dd>Registrable right</dd></div>
-            <div><dt>Term</dt><dd>Up to 30 yrs</dd></div>
-            <div><dt>Constraint</dt><dd>Few precedents</dd></div>
-          </dl>
+        <article class="homeProperty rv" style="--rv-delay:130ms">
+          <a href="residence/886307338724577288.html" class="homeProperty__link">
+            <figure class="homeProperty__media">
+              <img src="assets/img/r724577288-600.jpg"
+                   srcset="assets/img/r724577288-400.jpg 400w, assets/img/r724577288-600.jpg 600w, assets/img/r724577288-900.jpg 900w"
+                   sizes="(min-width:1100px) 31vw, (min-width:680px) 48vw, 92vw"
+                   width="900" height="600" loading="eager" decoding="async"
+                   alt="Laguna Beach Resort 3 the Maldives, Jomtien">
+              <span class="homeProperty__badge">Resale</span>
+            </figure>
+            <div class="homeProperty__body">
+              <p class="homeProperty__loc">Jomtien</p>
+              <h3>Laguna Beach Resort 3 the Maldives</h3>
+              <p class="homeProperty__spec">1 bed · 1 bath · 25 m²</p>
+              <p class="homeProperty__type">Condominium</p>
+              <div class="homeProperty__tags"><span>Thai quota</span></div>
+              <p class="homeProperty__foot"><strong class="num">1.25M THB</strong><span>View details →</span></p>
+            </div>
+          </a>
+        </article>
+        <article class="homeProperty rv" style="--rv-delay:195ms">
+          <a href="residence/886298924216751512.html" class="homeProperty__link">
+            <figure class="homeProperty__media">
+              <img src="assets/img/r216751512-600.jpg"
+                   srcset="assets/img/r216751512-400.jpg 400w, assets/img/r216751512-600.jpg 600w, assets/img/r216751512-900.jpg 900w"
+                   sizes="(min-width:1100px) 31vw, (min-width:680px) 48vw, 92vw"
+                   width="900" height="600" loading="lazy" decoding="async"
+                   alt="Centric Sea Pattaya, Central Pattaya">
+              <span class="homeProperty__badge">Resale</span>
+            </figure>
+            <div class="homeProperty__body">
+              <p class="homeProperty__loc">Central Pattaya</p>
+              <h3>Centric Sea Pattaya</h3>
+              <p class="homeProperty__spec">1 bed · 1 bath · 28.28 m²</p>
+              <p class="homeProperty__type">Condominium</p>
+              <div class="homeProperty__tags"><span>Thai quota</span></div>
+              <p class="homeProperty__foot"><strong class="num">2M THB</strong><span>View details →</span></p>
+            </div>
+          </a>
+        </article>
+        <article class="homeProperty rv" style="--rv-delay:260ms">
+          <a href="residence/886273966824493193.html" class="homeProperty__link">
+            <figure class="homeProperty__media">
+              <img src="assets/img/r824493193-600.jpg"
+                   srcset="assets/img/r824493193-400.jpg 400w, assets/img/r824493193-600.jpg 600w, assets/img/r824493193-900.jpg 900w"
+                   sizes="(min-width:1100px) 31vw, (min-width:680px) 48vw, 92vw"
+                   width="900" height="600" loading="lazy" decoding="async"
+                   alt="Luxury Modern Classic Pool Villa 1,604 Sq.m. 5 Bedrooms 6 Bathrooms, East Pattaya">
+              <span class="homeProperty__badge">Resale</span>
+            </figure>
+            <div class="homeProperty__body">
+              <p class="homeProperty__loc">East Pattaya</p>
+              <h3>Luxury Modern Classic Pool Villa 1,604 Sq.m. 5 Bedrooms 6 Bathrooms</h3>
+              <p class="homeProperty__spec">5 bed · 6 bath · 1604 m²</p>
+              <p class="homeProperty__type">Villa</p>
+              <div class="homeProperty__tags"><span>Thai quota</span></div>
+              <p class="homeProperty__foot"><strong class="num">29.9M THB</strong><span>View details →</span></p>
+            </div>
+          </a>
+        </article>
+        <article class="homeProperty rv" style="--rv-delay:325ms">
+          <a href="residence/886210454496481595.html" class="homeProperty__link">
+            <figure class="homeProperty__media">
+              <img src="assets/img/r496481595-600.jpg"
+                   srcset="assets/img/r496481595-400.jpg 400w, assets/img/r496481595-600.jpg 600w, assets/img/r496481595-900.jpg 900w"
+                   sizes="(min-width:1100px) 31vw, (min-width:680px) 48vw, 92vw"
+                   width="900" height="600" loading="lazy" decoding="async"
+                   alt="Ekmongkol 3 Village Corner Pool Villa, East Pattaya">
+              <span class="homeProperty__badge">Resale</span>
+            </figure>
+            <div class="homeProperty__body">
+              <p class="homeProperty__loc">East Pattaya</p>
+              <h3>Ekmongkol 3 Village Corner Pool Villa</h3>
+              <p class="homeProperty__spec">3 bed · 3 bath · 244 m²</p>
+              <p class="homeProperty__type">Villa</p>
+              <div class="homeProperty__tags"><span>Thai quota</span></div>
+              <p class="homeProperty__foot"><strong class="num">5.99M THB</strong><span>View details →</span></p>
+            </div>
+          </a>
         </article>
       </div>
-      <p class="disclaimer">General information, not legal advice. We place you in front of an
-        independent Thai lawyer before anything is signed. <a href="ownership.html">The full guide →</a></p>
     </div>
   </section>
 
-  <!-- ══ STEWARDSHIP ═══════════════════════════════════════════════════ -->
-  <section class="sec sec--dark" id="stewardship">
-    <div class="wrap split">
-      <div class="split__text rv">
-        <p class="kicker kicker--plain" style="color:var(--on-dark-accent)">Stewardship</p>
-        <h2 class="split__h">The reason owners stay<br>is not the purchase.</h2>
-        <p class="split__b">It is that the residence keeps working while they are in Shanghai, Tokyo or
-          Singapore — tenanted, maintained, insured, and accounted for, without a single flight.</p>
-        <ul class="ticks">
-          <li><span aria-hidden="true">·</span>Tenant sourcing, screening and lease renewal</li>
-          <li><span aria-hidden="true">·</span>Repairs and contractor supervision, quoted before work begins</li>
-          <li><span aria-hidden="true">·</span>Common-area fees, utilities and juristic-office correspondence</li>
-          <li><span aria-hidden="true">·</span>A monthly statement, with photographs when anything changes</li>
-          <li><span aria-hidden="true">·</span>Resale conducted when you decide to exit</li>
-        </ul>
-        <a class="btn btn--onDark" href="contact.html">Speak to a steward</a>
-      </div>
-      <figure class="split__media rv rv--d1">
-        <img src="assets/img/steward-800.jpg" srcset="assets/img/steward-500.jpg 500w, assets/img/steward-800.jpg 800w"
-             sizes="(min-width:1000px) 44vw, 90vw" width="800" height="1067" loading="lazy" decoding="async"
-             alt="Interior of a managed residence overlooking the Gulf of Thailand">
-      </figure>
-    </div>
-  </section>
-
-  <!-- ══ PROCESS ═══════════════════════════════════════════════════════ -->
-  <section class="sec" id="process">
-    <div class="wrap">
-      <div class="secHead">
-        <div>
-          <p class="kicker">Process</p>
-          <h2 class="secHead__h">Five stages, and you may stop at any of them.</h2>
-        </div>
-        <p class="secHead__note">Nothing is charged until a transfer completes. Counsel before that
-          point is ours to give.</p>
-      </div>
-      <ol class="stages">
-        <li class="stage rv"><p class="stage__n num">01</p><h3 class="stage__h">Brief</h3>
-          <p class="stage__b">A conversation in your language about budget, purpose, and how often you will actually be here.</p></li>
-        <li class="stage rv rv--d1"><p class="stage__n num">02</p><h3 class="stage__h">Shortlist</h3>
-          <p class="stage__b">Six to ten residences, each with its title status and quota position stated before you ask.</p></li>
-        <li class="stage rv rv--d2"><p class="stage__n num">03</p><h3 class="stage__h">Inspection</h3>
-          <p class="stage__b">In person, or a live walkthrough on video with the questions you asked us to put.</p></li>
-        <li class="stage rv rv--d3"><p class="stage__n num">04</p><h3 class="stage__h">Transfer</h3>
-          <p class="stage__b">Independent counsel, FET documentation, Land Office. Conducted remotely if you cannot travel.</p></li>
-        <li class="stage rv rv--d3"><p class="stage__n num">05</p><h3 class="stage__h">Tenure</h3>
-          <p class="stage__b">Furnishing, tenants and stewardship — or simply the keys, and nothing further.</p></li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- ══ VOICES ════════════════════════════════════════════════════════ -->
   <section class="sec sec--tint" id="voices">
     <div class="wrap">
       <div class="secHead">
         <div>
           <p class="kicker">Owners</p>
-          <h2 class="secHead__h">After the decision has been lived with</h2>
+          <h2 class="secHead__h">Client Testimonials</h2>
         </div>
         <p class="secHead__note">All 11 public owner accounts from Anjia's live
-          site, preserved with their original attribution and publication date.</p>
+          site, in the same place in the homepage flow as the original.</p>
       </div>
       <div class="voiceRail__head">
         <p class="micro"><span class="num">11</span> owner stories</p>
@@ -557,51 +498,47 @@
     </div>
   </section>
 
-  <!-- ══ JOURNAL ═══════════════════════════════════════════════════════ -->
-  <section class="sec" id="journal">
+  <section class="sec homeNews" id="journal">
     <div class="wrap">
-      <div class="secHead">
-        <div>
-          <p class="kicker">Journal</p>
-          <h2 class="secHead__h">Written because buyers keep asking</h2>
-        </div>
-      </div>
-      <div class="journal">
-        <a class="entry rv" href="journal.html">
-          <time class="entry__d" datetime="2026-08-25">25 August 2026</time>
-          <h3 class="entry__h">What is a Right over Property?</h3>
-          <p class="entry__b">Sap-Ing-Sith is a legal right over real estate created under Thailand's
-            Right over Property Act — what it grants a foreign buyer, and where it stops.</p>
-          <span class="entry__go" aria-hidden="true">Read →</span>
-        </a>
-        <a class="entry rv rv--d1" href="journal.html">
-          <time class="entry__d" datetime="2026-08-27">27 August 2026</time>
-          <h3 class="entry__h">Is buying a condominium in Pattaya still worth it in 2026?</h3>
-          <p class="entry__b">The Pattaya market has two stories running at the same time and most
-            coverage tells only one. The oversupply — and the narrow exception to it.</p>
-          <span class="entry__go" aria-hidden="true">Read →</span>
-        </a>
-        <a class="entry rv rv--d2" href="journal.html">
-          <time class="entry__d" datetime="2026-08-26">26 August 2026</time>
-          <h3 class="entry__h">Why foreign investors keep returning to Thai rental yields</h3>
-          <p class="entry__b">Yields in Pattaya set against Bangkok, and what actually sustains
-            occupancy once the launch discount has gone.</p>
-          <span class="entry__go" aria-hidden="true">Read →</span>
-        </a>
+      <div class="homeTitle rv"><h2>News &amp; Market Insights</h2><a class="tlink" href="journal.html">View all →</a></div>
+      <div class="homeNews__grid">
+        <div><p class="kicker">Latest News</p>          <a class="homeNews__item rv" href="journal/883020555635136418.html">
+            <time datetime="2026-08-26">2026-08-26</time>
+            <h3>Pattaya Events &amp; Festivals 2026: What to Look Forward to from July Onward</h3>
+            <span>Read more →</span>
+          </a>
+          <a class="homeNews__item rv" href="journal/882702310801675207.html">
+            <time datetime="2026-08-25">2026-08-25</time>
+            <h3>What Is a Right over Property?</h3>
+            <span>Read more →</span>
+          </a></div>
+        <div><p class="kicker">Market Insights</p>          <a class="homeNews__item rv" href="journal/883308661143769359.html">
+            <time datetime="2026-08-27">2026-08-27</time>
+            <h3>Is buying a condo in Pattaya still worth it in 2026?</h3>
+            <span>Read more →</span>
+          </a>
+          <a class="homeNews__item rv" href="journal/882955141739713279.html">
+            <time datetime="2026-08-26">2026-08-26</time>
+            <h3>Thai real estate is attractive to foreign investors, with rental yields in Pattaya and Phuket highlighted at 8-10%.</h3>
+            <span>Read more →</span>
+          </a></div>
       </div>
     </div>
   </section>
 
-  <!-- ══ ENQUIRY ═══════════════════════════════════════════════════════ -->
-  <section class="enquiry" id="enquiry">
+  <div class="quickContactHead"><div class="wrap rv">
+    <p class="kicker">Contact</p><h2>Quick Contact</h2>
+    <p>Tell the Anjia team what you need and receive a considered reply within one working day.</p>
+  </div></div>
+<section class="enquiry" id="enquiry">
     <div class="enquiry__media" aria-hidden="true">
       <img src="assets/img/enquiry-1200.jpg" width="1200" height="675" loading="lazy" decoding="async" alt="">
     </div>
     <div class="wrap enquiry__in">
       <div class="enquiry__text rv">
         <p class="kicker kicker--plain" style="color:var(--on-dark-accent)">No obligation</p>
-        <h2 class="enquiry__h">Tell us what you are trying to do.</h2>
-        <p class="enquiry__b">An adviser who speaks your language replies within one working day — with residences, or with the reason none of ours fit.</p>
+        <h2 class="enquiry__h">How can we help?</h2>
+        <p class="enquiry__b">Share your location, budget and timing. An adviser will reply with the closest current matches and the next practical step.</p>
         <ul class="enquiry__pts">
           <li>Counsel in English, Thai, Chinese and Japanese</li>
           <li>Title and foreign-quota checked before you travel</li>
@@ -632,12 +569,12 @@
                 <li><button class="pick__opt" role="option">+1</button></li>
               </ul>
             </div>
-            <input class="input" id="ePhone" name="phone" type="tel" autocomplete="tel">
+            <input class="input" id="ePhone" name="phone" type="tel" autocomplete="tel" required>
           </div>
         </div>
         <div class="field">
           <label for="eEmail">Your email</label>
-          <input class="input" id="eEmail" name="email" type="email" autocomplete="email" required>
+          <input class="input" id="eEmail" name="email" type="email" autocomplete="email">
         </div>
         <div class="field">
           <label for="eBudget">Your budget</label>
@@ -662,6 +599,38 @@
           </div>
         </div>
         <div class="field">
+          <label id="lblPropertyType">Property type</label>
+          <div class="pick" data-pick>
+            <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lblPropertyType">
+              <span class="pick__val">Any property type</span>
+              <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+            </button>
+            <ul class="pick__menu" role="listbox">
+              <li><button class="pick__opt" role="option" aria-selected="true">Any property type</button></li>
+              <li><button class="pick__opt" role="option">Condominium</button></li>
+              <li><button class="pick__opt" role="option">Villa</button></li>
+              <li><button class="pick__opt" role="option">House or townhouse</button></li>
+              <li><button class="pick__opt" role="option">Land</button></li>
+            </ul>
+          </div>
+        </div>
+        <div class="field">
+          <label id="lblTransaction">Transaction</label>
+          <div class="pick" data-pick>
+            <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lblTransaction">
+              <span class="pick__val">Buy, rent or manage</span>
+              <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+            </button>
+            <ul class="pick__menu" role="listbox">
+              <li><button class="pick__opt" role="option" aria-selected="true">Buy, rent or manage</button></li>
+              <li><button class="pick__opt" role="option">Buy</button></li>
+              <li><button class="pick__opt" role="option">Rent</button></li>
+              <li><button class="pick__opt" role="option">Sell</button></li>
+              <li><button class="pick__opt" role="option">Property management</button></li>
+            </ul>
+          </div>
+        </div>
+        <div class="field">
           <label id="lblCountry">Where you are</label>
           <div class="pick" data-pick>
             <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lblCountry">
@@ -680,6 +649,10 @@
               <li><button class="pick__opt" role="option">Elsewhere</button></li>
             </ul>
           </div>
+        </div>
+        <div class="field">
+          <label for="eCity">Preferred city or area</label>
+          <input class="input" id="eCity" name="city" autocomplete="address-level2" placeholder="e.g. Pattaya, Wongamat">
         </div>
         <div class="field field--full">
           <label for="eNote">Anything else we should know</label>

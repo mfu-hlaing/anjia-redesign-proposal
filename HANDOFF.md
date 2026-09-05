@@ -10,7 +10,7 @@ this up next, including future-me.
 
 An independent redesign proposal for **anjia-home.net**, a cross-border property agency
 selling Thai property (Pattaya and Bangkok) to mostly overseas buyers, and managing it for
-owners who live abroad. The proposal now contains the complete public catalogue — 167
+owners who live abroad. The proposal now contains the complete public catalogue — 169
 records — plus all usable galleries, four articles, eleven verified owner stories, eight
 adviser profiles and their real team photography. It is **not** the official
 Anjia site, every page says so, and the whole thing is `noindex` + `robots.txt` disallow.
@@ -30,7 +30,7 @@ Anjia/
 │   │   ├── system.css      design tokens + reset + primitives   ← start here
 │   │   ├── site.css        components (header, hero, cards, footer…)
 │   │   ├── parity.css      later additions (search, currency, cookie, views…)
-│   │   ├── data.js         generated — all 167 listings
+│   │   ├── data.js         generated — all 169 listings
 │   │   ├── site.js         theme, drawer, pickers, reveals, rail
 │   │   ├── search.js       the search + filter engine
 │   │   ├── parity.js       currency, cookie, saved, chat, view toggles
@@ -38,11 +38,11 @@ Anjia/
 │   │   ├── brand/          the real Anjia logo, as PNG
 │   │   ├── fonts/          self-hosted Fraunces + IBM Plex Sans Thai + licences
 │   │   ├── team/           group photograph + all eight adviser portraits
-│   │   └── img/            3,991 generated property/layout derivatives
+│   │   └── img/            4,034 generated property/layout derivatives
 │   ├── HANDOFF.md          this file
 │   └── *.pdf               the audit and the client proposal
 ├── audit/tools/            the measurement + capture rig (see §5)
-├── content/                crawl: 3,586 retained remote assets + privacy-safe data
+├── content/                crawl: 3,600 retained remote assets + privacy-safe data
 └── report/                 the two PDF builders
 ```
 
@@ -113,6 +113,13 @@ marks, no "luxury" as an adjective, no stock-photo language.
 ---
 
 ## 3. Layout — how to never let it burst out of the screen again
+
+The homepage intentionally follows the live Anjia sequence: the original
+`anjia-property.jpg` landing photograph with the search over it, followed by Featured
+Projects, Client Testimonials, News & Market Insights, then Quick Contact. Do not replace
+that source order with a generic agency landing-page story. The proposal's distinction now
+comes from the warm token system, spacing, card craft and spring motion - not from moving
+Anjia's familiar content into a different information architecture.
 
 The original site's headline defect was that it rendered **479 px wide on every phone**, so
 anything under 480 px scrolled sideways (159 px hidden at 320 px). The cause was a chain of
