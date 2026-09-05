@@ -49,7 +49,7 @@
   });
 
   /* ---- language listbox --------------------------------------------- */
-  const langBtn = $('#langBtn'), langMenu = $('#langMenu'), langCur = $('#langCur');
+  const langBtn = $('#langBtn'), langMenu = $('#langMenu');
   langBtn?.addEventListener('click', e => {
     e.stopPropagation();
     const open = langMenu.hasAttribute('data-open');
@@ -57,9 +57,7 @@
     langBtn.setAttribute('aria-expanded', String(!open));
   });
   $$('#langMenu button').forEach(b => b.addEventListener('click', () => {
-    $$('#langMenu button').forEach(x => x.setAttribute('aria-selected', 'false'));
-    b.setAttribute('aria-selected', 'true');
-    langCur.textContent = b.dataset.code;
+    // parity.js owns the actual language state. This layer only closes the listbox.
     langMenu.removeAttribute('data-open');
     langBtn.setAttribute('aria-expanded', 'false');
   }));
@@ -112,6 +110,29 @@
   });
 
   /* ---- scroll reveal ------------------------------------------------- */
+  // Give the editorial modules a restrained, staggered entrance without
+  // baking animation-only classes into every generated page.
+  const revealGroups = [
+    ['.hero__in', '.hero__kick,.hero__h,.hero__sub,.hero__cta,.srch'],
+    ['.ledger', ':scope > div'],
+    ['.routes', '.route'],
+    ['.voices', '.voice'],
+    ['.advisorGrid', '.advisor'],
+    ['.stages', '.stage'],
+    ['.journal', '.entry'],
+    ['.warmFacts', ':scope > div']
+  ];
+  revealGroups.forEach(([groupSelector, itemSelector]) => {
+    $$(groupSelector).forEach(group => {
+      $$(itemSelector, group).forEach((item, i) => {
+        item.classList.add('rv');
+        item.style.setProperty('--rv-delay', `${Math.min(i, 5) * 55}ms`);
+      });
+    });
+  });
+  $$('.secHead,.statement__in,.split__media,.split__copy,.aboutWarm__copy,.aboutWarm__media')
+    .forEach(item => item.classList.add('rv'));
+
   let io;
   const reveal = () => {
     const items = $$('.rv:not([data-in])');
@@ -185,7 +206,7 @@
           <p class="res__spec">${specs.map(x => `<span>${esc(x)}</span>`).join('')}</p>
           <p class="res__foot">
             ${priceLabel(r)}
-            <span class="res__note">${r.kind === 'project' ? (r.completion ? (r.done ? 'Completed ' : 'Completes ') + r.completion : 'New development') : 'Resale'}</span>
+            <span class="res__note">${esc(r.availability || (r.kind === 'project' ? (r.completion ? (r.done ? 'Completed ' : 'Completes ') + r.completion : 'New development') : 'Resale'))}</span>
           </p>
         </div>
       </a>`;
@@ -193,6 +214,7 @@
 
     const render = which => {
       const rows = window.LISTINGS
+        .filter(r => String(r.availability || '').toLowerCase() !== 'sold out')
         .filter(r => brief(r) === which)
         .sort((a, b) => (b.priceMax || b.priceMin || 0) - (a.priceMax || a.priceMin || 0))
         .slice(0, 9);
@@ -212,11 +234,24 @@
     $('#railNext')?.addEventListener('click', () => rail.scrollBy({ left:  step(), behavior: reduced ? 'auto' : 'smooth' }));
   }
 
+  /* ---- owner-story rail --------------------------------------------- */
+  const voiceRail = $('#voiceRail');
+  if (voiceRail) {
+    const step = () => (voiceRail.querySelector('.voice')?.getBoundingClientRect().width || 320) + 16;
+    $('#voicesPrev')?.addEventListener('click', () =>
+      voiceRail.scrollBy({ left: -step(), behavior: reduced ? 'auto' : 'smooth' }));
+    $('#voicesNext')?.addEventListener('click', () =>
+      voiceRail.scrollBy({ left: step(), behavior: reduced ? 'auto' : 'smooth' }));
+  }
+
   /* ---- enquiry form --------------------------------------------------- */
   $('#enquiryForm')?.addEventListener('submit', e => {
     e.preventDefault();
     const note = $('#formNote');
-    const name = $('#eName').value.trim(), contact = $('#eContact').value.trim();
+    const name = $('#eName')?.value.trim() || '';
+    const phone = $('#ePhone')?.value.trim() || '';
+    const email = $('#eEmail')?.value.trim() || '';
+    const contact = phone || email;
     if (!name || !contact) {
       note.textContent = 'Please add your name and a way to reach you.';
       note.style.color = '#e8a99f';

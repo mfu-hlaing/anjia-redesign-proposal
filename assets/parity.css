@@ -18,7 +18,7 @@
   backdrop-filter:blur(14px); border:1px solid var(--amber-200); border-radius:var(--r-sm);
   box-shadow:var(--e-2);
 }
-@media (min-width:1200px){ .svc{display:flex} }
+@media (min-width:1280px){ .svc{display:flex} }
 .svc__b{
   position:relative; width:40px; height:42px; display:grid; place-items:center;
   background:transparent; border:0; cursor:pointer; color:var(--muted);
@@ -136,8 +136,8 @@ body:has(.cookie:not([hidden])){padding-bottom:var(--cookie-h,190px)}
 .dock__n{position:absolute; top:5px; right:calc(50% - 20px); min-width:15px; height:15px;
   padding:0 3px; display:grid; place-items:center; background:var(--accent);
   color:var(--on-dark-ink); font-style:normal; font-size:9px; line-height:1; border-radius:var(--r-full)}
-@media (max-width:1199px){ body{padding-bottom:57px} }
-@media (min-width:1200px){ .dock{display:none} }
+@media (max-width:1279px){ body{padding-bottom:57px} }
+@media (min-width:1280px){ .dock{display:none} }
 
 /* ================================================================ search
    A real search: free text over every field we hold, then facets, then sort.
@@ -244,12 +244,17 @@ body:has(.cookie:not([hidden])){padding-bottom:var(--cookie-h,190px)}
 /* list mode */
 .grid[data-view="list"]{grid-template-columns:1fr; gap:var(--s-3)}
 .grid[data-view="list"] .res{flex-direction:row}
+.grid[data-view="list"] .res__link{flex-direction:row; flex:1}
 .grid[data-view="list"] .res__media{aspect-ratio:auto; width:34%; max-width:300px; min-height:172px; flex:0 0 auto}
 .grid[data-view="list"] .res__body{padding:var(--s-4) var(--s-5)}
 @media (max-width:559px){
   .grid[data-view="list"] .res{flex-direction:column}
+  .grid[data-view="list"] .res__link{flex-direction:column}
   .grid[data-view="list"] .res__media{width:100%; max-width:none; aspect-ratio:3/2}
 }
+
+/* Author-level display rules otherwise outrank the browser's [hidden] rule. */
+.grid[hidden],#mapWrap[hidden],.more[hidden]{display:none!important}
 
 /* ============================================================== map view */
 .map{position:relative; background:var(--surface); border:1px solid var(--rule);
@@ -383,7 +388,7 @@ textarea.input{min-height:auto; padding:13px var(--s-4); line-height:1.6; resize
   background:var(--gulf-900); color:var(--on-dark-fg); box-shadow:var(--e-4);
   font-size:var(--t-sm); line-height:1.6; animation:cxIn .3s var(--ease-out);
 }
-@media (max-width:1199px){ .langNote{bottom:calc(57px + var(--s-4))} }
+@media (max-width:1279px){ .langNote{bottom:calc(57px + var(--s-4))} }
 .langNote b{color:var(--on-dark-accent); font-weight:400}
 .langNote button{
   display:block; margin-top:9px; padding:0; background:none; border:0; cursor:pointer;

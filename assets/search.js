@@ -46,6 +46,17 @@
 
   /* ---- matching -------------------------------------------------------- */
   const M = n => n / 1e6;
+  const isSoldOut = r => String(r.availability || '').toLowerCase() === 'sold out';
+  const matchesIntent = r => state.intent === 'rent'
+    ? !!r.forRent && +r.rentPrice > 0
+    : state.intent === 'manage'
+      ? false
+      : true; // the default collection is the complete source catalogue, including sold-out archive records
+  const monthlyRent = r => (+r.rentPrice || 0) /
+    (String(r.rentUnit || '').toLowerCase() === 'per_year' ? 12 : 1);
+  const priceBounds = r => state.intent === 'rent'
+    ? [monthlyRent(r), monthlyRent(r)]
+    : [+r.priceMin || 0, +(r.priceMax || r.priceMin) || 0];
   function score(entry, terms) {
     if (!terms.length) return 1;
     let s = 0;
@@ -57,6 +68,7 @@
     return s;
   }
   function facets(r) {
+    if (!matchesIntent(r)) return false;
     if (state.kind && r.kind !== state.kind) return false;
     if (state.type && r.type !== state.type) return false;
     if (state.area && r.area !== state.area) return false;
@@ -73,12 +85,16 @@
       if (!counts.some(b => want >= 4 ? b >= 4 : b === want)) return false;
     }
     if (state.status) {
-      if (state.status === 'ready'  && !(r.kind === 'project' ? r.done : true)) return false;
-      if (state.status === 'offplan' && !(r.kind === 'project' && !r.done)) return false;
+      const availability = String(r.availability || '').toLowerCase();
+      if (state.status === 'ready' && !(
+        availability === 'ready to move in' || (!availability && (r.kind !== 'project' || r.done)))) return false;
+      if (state.status === 'offplan' && !(
+        availability === 'off-plan' || (!availability && r.kind === 'project' && !r.done))) return false;
     }
     if (state.price) {
       const [lo, hi] = state.price.split('-').map(Number);
-      const min = M(r.priceMin || 0), max = M(r.priceMax || r.priceMin || 0);
+      const [rawMin, rawMax] = priceBounds(r);
+      const min = M(rawMin), max = M(rawMax);
       if (max < lo || min > hi) return false;
     }
     return true;
@@ -91,11 +107,14 @@
       const sc = score(e, terms);
       if (sc) rows.push({ r: e.r, sc });
     }
-    rows.sort((a, b) =>
-      state.sort === 'asc'  ? (a.r.priceMin || 0) - (b.r.priceMin || 0) :
+    rows.sort((a, b) => {
+      const [aMin, aMax] = priceBounds(a.r), [bMin, bMax] = priceBounds(b.r);
+      return (
+      state.sort === 'asc'  ? aMin - bMin :
       state.sort === 'area' ? (b.r.areaMax || b.r.areaMin || 0) - (a.r.areaMax || a.r.areaMin || 0) :
       state.sort === 'rel'  ? b.sc - a.sc :
-                              (b.r.priceMax || b.r.priceMin || 0) - (a.r.priceMax || a.r.priceMin || 0));
+                              bMax - aMax);
+    });
     return rows.map(x => x.r);
   }
   A.results = results;
@@ -117,32 +136,38 @@
 
   A.card = (r, i = 0) => {
     const sig = r.tenure === 'Freehold' || r.tenure === 'Foreign quota' ? ' res__flag--sig' : '';
-    const note = r.kind === 'project'
-      ? (r.completion ? (r.done ? 'Completed ' : 'Completes ') + r.completion : 'New development')
-      : r.kind === 'land' ? 'Land' : 'Resale';
+    const [lo, hi] = priceBounds(r);
+    const note = state.intent === 'rent'
+      ? (String(r.rentUnit || '').toLowerCase() === 'per_year'
+        ? 'Rental · monthly equivalent' : 'Rental · per month')
+      : r.availability || (r.kind === 'project'
+        ? (r.completion ? (r.done ? 'Completed ' : 'Completes ') + r.completion : 'New development')
+        : r.kind === 'land' ? 'Land' : 'Resale');
     return `
-    <a class="res rv" href="${href(r)}">
-      <div class="res__media">
+    <article class="res rv${isSoldOut(r) ? ' res--sold' : ''}">
+      <a class="res__link" href="${href(r)}">
+        <div class="res__media">
         <img src="${BASE}assets/img/${r.img}-600.jpg"
              srcset="${BASE}assets/img/${r.img}-400.jpg 400w, ${BASE}assets/img/${r.img}-600.jpg 600w, ${BASE}assets/img/${r.img}-900.jpg 900w"
              sizes="(min-width:1000px) 30vw, (min-width:680px) 45vw, 92vw"
              width="900" height="600" loading="${i < 4 ? 'eager' : 'lazy'}" decoding="async"
              alt="${esc(r.name)}, ${esc(String(r.type).toLowerCase())} in ${esc(r.area)}">
         ${r.tenure ? `<span class="res__flag${sig}">${esc(r.tenure)}</span>` : ''}
-        <button class="fav" type="button" data-id="${esc(r.id)}" data-name="${esc(r.name)}" aria-pressed="false">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.2A3.8 3.8 0 0 1 12 8a3.8 3.8 0 0 1 7 2.8C19 15.6 12 20 12 20Z"/></svg>
-        </button>
-      </div>
-      <div class="res__body">
-        <p class="res__loc">${esc(r.area)}</p>
-        <h3 class="res__h">${esc(r.name)}</h3>
-        <p class="res__spec">${specs(r).map(s => `<span>${esc(s)}</span>`).join('')}</p>
-        <p class="res__foot">
-          <span class="res__price num" data-thb="${r.priceMin || 0}" data-thb-max="${r.priceMax || r.priceMin || 0}"></span>
-          <span class="res__note">${note}</span>
-        </p>
-      </div>
-    </a>`;
+        </div>
+        <div class="res__body">
+          <p class="res__loc">${esc(r.area)}</p>
+          <h3 class="res__h">${esc(r.name)}</h3>
+          <p class="res__spec">${specs(r).map(s => `<span>${esc(s)}</span>`).join('')}</p>
+          <p class="res__foot">
+            <span class="res__price num" data-thb="${lo}" data-thb-max="${hi}"></span>
+            <span class="res__note">${esc(note)}</span>
+          </p>
+        </div>
+      </a>
+      <button class="fav" type="button" data-id="${esc(r.id)}" data-name="${esc(r.name)}" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.2A3.8 3.8 0 0 1 12 8a3.8 3.8 0 0 1 7 2.8C19 15.6 12 20 12 20Z"/></svg>
+      </button>
+    </article>`;
   };
 
   /* ---- map ------------------------------------------------------------- */
@@ -202,12 +227,14 @@
     const cardBox = $('#mapCard', box);
     const show = i => {
       const p = pts[i];
+      const [lo, hi] = priceBounds(p);
       $$('.map__pin', box).forEach((g, k) => g.toggleAttribute('data-on', k === i));
       cardBox.innerHTML = `
         <img src="${BASE}assets/img/${p.img}-400.jpg" width="400" height="267" alt="" loading="lazy">
         <div class="map__cb">
           <p>${esc(p.area)}</p><h4>${esc(p.name)}</h4>
-          <p class="res__spec"><span class="num" data-thb="${p.priceMin || 0}" data-thb-max="${p.priceMax || p.priceMin || 0}"></span></p>
+          <p class="res__spec"><span class="num" data-thb="${lo}" data-thb-max="${hi}"></span>${state.intent === 'rent'
+            ? (String(p.rentUnit || '').toLowerCase() === 'per_year' ? ' / month equivalent' : ' / month') : ''}</p>
           <p style="margin-top:8px;display:flex;gap:14px">
             <a class="tlink" href="${href(p)}">Open</a>
             <a class="tlink" href="https://www.google.com/maps?q=${p.lat},${p.lng}" rel="noopener">Map</a>
@@ -228,10 +255,16 @@
   function render() {
     const grid = $('#grid'); if (!grid) return;
     const rows = results();
-    const total = (window.LISTINGS || []).length;
+    const all = window.LISTINGS || [];
+    const total = all.filter(r => state.intent === 'rent' ? !!r.forRent && +r.rentPrice > 0 : true).length;
+    const managing = state.intent === 'manage';
 
     const mapBox = $('#mapWrap');
-    if (state.view === 'map') {
+    if (managing) {
+      grid.hidden = true;
+      if ($('#more')) $('#more').hidden = true;
+      if (mapBox) mapBox.hidden = true;
+    } else if (state.view === 'map' && rows.length) {
       // the map shows every match at once, so there is nothing left to page
       grid.hidden = true;
       if ($('#more')) $('#more').hidden = true;
@@ -244,25 +277,41 @@
       grid.innerHTML = shown.map((r, i) => A.card(r, i)).join('');
       const more = $('#more');
       if (more) {
-        more.hidden = shown.length >= rows.length;
-        $('#moreBtn') && ($('#moreBtn').textContent =
-          `Show ${Math.min(PER, rows.length - shown.length)} more of ${rows.length}`);
+        const remaining = Math.max(0, rows.length - shown.length);
+        more.hidden = remaining === 0;
+        if (remaining && $('#moreBtn')) $('#moreBtn').textContent =
+          `Show ${Math.min(PER, remaining)} more of ${rows.length}`;
       }
     }
 
-    $('#empty') && ($('#empty').hidden = rows.length > 0);
-    const fh = rows.filter(r => r.tenure === 'Freehold' || r.tenure === 'Foreign quota').length;
+    const empty = $('#empty');
+    if (empty) {
+      empty.hidden = !managing && rows.length > 0;
+      if (managing) empty.innerHTML = `Property management starts with a brief, not a sales result set.<br>
+        <a class="tlink" href="${BASE}contact.html?intent=manage">Talk to the management desk →</a>`;
+      else if (state.intent === 'rent') empty.innerHTML = `No currently published rental matches those filters.<br>
+        <a class="tlink" href="${BASE}contact.html?intent=rent">Ask the lettings desk what is current →</a>`;
+      else empty.innerHTML = `Nothing in the collection matches that combination just now.<br>
+        <a class="tlink" href="${BASE}contact.html">Tell us what you are looking for →</a>`;
+    }
+    const fh = rows.filter(r => !isSoldOut(r) && (r.tenure === 'Freehold' || r.tenure === 'Foreign quota')).length;
     const c = $('#count');
-    if (c) c.textContent = rows.length === total
-      ? `${total} residences · ${fh} available to a foreign buyer outright`
-      : `${rows.length} of ${total} residences · ${fh} available to a foreign buyer outright`;
+    if (c) c.textContent = managing ? 'Property management · adviser-led service'
+      : state.intent === 'rent'
+        ? (rows.length === total ? `${total} advertised rental${total === 1 ? '' : 's'}`
+          : `${rows.length} of ${total} advertised rentals`)
+        : (rows.length === total
+          ? `${total} residences · ${fh} currently offered with a foreign-ownership route`
+          : `${rows.length} of ${total} residences · ${fh} currently offered with a foreign-ownership route`);
 
     // active filter chips
     const act = $('#active');
     if (act) {
       const LABEL = { q: 'Search', type: 'Kind', area: 'Area', price: 'Budget', beds: 'Bedrooms',
                       tenure: 'Tenure', status: 'Status', kind: 'Category' };
-      const PRICE = { '0-3': 'Under 3M', '3-8': '3–8M', '8-20': '8–20M', '20-60': '20–60M', '60-9999': '60M+' };
+      const PRICE = state.intent === 'rent'
+        ? { '0-0.02': 'Under 20K / month', '0.02-0.04': '20–40K / month', '0.04-0.08': '40–80K / month', '0.08-9999': '80K+ / month' }
+        : { '0-3': 'Under 3M', '3-8': '3–8M', '8-20': '8–20M', '20-60': '20–60M', '60-9999': '60M+' };
       act.innerHTML = Object.entries(state)
         .filter(([k, v]) => v && LABEL[k] && !(k in LOCKED) && v !== DEFAULTS[k])
         .map(([k, v]) => `<button type="button" data-clear="${k}">
@@ -287,7 +336,8 @@
     const q = input.value.trim().toLowerCase();
     if (q.length < 2) { panel.hidden = true; return; }
     const terms = q.split(/\s+/).filter(Boolean);
-    const hits = INDEX.map(e => ({ r: e.r, sc: score(e, terms) })).filter(x => x.sc)
+    const hits = INDEX.filter(e => matchesIntent(e.r))
+      .map(e => ({ r: e.r, sc: score(e, terms) })).filter(x => x.sc)
       .sort((a, b) => b.sc - a.sc).slice(0, 6);
     const areas = [...new Set((window.LISTINGS || []).map(r => r.area))]
       .filter(a => a.toLowerCase().includes(q)).slice(0, 3);
@@ -316,6 +366,49 @@
     const val = $('.pick__val', pick); if (val) val.textContent = opts[i].textContent.trim();
   }
 
+  const SALE_BUDGETS = [
+    ['', 'Any budget'], ['0-3', 'Under 3M THB'], ['3-8', '3M – 8M THB'],
+    ['8-20', '8M – 20M THB'], ['20-60', '20M – 60M THB'], ['60-9999', '60M THB and above']
+  ];
+  const RENT_BUDGETS = [
+    ['', 'Any monthly budget'], ['0-0.02', 'Under 20K THB / month'],
+    ['0.02-0.04', '20K – 40K THB / month'], ['0.04-0.08', '40K – 80K THB / month'],
+    ['0.08-9999', '80K THB / month and above']
+  ];
+  function configureBudget() {
+    let pick = $('[data-pick][data-filter="price"]');
+    if (!pick) return;
+    const choices = state.intent === 'rent' ? RENT_BUDGETS : SALE_BUDGETS;
+    const menu = $('.pick__menu', pick);
+    if (!menu) return;
+    menu.innerHTML = choices.map(([value, text]) => `<li><button class="pick__opt" role="option"
+      aria-selected="${value === state.price}" data-v="${value}">${text}</button></li>`).join('');
+    const label = $('.micro', pick);
+    if (label) label.textContent = state.intent === 'rent' ? 'Monthly budget' : 'Budget';
+    // Re-initialise so the picker's keyboard-active index follows the new option set.
+    const fresh = pick.cloneNode(true);
+    pick.replaceWith(fresh);
+    window.initPick?.(fresh);
+    setPick(fresh, state.price);
+  }
+
+  function syncIntentUI() {
+    $$('[data-seg] button').forEach(b =>
+      b.setAttribute('aria-selected', String(b.dataset.intent === state.intent)));
+    const note = $('#intentNote');
+    if (!note) return;
+    note.hidden = state.intent === 'buy';
+    if (state.intent === 'rent') {
+      const n = (window.LISTINGS || []).filter(r => r.forRent && +r.rentPrice > 0).length;
+      note.innerHTML = `<b>Rent.</b> Showing the ${n} currently published rental${n === 1 ? '' : 's'},
+        on a monthly basis; annual asking prices are shown as monthly equivalents.
+        The lettings desk can confirm terms and availability.`;
+    } else if (state.intent === 'manage') {
+      note.innerHTML = `<b>Management.</b> This is an adviser-led service, not a sale catalogue.
+        <a href="${BASE}contact.html?intent=manage">Start a management brief</a>.`;
+    }
+  }
+
   function boot() {
     build();
     // section pages lock a facet: <body data-lock="kind:project">
@@ -323,6 +416,7 @@
       const [k, v] = pair.split(':'); LOCKED[k] = v;
     });
     fromURL();
+    configureBudget();
 
     // populate the area picker from the data itself
     const areaMenu = $('[data-filter="area"] .pick__menu');
@@ -338,8 +432,7 @@
 
     // reflect URL state into the controls
     $$('[data-pick][data-filter]').forEach(p => setPick(p, state[p.dataset.filter]));
-    $$('[data-seg] button').forEach(b =>
-      b.setAttribute('aria-selected', String(b.dataset.intent === state.intent)));
+    syncIntentUI();
     $$('.views button').forEach(b =>
       b.setAttribute('aria-selected', String(b.dataset.view === state.view)));
     const qi = $('#q'); if (qi) { qi.value = state.q; qi.closest('.srch__field')?.toggleAttribute('data-has', !!state.q); }
@@ -353,10 +446,9 @@
     });
 
     $$('[data-seg] button').forEach(b => b.addEventListener('click', () => {
-      $$('[data-seg] button').forEach(x => x.setAttribute('aria-selected', String(x === b)));
-      update({ intent: b.dataset.intent });
-      const banner = $('#intentNote');
-      if (banner) banner.hidden = b.dataset.intent === 'buy';
+      update({ intent: b.dataset.intent, price: '' });
+      configureBudget();
+      syncIntentUI();
     }));
 
     $$('.views button').forEach(b => b.addEventListener('click', () => {
@@ -377,6 +469,8 @@
 
     $('#clearBtn')?.addEventListener('click', () => {
       state = { ...DEFAULTS, ...LOCKED };
+      configureBudget();
+      syncIntentUI();
       $$('[data-pick][data-filter]').forEach(p => setPick(p, ''));
       if ($('#q')) { $('#q').value = ''; $('#q').closest('.srch__field')?.removeAttribute('data-has'); }
       toURL(true); render();
@@ -417,6 +511,10 @@
       if ($('#grid')) { update({ q }); }
       else {
         // hero search on a page without a grid — carry the whole state across
+        if (state.intent === 'manage') {
+          location.href = `${BASE}contact.html?intent=manage`;
+          return;
+        }
         const p = new URLSearchParams();
         if (q) p.set('q', q);
         $$('[data-pick][data-filter]', form).forEach(pk => {
@@ -431,7 +529,9 @@
       }
     });
 
-    addEventListener('popstate', () => { state = { ...DEFAULTS }; fromURL(); render(); });
+    addEventListener('popstate', () => {
+      state = { ...DEFAULTS }; fromURL(); configureBudget(); syncIntentUI(); render();
+    });
 
     if ($('#grid')) render();
   }

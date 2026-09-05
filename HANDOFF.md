@@ -10,8 +10,9 @@ this up next, including future-me.
 
 An independent redesign proposal for **anjia-home.net**, a cross-border property agency
 selling Thai property (Pattaya and Bangkok) to mostly overseas buyers, and managing it for
-owners who live abroad. Every property, price, photograph, developer profile and
-testimonial on this site was taken from their own live site. It is **not** the official
+owners who live abroad. The proposal now contains the complete public catalogue — 167
+records — plus all usable galleries, four articles, eleven verified owner stories, eight
+adviser profiles and their real team photography. It is **not** the official
 Anjia site, every page says so, and the whole thing is `noindex` + `robots.txt` disallow.
 
 Live: **https://mfu-hlaing.github.io/anjia-redesign-proposal/**
@@ -29,17 +30,19 @@ Anjia/
 │   │   ├── system.css      design tokens + reset + primitives   ← start here
 │   │   ├── site.css        components (header, hero, cards, footer…)
 │   │   ├── parity.css      later additions (search, currency, cookie, views…)
-│   │   ├── data.js         generated — all 68 listings
+│   │   ├── data.js         generated — all 167 listings
 │   │   ├── site.js         theme, drawer, pickers, reveals, rail
 │   │   ├── search.js       the search + filter engine
 │   │   ├── parity.js       currency, cookie, saved, chat, view toggles
 │   │   ├── detail.js / journal.js / saved.js
 │   │   ├── brand/          the real Anjia logo, as PNG
-│   │   └── img/            703 generated image derivatives
+│   │   ├── fonts/          self-hosted Fraunces + IBM Plex Sans Thai + licences
+│   │   ├── team/           group photograph + all eight adviser portraits
+│   │   └── img/            3,991 generated property/layout derivatives
 │   ├── HANDOFF.md          this file
 │   └── *.pdf               the audit and the client proposal
 ├── audit/tools/            the measurement + capture rig (see §5)
-├── content/                the crawl: api.json, clean.json, raw/ (787 originals)
+├── content/                crawl: 3,586 retained remote assets + privacy-safe data
 └── report/                 the two PDF builders
 ```
 
@@ -150,17 +153,15 @@ to `documentElement.scrollWidth`, *and* kept its links in the tab order. The fix
 **4. Wide content scrolls inside its own box.** Tables, code, image rails and the device
 strip all sit in a container with `overflow-x:auto`. The page body never scrolls sideways.
 
-### Breakpoints — and a debt you should pay
+### Breakpoints
 
-The design system is **three breakpoints**: `680`, `1000`, `1400`.
+Core layout changes happen at `680` and `1000`. The global header deliberately stays in
+drawer mode through compact laptops: full navigation returns at `1280`, and the long Free
+Consultation CTA only returns at `1400`. This is the fix for the reported 1038 px collision.
+Keep those two chrome thresholds together; moving the nav back to 1000 recreates the bug.
 
-`system.css` and `site.css` obey that. **`parity.css` has already drifted to eight**
-(`560, 700, 760, 860, 900, 1000, 1080, 1200`), which makes ten across the site.
-
-This is exactly the rot that produced the original site's eighteen breakpoints — including
-both `720px` and `721px` — where each component was patched in isolation until nothing
-reflowed together. **Consolidating `parity.css` onto the three system breakpoints is the
-top piece of technical debt here.** Do it before adding more components, not after.
+`parity.css` has narrower component-specific thresholds for the dense search controls.
+Consolidate them only with an 11-width browser sweep, not as a mechanical cleanup.
 
 When you genuinely need a component to reflow off-grid, prefer an intrinsic rule that needs
 no breakpoint at all:
@@ -225,6 +226,7 @@ node  audit/tools/crawl.js            # walks every route, captures the API
 python3 audit/tools/normalize.py      # → content/clean.json, PII stripped
 python3 audit/tools/fetch_images.py   # downloads originals
 python3 audit/tools/build_dataset.py  # → assets/data.js + image derivatives
+python3 build/all.py                  # pages, team/layout media, counts + link audit
 ```
 
 ⚠️ **`normalize.py` uses a strict allowlist, not a denylist.** Their public API returns
@@ -270,11 +272,13 @@ never fires for the OOPIF. Don't spend the afternoon again.
 
 ### The sweep to run before every commit
 
-14 pages × 11 widths (320 → 1920), checking horizontal overflow, native selects and small
-tap targets. It currently reports **zero problems** — keep it that way.
+14 route types × 11 widths (320 → 1920), checking horizontal overflow and native selects.
+The focused regression script also checks header collisions, rail width, Buy/Rent/Management,
+map/list state, language scope, the demonstration form and land pagination.
 
 ```bash
 node audit/tools/sweep.js       # needs serve.js running on :8810
+node audit/tools/verify_redesign.js
 ```
 
 Other tools:
@@ -354,14 +358,15 @@ If it refuses, retry rather than assuming it is permanently unavailable.
 
 ## 8. Open items
 
-1. **Consolidate `parity.css` onto the three system breakpoints.** (§3, highest value)
+1. **Connect an approved lead endpoint.** Every form is intentionally a demonstration until
+   Anjia provides the destination, consent language and spam-control requirements.
 2. **Tell the client about the owner-data exposure.** It is page 8 of
    `redesign-proposal.pdf` and is more urgent than anything visual.
-3. The repo is under `mfu-hlaing`; move it if it should live in someone else's account.
-4. `compare.html` still shows the pre-warm screenshots — regenerate the pairs after any
-   visual change (`audit/pairs/`, then `assets/compare/`).
-5. No server rendering yet. Search engines see the HTML but the listing pages are still
-   built client-side from `data.js`.
+3. Commission and review real Thai, Chinese and Japanese translations. Until then the UI
+   truthfully remains English and does not change the document language.
+4. Obtain owner/counsel approval for company details, legal/privacy copy and cookie/analytics
+   consent before moving the proposal to an official domain or removing `noindex`.
+5. The repo is under `mfu-hlaing`; move it if it should live in someone else's account.
 
 ---
 

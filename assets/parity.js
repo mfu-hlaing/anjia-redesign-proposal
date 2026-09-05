@@ -20,22 +20,28 @@
   /* The live site has a currency control that changes nothing. This one   */
   /* rewrites every price on the page, and says where the rate came from.  */
   /* ==================================================================== */
-  const RATES = { THB: [1, '฿'], USD: [0.0274, '$'], CNY: [0.199, '¥'], EUR: [0.0253, '€'], JPY: [4.28, '¥'] };
+  const RATES = { THB: [1, '฿'], USD: [0.0274, '$'], CNY: [0.199, '¥'], JPY: [4.28, '¥'] };
   const RATE_DATE = 'September 2026';
 
   const fmtM = (n, cur) => {
     const [rate] = RATES[cur] || RATES.THB;
     const v = n * rate;
-    if (cur === 'JPY') { const m = v / 1e6; return m >= 100 ? m.toFixed(0) : m >= 10 ? m.toFixed(1) : m.toFixed(2); }
-    const m = v / 1e6;
-    return m >= 100 ? m.toFixed(0) : m >= 10 ? m.toFixed(1) : m >= 1 ? m.toFixed(2) : (v / 1e3).toFixed(0);
+    const scale = v >= 1e6 ? 1e6 : v >= 1e3 ? 1e3 : 1;
+    const compact = v / scale;
+    return compact >= 100 ? compact.toFixed(0)
+      : compact >= 10 ? compact.toFixed(1)
+      : compact >= 1 ? compact.toFixed(2)
+      : compact.toFixed(2);
   };
   const unitOf = (n, cur) => {
-    const m = (n * (RATES[cur] || RATES.THB)[0]) / 1e6;
-    return m >= 1 ? 'M ' + cur : 'K ' + cur;
+    const v = n * (RATES[cur] || RATES.THB)[0];
+    return (v >= 1e6 ? 'M ' : v >= 1e3 ? 'K ' : '') + cur;
   };
 
-  A.currency = () => store.get('cur', 'THB');
+  A.currency = () => {
+    const saved = store.get('cur', 'THB');
+    return RATES[saved] ? saved : 'THB';
+  };
   A.money = n => {
     if (!n) return '';
     const c = A.currency();
@@ -59,10 +65,12 @@
     // any element that carries its own baht value re-renders itself
     $$('[data-thb]').forEach(el => {
       const lo = +el.dataset.thb, hi = +(el.dataset.thbMax || 0);
-      el.innerHTML = !lo ? 'On application'
+      const period = el.dataset.period || '';
+      el.innerHTML = (!lo ? 'On application'
         : (hi && hi !== lo)
           ? `${fmtM(lo, c)}<span class="dash">–</span>${fmtM(hi, c)}<i>${unitOf(hi, c)}</i>`
-          : `${fmtM(lo, c)}<i>${unitOf(lo, c)}</i>`;
+          : `${fmtM(lo, c)}<i>${unitOf(lo, c)}</i>`) +
+          (period ? `<small>${period}</small>` : '');
     });
     $$('[data-sqm]').forEach(el => { el.textContent = A.perSqm(+el.dataset.sqm); });
     $$('[data-ratenote]').forEach(el => {
@@ -99,33 +107,35 @@
   /* English only, and says so rather than letting the control look        */
   /* broken — the switcher is wired, the translations are a content job.   */
   /* ==================================================================== */
-  const LANGS = { EN: ['English', 'en'], TH: ['ไทย', 'th'], ZH: ['中文', 'zh'], JA: ['日本語', 'ja'] };
+  const LANGS = { EN: 'English', TH: 'ไทย', ZH: '中文', JA: '日本語' };
   function setLang(code) {
-    const [native, tag] = LANGS[code] || LANGS.EN;
-    document.documentElement.lang = tag;
-    store.set('lang', code);
+    const requested = LANGS[code] ? code : 'EN';
+    // Every visible word in this proposal is English. Keep the document's language,
+    // persisted state and selected control truthful even when another language is requested.
+    document.documentElement.lang = 'en';
+    store.set('lang', 'EN');
     $$('[data-code]').forEach(b => {
-      const on = b.dataset.code === code;
+      const on = b.dataset.code === 'EN';
       b.setAttribute(b.hasAttribute('aria-pressed') ? 'aria-pressed' : 'aria-selected', String(on));
     });
-    const cur = $('#langCur'); if (cur) cur.textContent = code;
+    const cur = $('#langCur'); if (cur) cur.textContent = 'EN';
     let note = $('#langNote');
-    if (code === 'EN') { note?.remove(); return; }
+    clearTimeout(setLang._t);
+    if (requested === 'EN') { note?.remove(); return; }
     if (!note) {
       note = document.createElement('div');
       note.className = 'langNote'; note.id = 'langNote'; note.setAttribute('role', 'status');
       document.body.appendChild(note);
     }
-    note.innerHTML = `<b>${native}</b> — the production site carries all four languages.
-      This proposal is written in English only, so nothing here is machine-translated.
-      <button type="button" id="langBack">Back to English</button>`;
-    $('#langBack').addEventListener('click', () => setLang('EN'));
-    clearTimeout(setLang._t);
+    note.innerHTML = `<b>${LANGS[requested]} is not available in this proposal yet.</b>
+      All displayed content remains English, and no machine translation has been substituted.
+      <button type="button" id="langBack">Dismiss</button>`;
+    $('#langBack').addEventListener('click', () => note.remove());
     setLang._t = setTimeout(() => note.remove(), 9000);
   }
   $$('#langMenu button, .drawer__lang').forEach(b =>
     b.addEventListener('click', () => setLang(b.dataset.code)));
-  setLang(store.get('lang', 'EN'));
+  setLang('EN');
 
   /* ==================================================================== */
   /* Cookie notice                                                        */

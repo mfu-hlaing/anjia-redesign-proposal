@@ -10,9 +10,6 @@
 <meta property="og:title" content="Land — Anjia Residences">
 <meta property="og:description" content="Land parcels on the Pattaya coast, with the parcel number, the area and the ownership route a foreign buyer would actually take.">
 <meta property="og:type" content="website">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=IBM+Plex+Sans+Thai:wght@200;300;400;500&display=swap">
 <link rel="stylesheet" href="assets/system.css">
 <link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="assets/parity.css">
@@ -29,7 +26,9 @@
 <header class="hdr" id="hdr">
   <div class="wrap hdr__in">
     <a class="mark" href="index.html" aria-label="Anjia, home">
-      <img class="mark__glyph" src="assets/brand/anjia-mark-128.png" srcset="assets/brand/anjia-mark-128.png 128w, assets/brand/anjia-mark-256.png 256w" sizes="52px" width="562" height="450" alt="" aria-hidden="true">
+      <img class="mark__glyph" src="assets/brand/anjia-mark-128.png"
+           srcset="assets/brand/anjia-mark-128.png 128w, assets/brand/anjia-mark-256.png 256w"
+           sizes="52px" width="562" height="450" alt="" aria-hidden="true">
       <span class="mark__word">Anjia<em>Residences</em></span>
     </a>
 
@@ -57,7 +56,6 @@
           <li><button role="option" aria-selected="true" data-cur="THB" data-rate="1.0" data-sym="฿">THB<i>฿</i></button></li>
           <li><button role="option" aria-selected="false" data-cur="USD" data-rate="0.0274" data-sym="$">USD<i>$</i></button></li>
           <li><button role="option" aria-selected="false" data-cur="CNY" data-rate="0.199" data-sym="¥">CNY<i>¥</i></button></li>
-          <li><button role="option" aria-selected="false" data-cur="EUR" data-rate="0.0253" data-sym="€">EUR<i>€</i></button></li>
           <li><button role="option" aria-selected="false" data-cur="JPY" data-rate="4.28" data-sym="¥">JPY<i>¥</i></button></li>
         </ul>
       </div>
@@ -93,7 +91,7 @@
     </button>
   </div>
   <nav class="drawer__nav" aria-label="Mobile">
-    <a href="residences.html"><span>Residences</span><i>68</i></a>
+    <a href="residences.html"><span>Residences</span><i>167</i></a>
     <a href="projects.html"><span>Developments</span></a>
     <a href="ownership.html"><span>Ownership</span></a>
     <a href="about.html"><span>About</span></a>
@@ -120,7 +118,7 @@
       <p class="kicker">Land</p>
       <h1 class="pageHead__h">Land is the one thing you cannot simply buy.</h1>
       <p class="pageHead__b lede">1 parcel currently held. A foreigner may not own land outright in Thailand, so each of these is taken on a registered lease or through a Thai company — we set out which before anything is signed.</p>
-      
+
     </div>
   </section>
 
@@ -216,9 +214,9 @@
       </div>
       <p class="srch__hint" data-ratenote>Prices in Thai baht.</p>
       <p class="srch__hint" id="intentNote" hidden>
-        <b>Note.</b> Anjia's published inventory is for sale. Lettings and management are handled by
-        the desk rather than listed — <a href="contact.html">tell us what you need</a> and an adviser
-        will come back with what is available.</p>
+        <b>Note.</b> Availability differs by service. Advertised rentals are shown when you choose
+        Rent; property management is arranged by the desk — <a href="contact.html">tell us what you
+        need</a> and an adviser will come back with what is current.</p>
     </form>
     </div>
   </section>
@@ -257,28 +255,30 @@
       </div>
       <div class="active" id="active"></div>
       <div class="grid" id="grid">
-        <a class="res rv" href="residence/880112308028708719.html">
-          <div class="res__media">
+        <article class="res rv">
+          <a class="res__link" href="residence/880112308028708719.html">
+            <div class="res__media">
             <img src="assets/img/l028708719-600.jpg"
                  srcset="assets/img/l028708719-400.jpg 400w, assets/img/l028708719-600.jpg 600w, assets/img/l028708719-900.jpg 900w"
                  sizes="(min-width:1000px) 30vw, (min-width:680px) 45vw, 92vw"
                  width="900" height="600" loading="eager" decoding="async"
                  alt="Pratumnak Hill land parcel, land in Pratumnak Hill">
-            <span class="res__flag">Thai quota</span>
-            <button class="fav" type="button" data-id="880112308028708719" data-name="Pratumnak Hill land parcel" aria-pressed="false">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.2A3.8 3.8 0 0 1 12 8a3.8 3.8 0 0 1 7 2.8C19 15.6 12 20 12 20Z"/></svg>
-            </button>
-          </div>
-          <div class="res__body">
-            <p class="res__loc">Pratumnak Hill</p>
-            <h3 class="res__h">Pratumnak Hill land parcel</h3>
-            <p class="res__spec"><span>1782 m²</span><span>Land</span></p>
-            <p class="res__foot">
-              <span class="res__price num" data-thb="70000000" data-thb-max="70000000">70.0<i>M THB</i></span>
-              <span class="res__note">Land</span>
-            </p>
-          </div>
-        </a>
+            <span class="res__flag">Leasehold</span>
+            </div>
+            <div class="res__body">
+              <p class="res__loc">Pratumnak Hill</p>
+              <h3 class="res__h">Pratumnak Hill land parcel</h3>
+              <p class="res__spec"><span>1782 m²</span><span>Land</span></p>
+              <p class="res__foot">
+                <span class="res__price num" data-thb="70000000" data-thb-max="70000000">70.0<i>M THB</i></span>
+                <span class="res__note">Available land</span>
+              </p>
+            </div>
+          </a>
+          <button class="fav" type="button" data-id="880112308028708719" data-name="Pratumnak Hill land parcel" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.2A3.8 3.8 0 0 1 12 8a3.8 3.8 0 0 1 7 2.8C19 15.6 12 20 12 20Z"/></svg>
+          </button>
+        </article>
       </div>
       <div id="mapWrap" hidden><div class="map" id="map"></div></div>
       <p class="empty" id="empty" hidden>
@@ -330,12 +330,12 @@
                 <li><button class="pick__opt" role="option">+1</button></li>
               </ul>
             </div>
-            <input class="input" id="ePhone" name="phone" type="tel" autocomplete="tel">
+            <input class="input" id="ePhone" name="phone" type="tel" autocomplete="tel" required>
           </div>
         </div>
         <div class="field">
           <label for="eEmail">Your email</label>
-          <input class="input" id="eEmail" name="email" type="email" autocomplete="email" required>
+          <input class="input" id="eEmail" name="email" type="email" autocomplete="email">
         </div>
         <div class="field">
           <label for="eBudget">Your budget</label>
@@ -360,6 +360,38 @@
           </div>
         </div>
         <div class="field">
+          <label id="lblPropertyType">Property type</label>
+          <div class="pick" data-pick>
+            <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lblPropertyType">
+              <span class="pick__val">Any property type</span>
+              <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+            </button>
+            <ul class="pick__menu" role="listbox">
+              <li><button class="pick__opt" role="option" aria-selected="true">Any property type</button></li>
+              <li><button class="pick__opt" role="option">Condominium</button></li>
+              <li><button class="pick__opt" role="option">Villa</button></li>
+              <li><button class="pick__opt" role="option">House or townhouse</button></li>
+              <li><button class="pick__opt" role="option">Land</button></li>
+            </ul>
+          </div>
+        </div>
+        <div class="field">
+          <label id="lblTransaction">Transaction</label>
+          <div class="pick" data-pick>
+            <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lblTransaction">
+              <span class="pick__val">Buy, rent or manage</span>
+              <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+            </button>
+            <ul class="pick__menu" role="listbox">
+              <li><button class="pick__opt" role="option" aria-selected="true">Buy, rent or manage</button></li>
+              <li><button class="pick__opt" role="option">Buy</button></li>
+              <li><button class="pick__opt" role="option">Rent</button></li>
+              <li><button class="pick__opt" role="option">Sell</button></li>
+              <li><button class="pick__opt" role="option">Property management</button></li>
+            </ul>
+          </div>
+        </div>
+        <div class="field">
           <label id="lblCountry">Where you are</label>
           <div class="pick" data-pick>
             <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lblCountry">
@@ -379,6 +411,10 @@
             </ul>
           </div>
         </div>
+        <div class="field">
+          <label for="eCity">Preferred city or area</label>
+          <input class="input" id="eCity" name="city" autocomplete="address-level2" placeholder="e.g. Pattaya, Wongamat">
+        </div>
         <div class="field field--full">
           <label for="eNote">Anything else we should know</label>
           <textarea class="input" id="eNote" name="note" rows="3"></textarea>
@@ -397,15 +433,24 @@
     <div class="ftr__top">
       <div class="ftr__brand">
         <span class="mark mark--ftr">
-          <img class="mark__glyph" src="assets/brand/anjia-mark-128.png" srcset="assets/brand/anjia-mark-128.png 128w, assets/brand/anjia-mark-256.png 256w" sizes="52px" width="562" height="450" alt="" aria-hidden="true">
-          <span class="mark__word">Anjia<em>Residences</em></span>
-        </span>
+      <img class="mark__glyph" src="assets/brand/anjia-mark-128.png"
+           srcset="assets/brand/anjia-mark-128.png 128w, assets/brand/anjia-mark-256.png 256w"
+           sizes="52px" width="562" height="450" alt="" aria-hidden="true">
+      <span class="mark__word">Anjia<em>Residences</em></span>
+    </span>
         <p class="ftr__addr">AnJia Property Management Co., Ltd<br>
+          Company registration 0205567072170<br>
           153/7-8 Moo 12, Thepprasit Road<br>
           Nong Prue, Bang Lamung<br>
           Chon Buri 20150, Thailand</p>
         <a class="tlink" href="tel:+66612343888">+66 61 234 3888</a>
         <a class="tlink" href="mailto:anjiaproperty@anjia-home.net" style="margin-top:8px">anjiaproperty@anjia-home.net</a>
+        <div class="ftr__social" aria-label="Follow Anjia">
+          <a href="https://line.me/R/ti/p/%40120wmvbb" rel="noopener nofollow">LINE</a>
+          <a href="https://wa.me/66612343888" rel="noopener nofollow">WhatsApp</a>
+          <a href="https://facebook.com/share/1DGHoZ6xjt/" rel="noopener nofollow">Facebook</a>
+          <a href="https://ig.me/m/anjiaproperty888" rel="noopener nofollow">Instagram</a>
+        </div>
       </div>
       <nav class="ftr__col" aria-label="Residences">
         <h4 class="micro">Residences</h4>
@@ -464,8 +509,10 @@
 <div class="pop" id="followPop" hidden>
   <p class="micro">Anjia Property</p>
   <a href="tel:+66612343888">+66 61 234 3888</a>
-  <a href="https://line.me" rel="noopener nofollow">LINE&nbsp;— add the desk</a>
+  <a href="https://line.me/R/ti/p/%40120wmvbb" rel="noopener nofollow">LINE&nbsp;— add the desk</a>
   <a href="https://wa.me/66612343888" rel="noopener nofollow">WhatsApp</a>
+  <a href="https://facebook.com/share/1DGHoZ6xjt/" rel="noopener nofollow">Facebook</a>
+  <a href="https://ig.me/m/anjiaproperty888" rel="noopener nofollow">Instagram</a>
   <a href="mailto:anjiaproperty@anjia-home.net">anjiaproperty@anjia-home.net</a>
 </div>
 
