@@ -567,9 +567,10 @@ function matches(r) {
     if (state.tenure === 'Leasehold' && r.tenure !== 'Leasehold') return false;
   }
   if (state.beds) {
-    const want = +state.beds, has = r.beds ?? (r.bedsRange ? r.bedsRange[1] : null);
-    if (has == null) return false;
-    if (want >= 4 ? has < 4 : (r.bedsRange ? !(r.bedsRange[0] <= want && want <= r.bedsRange[1]) : has !== want)) return false;
+    const want = +state.beds;
+    const counts = (r.bedsRange || (r.beds ? [r.beds] : [])).filter(Number.isFinite);
+    if (!counts.length) return false;
+    if (!counts.some(b => want >= 4 ? b >= 4 : b === want)) return false;
   }
   if (state.status) {
     const av = String(r.availability || '').toLowerCase();
@@ -652,7 +653,10 @@ function renderPanel() {
   selectedIdx = clamp(selectedIdx, 0, list.length - 1);
   const r = list[selectedIdx], sig = isSig(r);
   const specs = [];
-  if (r.beds) specs.push(`${r.beds} bed`); else if (r.bedsRange) specs.push(`${r.bedsRange[0]}–${r.bedsRange[1]} bed`);
+  // a resale has one bedroom count; a development has a list of unit types
+  const br = (r.bedsRange || []).filter(Number.isFinite);
+  if (r.beds) specs.push(`${r.beds} bed`);
+  else if (br.length) { const lo = Math.min(...br), hi = Math.max(...br); specs.push(lo === hi ? `${lo} bed` : `${lo}–${hi} bed`); }
   if (sizeOf(r)) specs.push(sizeOf(r));
   specs.push(r.type);
   if (floorNote(r)) specs.push(floorNote(r)); else if (r.kind === 'project' && +r.floors > 0 && +r.floors < 90) specs.push(`${r.floors} storeys`);
@@ -968,7 +972,7 @@ function frame() {
   for (const l of labels) {
     const d = camera.position.distanceTo(l.sprite.position);
     const s = clamp(d * 0.028, 12, 84); l.sprite.scale.set(s * 2.9, s, 1);
-    l.sprite.material.opacity = clamp((d - 70) / 120, 0, 1) * (state.area && state.area !== l.area.name ? 0.35 : 1);
+    l.sprite.material.opacity = clamp((d - 130) / 240, 0, 1) * (state.area && state.area !== l.area.name ? 0.35 : 1);
   }
   if (photo.visible) {
     const d = camera.position.distanceTo(photo.position); const s = clamp(d * 0.075, 5, 40);
