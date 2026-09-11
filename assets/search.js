@@ -240,6 +240,7 @@
             ? (String(p.rentUnit || '').toLowerCase() === 'per_year' ? ' / month equivalent' : ' / month') : ''}</p>
           <p style="margin-top:8px;display:flex;gap:14px">
             <a class="tlink" href="${href(p)}">Open</a>
+            <a class="tlink" href="${BASE}explore.html?id=${encodeURIComponent(p.id)}">In 3D</a>
             <a class="tlink" href="https://www.google.com/maps?q=${p.lat},${p.lng}" rel="noopener">Map</a>
           </p>
         </div>`;

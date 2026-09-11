@@ -425,24 +425,66 @@ Rules for touching it:
 - Pixel ratio is capped at 1.75 (1.5 on touch). One instanced mesh for bodies, one for roofs,
   one for shadows; the terrain is 232×216 vertices. It runs on a phone.
 
-### The hall — walk through the photographs
+### The hall — the room tour
 
-`assets/tour.js`, loaded only when someone presses "Walk through" (residence pages, via
-`detail.js`) or "Walk through the photographs" on the coast. It hangs the listing's own
-photographs, at their true aspect, along a dark warm corridor; the layout drawings wait at the
-end, then a door with the enquiry. Wheel, swipe, arrow keys, dots, click-a-frame. `Esc`
-leaves; focus returns to the button that opened it. No WebGL → it falls back to the existing
-lightbox. It sits at `z-index:110`, deliberately **below** the lightbox (120) so "View larger"
-works from inside it.
+`assets/tour.js`, loaded only when someone presses "Room tour" (residence pages, via
+`detail.js`) or "Room tour" on the coast. It hangs the listing's own photographs, at their true
+aspect, along a dark warm corridor; the layout drawings wait at the end, then a door with the
+enquiry. Wheel, swipe, arrow keys, dots, tap-a-frame, a Play button that walks on its own,
+full screen where the browser allows it, and on a phone a "look around by moving your phone"
+toggle (asks iOS for permission on tap). `Esc` leaves; focus returns to the button that opened
+it. No WebGL → it falls back to the lightbox. It sits at `z-index:110`, deliberately **below**
+the lightbox (120) so "View larger" works from inside it.
+
+**The photograph is fitted to the screen, not the screen to the photograph.** `Hall.band()`
+measures the top and bottom bars, works out the band they leave free, and places the camera at
+the distance where the frame (width *and* height, at its true aspect) fits inside that band,
+looking slightly below the frame so it sits in the band rather than the screen centre. Portrait
+phones get a straighter view (the frame turns toward you more) and almost the full width. It
+refits when the texture loads (the aspect changes), on resize, and on rotation. The rig
+(`capture_gallery.js`) reads `hall.__hall.frameRect()` and **asserts the projected frame is
+inside the band** at 320×700, 390×844, 844×390, 768×1024, 1024×768, 1440×700 and 1280×640.
+If you change the bars, the fov, or the frame sizes, run it.
+
+The door station never steps back more than 12.5 units, or the camera ends up behind the last
+frame on a short laptop window; on very short screens the card sits over the glow instead.
+
+### The residence gallery and the lightbox
+
+`gen3.py` renders `.gallery__main` → `.gallery__view` (the photograph, a counter, two arrows)
++ `.gallery__act` (Room tour, View larger). On phones the actions drop below the photograph
+and it becomes 4:3; on desktop they float over it and it is 3:2 from 1000 px. `detail.js` does
+swipe, tap-to-enlarge, arrow keys when the view is focused, crossfade, neighbour preloading,
+and scrolls the strip to the current thumbnail. **A laptop-height bug that reached the live
+site:** the lightbox stage was `display:grid` with an auto row, so the image's
+`max-height:100%` had nothing to resolve against and photographs ran off the bottom of a
+short window. It is now a flex stage with a definite height plus an `svh` fallback; the rig
+asserts the image fits at every size. Escape closes it; a swipe moves.
 
 ### Depth on every page
 
-`assets/depth.js` + the bottom of `immersive.css`: `.res` and `.homeProperty` cards tilt
-toward the pointer with a warm sheen (fine pointers only, no reduced motion); the home
-photograph carries slow sun dust and leans a few pixels toward the pointer (the `<picture>`
-moves, not the `<img>`, because the `<img>` already runs the `originDrift` animation and an
-inline transform would cancel it); saving a residence throws fourteen amber sparks and a
-two-second toast. The toast is fixed at `z-index:97`, above the dock.
+`assets/depth.js` + the bottom of `immersive.css`:
+
+- **Tilt + sheen** on `.res`, `.homeProperty`, `.advisor`, `.entry`, `.voice`, `.contactCard`
+  and the gallery view (fine pointers only; wide blocks lean less). Each gets a `.sheen` child
+  and `position:relative` — check that before adding a selector with absolutely positioned
+  children of its own.
+- **The second photograph**: hovering a collection or featured card fades in `gallery[0]` from
+  `LISTINGS` (looked up by the card's `.fav[data-id]`, or the residence link). Loaded on first
+  hover only.
+- **Ambient light** on every `.pageHead` and the home `.quickContactHead`: a canvas of three
+  slow amber glows and sun dust, answering the pointer a little, darker-theme aware, drawn
+  only while in view and at most 30 fps. The head gets `isolation:isolate` and its `.wrap`
+  sits at `z-index:1` — keep that or the text goes under the canvas.
+- **A warm spotlight** follows the pointer over the dark enquiry band and the footer (`.spot`,
+  `--px/--py`). The footer became `position:relative; isolation:isolate` for it.
+- **The enquiry photograph** moves with the scroll (`translate3d` + `scale(1.12)`).
+- The home photograph carries sun dust and leans toward the pointer (the `<picture>` moves,
+  not the `<img>`, because the `<img>` already runs `originDrift`); saving a residence throws
+  fourteen amber sparks and a two-second toast (`z-index:97`, above the dock).
+
+All of it is skipped under `prefers-reduced-motion`; `.ambient` and `.spot` are `display:none`
+there.
 
 ### Verifying it
 

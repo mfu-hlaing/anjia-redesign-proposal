@@ -265,8 +265,8 @@
 .hall__hint{margin-left:auto; font-size:var(--t-2xs); letter-spacing:.14em; text-transform:uppercase; color:var(--on-dark-muted)}
 .hall__dots{display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; padding-bottom:2px}
 .hall__dots::-webkit-scrollbar{display:none}
-.hall__dots button{flex:0 0 auto; width:24px; height:44px; padding:0; background:transparent; border:0; cursor:pointer; position:relative}
-.hall__dots button::before{content:""; position:absolute; left:2px; right:2px; top:20px; height:3px; background:rgba(251,246,239,.22); transition:background-color .3s var(--ease)}
+.hall__dots button{flex:0 0 auto; width:44px; height:44px; padding:0; background:transparent; border:0; cursor:pointer; position:relative}
+.hall__dots button::before{content:""; position:absolute; left:6px; right:6px; top:20px; height:3px; background:rgba(251,246,239,.22); transition:background-color .3s var(--ease)}
 .hall__dots button[aria-current="true"]::before,.hall__dots button:hover::before{background:var(--amber-500)}
 .hall__dots button[data-plan]::before{background:rgba(255,178,87,.45)}
 .hall__cta{position:absolute; z-index:3; left:50%; top:auto; bottom:max(19%, 176px); transform:translate(-50%,0) scale(.98); width:min(430px, calc(100% - 32px));
@@ -275,7 +275,7 @@
 .hall__cta .micro{color:var(--on-dark-accent)}
 .hall__cta h3{font-size:var(--t-xl); margin-top:6px}
 .hall__cta p{margin-top:var(--s-3); color:var(--on-dark-muted); font-size:var(--t-sm); line-height:1.6}
-.hall__cta .btn{margin-top:var(--s-4)}
+.hall__cta .btn{margin-top:var(--s-4); min-height:44px}
 .hall__cta .btn + .btn{margin-left:8px}
 .hall__cta .btn--onDark{color:var(--on-dark-fg); border-color:rgba(251,246,239,.3)}
 .hall__load{position:absolute; z-index:2; left:50%; top:50%; transform:translate(-50%,-50%); font-size:var(--t-2xs); letter-spacing:.24em;
@@ -345,3 +345,117 @@
 @media (min-width:760px){ .explore .hud__panel,.explore .hud__legend{right:calc(var(--s-4) + 48px)} }
 @media (max-width:759px){ .explore[data-panel] .svc{opacity:0; pointer-events:none} }
 .explore .svc{transition:opacity .3s var(--ease)}
+
+/* ===========================================================================
+   Round two — the gallery as a room-tour doorway, the lightbox that fits any
+   screen, the hall on phones, and depth on every page.
+   ======================================================================== */
+
+/* ------------------------------------------------- the residence gallery */
+.gallery__main{position:relative; margin:0; aspect-ratio:auto; overflow:visible; background:none}
+.gallery__view{position:relative; aspect-ratio:16/9; overflow:hidden; background:var(--surface-2); cursor:zoom-in;
+  touch-action:pan-y; user-select:none; -webkit-user-select:none; outline:0}
+.gallery__view:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+.gallery__view img{width:100%; height:100%; object-fit:cover; transition:opacity .32s var(--ease), transform 1.2s var(--ease-out)}
+.gallery__view[data-swapping] img{opacity:0}
+.gallery__view:hover img{transform:scale(1.025)}
+.gallery__count{position:absolute; left:12px; top:12px; z-index:2; padding:6px 11px; background:rgba(24,17,12,.7); color:var(--on-dark-fg);
+  font-size:var(--t-sm); letter-spacing:.04em; -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); border-radius:var(--r-sm)}
+.gallery__arrow{position:absolute; top:50%; z-index:2; transform:translateY(-50%); width:44px; height:44px; display:grid; place-items:center;
+  background:rgba(24,17,12,.55); border:1px solid rgba(251,246,239,.28); color:var(--on-dark-fg); cursor:pointer; border-radius:50%;
+  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); opacity:0; transition:opacity .3s var(--ease), background-color .25s var(--ease)}
+.gallery__arrow svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round}
+.gallery__arrow--p{left:12px} .gallery__arrow--n{right:12px}
+.gallery__arrow:hover{background:var(--amber-600); border-color:var(--amber-600)}
+.gallery__view:hover .gallery__arrow,.gallery__view:focus-within .gallery__arrow,.gallery__main:focus-within .gallery__arrow{opacity:1}
+@media (hover:none){ .gallery__arrow{opacity:1} }
+.gallery__act{position:absolute; right:12px; bottom:12px; z-index:2; display:flex; gap:8px}
+.gallery__act .btn--outline{background:var(--card)}
+.gallery__act #galTour{position:static; gap:8px}
+.gallery__strip{scroll-snap-type:x proximity; scroll-padding-inline:4px; padding-bottom:4px}
+.gallery__strip button{scroll-snap-align:start}
+@media (hover:none){ .gallery__strip{scrollbar-width:none} .gallery__strip::-webkit-scrollbar{display:none} }
+@media (max-width:559px){
+  .gallery__view{aspect-ratio:4/3}
+  .gallery__act{position:static; display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px}
+  .gallery__act .btn{min-height:48px; padding:0 10px}
+  .gallery__count{left:10px; top:10px}
+}
+@media (min-width:1000px){ .gallery__view{aspect-ratio:3/2} }
+
+/* --------------------------------------------- the lightbox fits any screen
+   The stage was a grid with an auto row, so the image's percentage
+   max-height had nothing to resolve against and the photograph ran off the
+   bottom of a laptop window. A flex stage has a definite height. */
+.lb__stage{display:flex; align-items:center; justify-content:center; min-height:0; padding:0 var(--gut); touch-action:pan-y}
+.lb__stage img{max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; user-select:none; -webkit-user-select:none}
+@supports (height:1svh){ .lb__stage img{max-height:min(100%, calc(100svh - 148px))} }
+.lb__dots{max-height:64px; overflow:hidden}
+
+/* ---------------------------------------------------- the hall, on phones */
+.hall__tools{display:flex; gap:8px; flex:0 0 auto}
+.hall__tools .ibtn{border-color:rgba(251,246,239,.28); color:var(--on-dark-fg)}
+.hall__tools .ibtn:hover{background:rgba(251,246,239,.14)}
+.hall__tools .ibtn[aria-pressed="true"]{background:var(--amber-600); border-color:var(--amber-600); color:#fff}
+.hall__tools .ibtn[hidden]{display:none}
+.hall__nav .btn{gap:8px}
+.hall__nav .btn svg{width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round}
+.hall__nav .btn:disabled{opacity:.35; cursor:default}
+.hall__cap p{flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+@media (max-width:559px){
+  .hall__prev span,.hall__zoom span{display:none}
+  .hall__prev,.hall__zoom{width:44px; min-width:44px; padding:0; flex:0 0 44px}
+  .hall__next{flex:1}
+  .hall__dots button{height:44px}
+  .hall__bot{padding:var(--s-3) var(--s-4) var(--s-4); gap:var(--s-2)}
+  .hall__top{padding:var(--s-3) var(--s-4)}
+  .hall__tools{gap:6px}
+}
+@media (max-height:520px){
+  .hall__dots{display:none}
+  .hall__top{padding-block:var(--s-2)}
+  .hall__bot{padding-block:var(--s-2) var(--s-3); gap:6px}
+  .hall__cap{display:none}
+  .hall__cta{bottom:auto; top:50%; transform:translate(-50%,-50%) scale(.98); padding:var(--s-4)}
+  .hall__cta[data-on]{transform:translate(-50%,-50%)}
+  .hall__cta p:not(.micro){display:none}
+}
+.hall:fullscreen{background:#120d0a}
+
+/* ------------------------------------------------- around it, in the panel */
+.pnl__near{border-top:1px solid rgba(251,246,239,.1); padding-top:10px}
+.pnl__near .micro{color:var(--on-dark-accent)}
+.pnl__near ul{margin-top:6px; display:grid; gap:4px}
+.pnl__near li{display:flex; justify-content:space-between; gap:12px; font-size:var(--t-sm); color:var(--on-dark-muted)}
+.pnl__near li span:first-child{min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.pnl__near li span:last-child{flex:0 0 auto; font-family:Fraunces,Georgia,serif; color:var(--on-dark-fg)}
+
+/* ------------------------------------------- ambient light on page heads */
+.pageHead,.quickContactHead{position:relative; isolation:isolate; overflow:hidden}
+.pageHead > .wrap,.quickContactHead > .wrap{position:relative; z-index:1}
+.ambient{position:absolute; inset:0; z-index:0; pointer-events:none}
+
+/* -------------------------------------------------- more surfaces tilt */
+.advisor,.entry,.voice,.contactCard{position:relative}
+
+/* ------------------------------------------------ the second photograph */
+.res__media .peek,.homeProperty__media .peek{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0;
+  transition:opacity .55s var(--ease); pointer-events:none}
+.res__media[data-peek] .peek,.homeProperty__media[data-peek] .peek{opacity:1}
+
+/* --------------------------------------- a warm spotlight on dark ground */
+.ftr{position:relative; isolation:isolate}
+.spot{position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:0; transition:opacity .5s var(--ease);
+  background:radial-gradient(560px circle at var(--px,50%) var(--py,50%), rgba(254,125,5,.16), rgba(254,125,5,.05) 38%, transparent 64%)}
+[data-lit] > .spot{opacity:1}
+
+/* --------------------------------------------------- fields glow softly */
+.input:focus{box-shadow:0 0 0 3px rgba(254,125,5,.2)}
+
+/* ---------------------------------------- the enquiry photograph moves */
+.enquiry__media img{will-change:transform}
+
+@media (prefers-reduced-motion:reduce){
+  .gallery__view img,.gallery__view:hover img{transition:none; transform:none}
+  .ambient,.spot{display:none}
+}

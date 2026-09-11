@@ -143,15 +143,23 @@
       </header>
 
       <div class="gallery" data-gallery='["../assets/img/r740812201-900.jpg", "../assets/img/r740812201-g0-1000.jpg", "../assets/img/r740812201-g1-1000.jpg", "../assets/img/r740812201-g2-1000.jpg", "../assets/img/r740812201-g3-1000.jpg", "../assets/img/r740812201-g4-1000.jpg", "../assets/img/r740812201-g5-1000.jpg", "../assets/img/r740812201-g6-1000.jpg", "../assets/img/r740812201-g7-1000.jpg", "../assets/img/r740812201-g8-1000.jpg", "../assets/img/r740812201-g9-1000.jpg", "../assets/img/r740812201-g10-1000.jpg"]'>
-        <figure class="gallery__main" style="margin:0">
-          <img id="galMain" src="../assets/img/r740812201-900.jpg"
-               srcset="../assets/img/r740812201-600.jpg 600w, ../assets/img/r740812201-900.jpg 900w"
-               sizes="(min-width:1000px) 62vw, 96vw" width="900" height="600"
-               alt="Zensiri Residences" decoding="async">
-          <button class="btn btn--sm btn--outline" type="button" id="galZoom"
-                  style="position:absolute;right:12px;bottom:12px;background:var(--card)">View larger</button>
-          <button class="btn btn--sm btn--outline" type="button" id="galTour" aria-label="Walk through the photographs in three dimensions">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Zm0 0v9m8-4.5L12 12 4 7.5"/></svg>Walk through</button>
+        <figure class="gallery__main">
+          <div class="gallery__view" tabindex="0" aria-roledescription="carousel" aria-label="Photographs, 1 of 12">
+            <img id="galMain" src="../assets/img/r740812201-900.jpg"
+                 srcset="../assets/img/r740812201-600.jpg 600w, ../assets/img/r740812201-900.jpg 900w"
+                 sizes="(min-width:1000px) 62vw, 96vw" width="900" height="600"
+                 alt="Zensiri Residences" decoding="async">
+            <span class="gallery__count num" id="galCount" aria-hidden="true">1 / 12</span>
+            <button class="gallery__arrow gallery__arrow--p" type="button" id="galPrev" aria-label="Previous photograph">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button class="gallery__arrow gallery__arrow--n" type="button" id="galNext" aria-label="Next photograph">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+          </div>
+          <div class="gallery__act">
+            <button class="btn btn--sm btn--primary" type="button" id="galTour" aria-label="Room tour: walk through the photographs in three dimensions">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Zm0 0v9m8-4.5L12 12 4 7.5"/></svg>Room tour</button>
+            <button class="btn btn--sm btn--outline" type="button" id="galZoom">View larger</button>
+          </div>
         </figure>
         <div class="gallery__strip" role="group" aria-label="Photographs"><button type="button" data-i="0" data-stem="r740812201" aria-current="true" aria-label="Photograph 1"><img src="../assets/img/r740812201-400.jpg" alt="" loading="lazy" decoding="async"></button><button type="button" data-i="1" data-stem="r740812201-g0" aria-current="false" aria-label="Photograph 2"><img src="../assets/img/r740812201-g0-600.jpg" alt="" loading="lazy" decoding="async"></button><button type="button" data-i="2" data-stem="r740812201-g1" aria-current="false" aria-label="Photograph 3"><img src="../assets/img/r740812201-g1-600.jpg" alt="" loading="lazy" decoding="async"></button><button type="button" data-i="3" data-stem="r740812201-g2" aria-current="false" aria-label="Photograph 4"><img src="../assets/img/r740812201-g2-600.jpg" alt="" loading="lazy" decoding="async"></button><button type="button" data-i="4" data-stem="r740812201-g3" aria-current="false" aria-label="Photograph 5"><img src="../assets/img/r740812201-g3-600.jpg" alt="" loading="lazy" decoding="async"></button><button type="button" data-i="5" data-stem="r740812201-g4" aria-current="false" aria-label="Photograph 6"><img src="../assets/img/r740812201-g4-600.jpg" alt="" loading="lazy" decoding="async"></button><button type="button" data-i="6" data-stem="r740812201-g5" aria-current="false" aria-label="Photograph 7"><img src="../assets/img/r740812201-g5-600.jpg" alt="" loading="lazy" decoding="async"></button><button type="button" data-i="7" data-stem="r740812201-g6" aria-current="false" aria-label="Photograph 8"><img src="../assets/img/r740812201-g6-600.jpg" alt="" loading="lazy" decoding="async"></button><button type="button" data-i="8" data-stem="r740812201-g7" aria-current="false" aria-label="Photograph 9"><img src="../assets/img/r740812201-g7-600.jpg" alt="" loading="lazy" decoding="async"></button><button type="button" data-i="9" data-stem="r740812201-g8" aria-current="false" aria-label="Photograph 10"><img src="../assets/img/r740812201-g8-600.jpg" alt="" loading="lazy" decoding="async"></button><button type="button" data-i="10" data-stem="r740812201-g9" aria-current="false" aria-label="Photograph 11"><img src="../assets/img/r740812201-g9-600.jpg" alt="" loading="lazy" decoding="async"></button><button type="button" data-i="11" data-stem="r740812201-g10" aria-current="false" aria-label="Photograph 12"><img src="../assets/img/r740812201-g10-600.jpg" alt="" loading="lazy" decoding="async"></button></div>
       </div>

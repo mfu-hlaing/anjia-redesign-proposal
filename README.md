@@ -62,12 +62,16 @@ page by page, and matched here before anything new was added. The parity matrix 
   day, golden hour or night. Filters, areas, a guided tour, and the same URL state as the
   collection. The shoreline is drawn for orientation and says so; records whose coordinates
   cannot be right are listed rather than placed.
-- **Walk through the photographs.** On every residence page and from the coast: the listing's
-  own photographs hung along a warm hall you walk down, the layout drawings at the end, then the
-  door. No invented geometry — the photographs, at their true aspect.
-- **Depth everywhere.** Cards lean toward the pointer with a warm sheen, the home photograph
-  carries sun dust, and saving a residence celebrates. All of it steps aside under
-  `prefers-reduced-motion`.
+- **A room tour.** On every residence page and from the coast: the listing's own photographs
+  hung along a warm hall you walk down — swipe, scroll, keys, or let it play — the layout
+  drawings at the end, then the door. Fitted to any screen, phone to laptop; on a phone you can
+  look around by moving it. No invented geometry — the photographs, at their true aspect.
+- **A gallery that behaves on a phone.** Arrows, a counter, swipe, keyboard, crossfade, and a
+  lightbox that fits the window at every size.
+- **Depth everywhere.** Cards lean toward the pointer with a warm sheen and show their second
+  photograph, every page head carries ambient light and sun dust, dark ground lights up under
+  the pointer, the enquiry photograph moves with the scroll, and saving a residence celebrates.
+  All of it steps aside under `prefers-reduced-motion`.
 
 ## The headline finding
 

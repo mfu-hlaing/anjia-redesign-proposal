@@ -328,7 +328,17 @@
       if (lb.hidden) return;
       if (e.key === 'ArrowLeft') go(lbI - 1);
       if (e.key === 'ArrowRight') go(lbI + 1);
+      if (e.key === 'Escape') closeLb();
     });
+    // a swipe on the photograph moves to the next one
+    let t0 = null;
+    const stage = $('.lb__stage', lb);
+    stage.addEventListener('pointerdown', e => { if (e.target.closest('button')) return; t0 = { x: e.clientX, y: e.clientY }; });
+    stage.addEventListener('pointerup', e => {
+      if (!t0) return; const dx = e.clientX - t0.x, dy = e.clientY - t0.y; t0 = null;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(lbI + (dx < 0 ? 1 : -1));
+    });
+    stage.addEventListener('pointercancel', () => { t0 = null; });
   }
   function go(i) {
     if (!lbShots.length) return;

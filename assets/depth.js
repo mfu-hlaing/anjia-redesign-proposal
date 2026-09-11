@@ -1,8 +1,10 @@
 /* ===========================================================================
    ANJIA — depth, on every page.
-   Cards lean toward the pointer with a warm sheen; the home photograph answers
-   the pointer and carries a little sun dust; saving a residence celebrates.
-   Fine pointers only for the tilt and the parallax; nothing under
+   Cards lean toward the pointer with a warm sheen and show their second
+   photograph; page heads carry ambient light and sun dust; the home
+   photograph answers the pointer; dark ground lights up under the pointer;
+   the enquiry photograph moves with the scroll; saving a residence
+   celebrates. Fine pointers only for the pointer effects; nothing under
    prefers-reduced-motion. No dependencies.
    ======================================================================== */
 (() => {
@@ -13,10 +15,12 @@
   const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
   const BASE = document.body.dataset.base || '';
   const A = () => window.Anjia || {};
+  const dark = () => document.documentElement.dataset.theme === 'dark'
+    || (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme:dark)').matches);
 
   /* ---- tilt --------------------------------------------------------- */
   if (fine && !reduced) {
-    const SEL = '.res, .homeProperty';
+    const SEL = '.res, .homeProperty, .advisor, .entry, .voice, .contactCard, .gallery__view';
     const arm = el => {
       if (el.dataset.tilt) return;
       el.dataset.tilt = '1';
@@ -35,8 +39,9 @@
       raf = 0; if (!cur) return;
       const r = cur.getBoundingClientRect(); if (!r.width) return;
       const x = (px - r.left) / r.width, y = (py - r.top) / r.height;
-      const rx = (0.5 - y) * 6.5, ry = (x - 0.5) * 8.5;
-      cur.style.transform = `perspective(1100px) translateY(-6px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) scale(1.012)`;
+      const big = r.width > 700;                       // wide blocks lean less
+      const rx = (0.5 - y) * (big ? 2.2 : 6.5), ry = (x - 0.5) * (big ? 3 : 8.5);
+      cur.style.transform = `perspective(1100px) translateY(${big ? -2 : -6}px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) scale(${big ? 1.004 : 1.012})`;
       cur.style.setProperty('--mx', `${(x * 100).toFixed(1)}%`); cur.style.setProperty('--my', `${(y * 100).toFixed(1)}%`);
     };
     document.addEventListener('pointermove', e => {
@@ -53,44 +58,110 @@
     document.addEventListener('pointerleave', () => { if (cur) { leave(cur); cur = null; } });
   }
 
-  /* ---- the home photograph ---------------------------------------- */
-  const hero = $('.originHero');
-  if (hero && !reduced) {
-    const media = $('.originHero__media', hero);
-    let visible = true;
-    if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(hero);
+  /* ---- the second photograph, on hover ------------------------------ */
+  if (fine && !reduced) {
+    const idOf = card => card.querySelector('.fav[data-id]')?.dataset.id
+      || (card.querySelector('a[href*="residence/"]')?.getAttribute('href') || '').match(/residence\/([^./]+)\.html/)?.[1];
+    document.addEventListener('pointerover', e => {
+      const card = e.target.closest ? e.target.closest('.res, .homeProperty') : null;
+      if (!card || card.dataset.peeked) return;
+      card.dataset.peeked = '1';
+      const media = card.querySelector('.res__media, .homeProperty__media'); if (!media) return;
+      const r = (window.LISTINGS || []).find(x => x.id === idOf(card));
+      const second = r && (r.gallery || [])[0]; if (!second) return;
+      const img = document.createElement('img');
+      img.className = 'peek'; img.alt = ''; img.decoding = 'async';
+      img.src = `${BASE}assets/img/${second}-600.jpg`;
+      img.addEventListener('load', () => { if (card.matches(':hover')) media.setAttribute('data-peek', ''); });
+      media.appendChild(img);
+      card.addEventListener('pointerenter', () => { if (img.complete && img.naturalWidth) media.setAttribute('data-peek', ''); });
+      card.addEventListener('pointerleave', () => media.removeAttribute('data-peek'));
+    }, { passive: true });
+  }
 
-    // sun dust
-    const c = document.createElement('canvas'); c.className = 'heroDust'; c.setAttribute('aria-hidden', 'true');
-    hero.appendChild(c);
-    const g = c.getContext('2d');
-    const motes = Array.from({ length: 46 }, () => ({ x: Math.random(), y: Math.random(), r: 1 + Math.random() * 2.4,
-      v: 0.02 + Math.random() * 0.05, w: Math.random() * Math.PI * 2, a: 0.18 + Math.random() * 0.4 }));
-    let W = 0, H = 0, last = 0;
-    const size = () => { const r = hero.getBoundingClientRect(); W = c.width = Math.round(r.width); H = c.height = Math.round(r.height); };
+  /* ---- ambient light: page heads, the home photograph -------------- */
+  const motesOn = (host, opts) => {
+    if (reduced) return;
+    const c = document.createElement('canvas'); c.className = opts.cls; c.setAttribute('aria-hidden', 'true');
+    host.appendChild(c);
+    const g = c.getContext('2d'); if (!g) return;
+    let visible = true;
+    if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(host);
+    const motes = Array.from({ length: opts.motes }, () => ({ x: Math.random(), y: Math.random(), r: 1 + Math.random() * 2.2,
+      v: 0.02 + Math.random() * 0.05, w: Math.random() * Math.PI * 2, a: 0.16 + Math.random() * 0.36 }));
+    const glows = opts.glows ? [
+      { x: 0.18, y: 0.35, r: 0.55, s: 0.07, p: 0 }, { x: 0.78, y: 0.7, r: 0.5, s: 0.05, p: 2.1 }, { x: 0.55, y: -0.1, r: 0.45, s: 0.06, p: 4 },
+    ] : [];
+    let W = 0, H = 0, last = 0, tx = 0, ty = 0, cx = 0, cy = 0;
+    const size = () => { const r = host.getBoundingClientRect(); W = c.width = Math.max(1, Math.round(r.width)); H = c.height = Math.max(1, Math.round(r.height)); };
     size(); addEventListener('resize', size);
-    // the photograph leans toward the pointer
-    let tx = 0, ty = 0, cx = 0, cy = 0;
     if (fine) {
-      hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect();
-        tx = ((e.clientX - r.left) / r.width - .5) * -16; ty = ((e.clientY - r.top) / r.height - .5) * -10; });
-      hero.addEventListener('pointerleave', () => { tx = 0; ty = 0; });
+      host.addEventListener('pointermove', e => { const r = host.getBoundingClientRect();
+        tx = ((e.clientX - r.left) / r.width - .5); ty = ((e.clientY - r.top) / r.height - .5); }, { passive: true });
+      host.addEventListener('pointerleave', () => { tx = 0; ty = 0; });
     }
     const tick = now => {
       requestAnimationFrame(tick);
-      if (!visible || document.hidden) return;
-      const dt = Math.min((now - last) / 1000, 0.05); last = now;
-      if (fine && media) { cx += (tx - cx) * 0.05; cy += (ty - cy) * 0.05;
-        media.style.transform = `translate3d(${cx.toFixed(2)}px, ${cy.toFixed(2)}px, 0) scale(1.05)`; }
+      if (!visible || document.hidden || now - last < 33) return;
+      const dt = Math.min((now - last) / 1000, 0.06); last = now;
+      cx += (tx - cx) * 0.05; cy += (ty - cy) * 0.05;
+      if (opts.onFrame) opts.onFrame(cx, cy);
       g.clearRect(0, 0, W, H);
+      const T = now / 1000;
+      const isDark = dark();
+      for (const gl of glows) {
+        const x = (gl.x + Math.sin(T * gl.s + gl.p) * 0.06 + cx * 0.06) * W, y = (gl.y + Math.cos(T * gl.s * 1.3 + gl.p) * 0.08 + cy * 0.08) * H;
+        const rad = gl.r * Math.max(W, H);
+        const grd = g.createRadialGradient(x, y, 0, x, y, rad);
+        grd.addColorStop(0, isDark ? 'rgba(254,125,5,.20)' : 'rgba(254,165,82,.22)');
+        grd.addColorStop(0.5, isDark ? 'rgba(254,125,5,.06)' : 'rgba(254,165,82,.07)');
+        grd.addColorStop(1, 'rgba(254,125,5,0)');
+        g.fillStyle = grd; g.fillRect(0, 0, W, H);
+      }
       for (const m of motes) {
         m.y -= m.v * dt * 0.35; m.w += dt * 0.9; if (m.y < -0.02) { m.y = 1.02; m.x = Math.random(); }
         const x = (m.x + Math.sin(m.w) * 0.012) * W, y = m.y * H;
-        const a = m.a * (0.6 + 0.4 * Math.sin(m.w * 1.3));
-        g.beginPath(); g.fillStyle = `rgba(255,214,166,${a.toFixed(3)})`; g.arc(x, y, m.r, 0, Math.PI * 2); g.fill();
+        const a = m.a * (0.6 + 0.4 * Math.sin(m.w * 1.3)) * (opts.moteAlpha || 1);
+        g.beginPath(); g.fillStyle = isDark ? `rgba(255,178,87,${a.toFixed(3)})` : `rgba(254,125,5,${(a * 0.6).toFixed(3)})`; g.arc(x, y, m.r, 0, Math.PI * 2); g.fill();
       }
     };
     requestAnimationFrame(tick);
+  };
+
+  const hero = $('.originHero');
+  if (hero) {
+    const media = $('.originHero__media', hero);
+    motesOn(hero, { cls: 'heroDust', motes: 46, glows: false, onFrame: (cx, cy) => {
+      if (fine && media) media.style.transform = `translate3d(${(cx * -16).toFixed(2)}px, ${(cy * -10).toFixed(2)}px, 0) scale(1.05)`;
+    } });
+    // the hero's own motes are warm white on a photograph
+    const c = $('.heroDust', hero); if (c) c.style.mixBlendMode = 'screen';
+  }
+  $$('.pageHead, .quickContactHead').forEach(head => motesOn(head, { cls: 'ambient', motes: 22, glows: true, moteAlpha: 0.9 }));
+
+  /* ---- a warm spotlight on dark ground ------------------------------ */
+  if (fine && !reduced) {
+    $$('.enquiry, .ftr').forEach(sec => {
+      const spot = document.createElement('i'); spot.className = 'spot'; spot.setAttribute('aria-hidden', 'true');
+      sec.prepend(spot);
+      sec.addEventListener('pointermove', e => { const r = sec.getBoundingClientRect();
+        sec.style.setProperty('--px', `${(e.clientX - r.left).toFixed(0)}px`); sec.style.setProperty('--py', `${(e.clientY - r.top).toFixed(0)}px`); }, { passive: true });
+      sec.addEventListener('pointerenter', () => sec.setAttribute('data-lit', ''));
+      sec.addEventListener('pointerleave', () => sec.removeAttribute('data-lit'));
+    });
+  }
+
+  /* ---- the enquiry photograph moves with the scroll ------------------ */
+  if (!reduced) {
+    const plx = $$('.enquiry__media img');
+    if (plx.length) {
+      let raf = 0;
+      const paint = () => { raf = 0; const vh = innerHeight;
+        for (const img of plx) { const r = img.parentElement.getBoundingClientRect(); if (r.bottom < 0 || r.top > vh) continue;
+          const p = (r.top + r.height / 2 - vh / 2) / vh; img.style.transform = `translate3d(0, ${(p * -34).toFixed(1)}px, 0) scale(1.12)`; } };
+      addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(paint); }, { passive: true });
+      paint();
+    }
   }
 
   /* ---- a saved residence celebrates ------------------------------- */

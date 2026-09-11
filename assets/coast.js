@@ -647,6 +647,12 @@ const panel = $('#coastPanel');
 const money = (lo, hi, period) => `<span class="num" data-thb="${lo || 0}" data-thb-max="${hi || 0}"${period ? ` data-period="${period}"` : ''}></span>`;
 const floorNote = r => { const m = /^(\d+)\s*\/\s*(\d+)/.exec(String(r.floors || '')); return m ? `Floor ${m[1]} of ${m[2]}` : ''; };
 const sizeOf = r => !r.areaMin ? '' : (!r.areaMax || r.areaMax === r.areaMin) ? `${Math.round(r.areaMin)} m²` : `${Math.round(r.areaMin)}–${Math.round(r.areaMax)} m²`;
+const nearby = r => {
+  const km = d => /^[\d.]+$/.test(String(d)) ? `${d} km` : String(d || '');
+  const list = (r.near || []).map(n => ({ name: n.n ?? n.name ?? '', d: km(n.d ?? n.distance ?? '') })).filter(n => n.name).slice(0, 4);
+  if (!list.length) return '';
+  return `<div class="pnl__near"><p class="micro">Around it, as the record says</p><ul>${list.map(n => `<li><span>${esc(n.name)}</span><span>${esc(n.d)}</span></li>`).join('')}</ul></div>`;
+};
 function renderPanel() {
   if (!selected) { panel.removeAttribute('data-open'); document.body.removeAttribute('data-panel'); return; }
   const list = selected.on && selected.on.length ? selected.on : selected.listings;
@@ -683,8 +689,9 @@ function renderPanel() {
         <button class="btn btn--sm btn--onDark fav" type="button" data-id="${esc(r.id)}" data-name="${esc(r.name)}" aria-pressed="false">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.2A3.8 3.8 0 0 1 12 8a3.8 3.8 0 0 1 7 2.8C19 15.6 12 20 12 20Z"/></svg>
           <span>Save</span></button>
-        ${(r.gallery || []).length ? `<button class="btn btn--sm btn--onDark btn--wide" type="button" id="pnlWalk">Walk through the photographs</button>` : ''}
+        ${(r.gallery || []).length ? `<button class="btn btn--sm btn--onDark btn--wide" type="button" id="pnlWalk"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.5"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Zm0 0v9m8-4.5L12 12 4 7.5"/></svg>Room tour</button>` : ''}
       </div>
+      ${nearby(r)}
       ${list.length > 1 ? `<div class="pnl__more"><span>${selectedIdx + 1} of ${list.length} in this building</span>
         <span><button type="button" id="pnlPrev" aria-label="Previous residence here">‹</button> <button type="button" id="pnlNext" aria-label="Next residence here">›</button></span></div>` : ''}
     </div>`;
