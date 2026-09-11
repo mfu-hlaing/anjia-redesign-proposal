@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="assets/system.css">
 <link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="assets/parity.css">
+<link rel="stylesheet" href="assets/immersive.css">
 </head>
 <body data-base="">
 
@@ -34,6 +35,7 @@
 
     <nav class="nav" aria-label="Primary">
       <a href="residences.html">Thailand</a>
+      <a href="explore.html">Explore</a>
       <a href="about.html">About</a>
       <a href="process.html">Process</a>
       <a href="journal.html">News</a>
@@ -90,6 +92,7 @@
   </div>
   <nav class="drawer__nav" aria-label="Mobile">
     <a href="residences.html"><span>Thailand</span><i>169</i></a>
+    <a href="explore.html"><span>Explore</span></a>
     <a href="about.html"><span>About</span></a>
     <a href="process.html"><span>Process</span></a>
     <a href="journal.html"><span>News</span></a>
@@ -126,7 +129,10 @@
     <div class="wrap">
       <div class="results__bar">
         <p class="filters__count" id="savedCount" role="status" aria-live="polite"></p>
-        <button class="btn btn--sm btn--outline" type="button" id="clearSaved">Clear all</button>
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+          <a class="to3d" href="explore.html?saved=1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Zm0 0v9m8-4.5L12 12 4 7.5"/></svg>Your collection on the coast</a>
+          <button class="btn btn--sm btn--outline" type="button" id="clearSaved">Clear all</button>
+        </div>
       </div>
       <div class="grid" id="savedGrid"></div>
       <p class="empty" id="savedEmpty" hidden>
@@ -300,6 +306,7 @@
       <nav class="ftr__col" aria-label="Residences">
         <h4 class="micro">Residences</h4>
         <a href="residences.html">Every residence</a>
+        <a href="explore.html">The coast in 3D</a>
         <a href="residences.html?type=Condominium">Condominiums</a>
         <a href="houses.html">Resale residences</a>
         <a href="projects.html">New developments</a>
@@ -412,6 +419,7 @@
 <script src="assets/data.js"></script>
 <script src="assets/site.js"></script>
 <script src="assets/parity.js"></script>
+<script src="assets/depth.js"></script>
 <script src="assets/search.js"></script>
 <script src="assets/saved.js"></script>
 </body>

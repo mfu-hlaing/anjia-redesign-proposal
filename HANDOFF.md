@@ -25,15 +25,20 @@ Repo: `mfu-hlaing/anjia-redesign-proposal`, GitHub Pages from `main`, root.
 ```
 Anjia/
 ├── redesign2/              ← THE SITE. This is what deploys.
-│   ├── *.html              14 pages
+│   ├── *.html              15 pages (explore.html is the coast in 3D)
 │   ├── assets/
 │   │   ├── system.css      design tokens + reset + primitives   ← start here
 │   │   ├── site.css        components (header, hero, cards, footer…)
 │   │   ├── parity.css      later additions (search, currency, cookie, views…)
+│   │   ├── immersive.css   the 3D layer: stage HUD, the hall, tilt, sparks (§8)
 │   │   ├── data.js         generated — all 169 listings
 │   │   ├── site.js         theme, drawer, pickers, reveals, rail
 │   │   ├── search.js       the search + filter engine
 │   │   ├── parity.js       currency, cookie, saved, chat, view toggles
+│   │   ├── depth.js        card tilt + sheen, hero sun dust, save celebration
+│   │   ├── coast.js        ES module — the 3D coast (explore.html only)
+│   │   ├── tour.js         ES module — walk through the photographs (lazy)
+│   │   ├── vendor/         three.js r186 + OrbitControls, self-hosted, MIT
 │   │   ├── detail.js / journal.js / saved.js
 │   │   ├── brand/          the real Anjia logo, as PNG
 │   │   ├── fonts/          self-hosted Fraunces + IBM Plex Sans Thai + licences
@@ -279,13 +284,14 @@ never fires for the OOPIF. Don't spend the afternoon again.
 
 ### The sweep to run before every commit
 
-14 route types × 11 widths (320 → 1920), checking horizontal overflow and native selects.
+15 route types × 11 widths (320 → 1920), checking horizontal overflow and native selects.
 The focused regression script also checks header collisions, rail width, Buy/Rent/Management,
 map/list state, language scope, the demonstration form and land pagination.
 
 ```bash
 node audit/tools/sweep.js       # needs serve.js running on :8810
 node audit/tools/verify_redesign.js
+node audit/tools/verify_3d.js   # the coast + the hall, in software WebGL (§8)
 ```
 
 Other tools:
@@ -363,7 +369,92 @@ If it refuses, retry rather than assuming it is permanently unavailable.
 
 ---
 
-## 8. Open items
+## 8. The 3D layer — the coast, the hall, and depth everywhere
+
+Added September 2026. Three pieces, all built on the same honesty rule as the 2D
+map: **nothing is drawn that was not measured.**
+
+### explore.html — the coast in three dimensions
+
+`assets/coast.js` (ES module; `three.js` r186 self-hosted in `assets/vendor/`, MIT, licence
+beside the files — keep it there). Every residence with coordinates stands where they put
+it, as a symbolic box whose height follows its floor count (`floors`, or the "of" half of a
+resale's `12/59`), exaggerated ×2.2 so a tower still reads across the bay. One building per
+point: resale units in the same tower share a cluster, and the panel pages through them.
+
+What is real, what is not — and where that is said:
+
+| Element | Source | Where it says so |
+|---|---|---|
+| Position | the listing's own `lat`/`lng` | legend, and the notes section under the stage |
+| Height | `floors` × 3.1 m × 2.2 | legend |
+| Amber roof | tenure Freehold / Foreign quota | legend |
+| Lit floor band | the resale record's own floor | notes section |
+| Shoreline, islands, hills | **hand-drawn** in `COAST` / `ISLANDS` / `HILLS`, fitted to where the beachfront residences stand | legend: "drawn for orientation and is approximate" |
+| Time of day | Pattaya's clock (`Asia/Bangkok`) unless a preset is chosen | the line under the count |
+
+Three data problems are handled in the open rather than hidden:
+
+- **Two records are geocoded in Bangkok** (`Cascade by Patta`, `Level Pratumnak`). They are
+  "not placed" and listed under the stage with a reason.
+- **Eight records carry Anjia's office coordinates** (Thepprasit Road) instead of the
+  residence. They render as one low, muted block, the panel says so, the tour skips them.
+  Detection: within 120 m of `OFFICE` in `coast.js`. If the client fixes the data, the
+  block simply disappears.
+- **Three beachfront records sit a few dozen metres out to sea** against the drawn shore. They
+  are set back onto the beach (`snapped`) and the panel says so. If you redraw `COAST`, re-run
+  the fit: every listing must be on land and the named beachfront ones within ~150 m of it.
+
+Filters mirror `search.js` exactly (same URL keys and encodings — budgets are in millions,
+`0-0.02` is "under 20K a month"), so the collection's "On the coast in 3D" link carries the
+current search across. `?id=` focuses a residence (every residence page links to itself
+here), `?area=` flies to an area, `?saved=1` shows the device's saved ones, `?time=` picks a
+preset.
+
+Rules for touching it:
+
+- **The HUD is a permanently dark surface** → `--on-dark-*` tokens only (§2).
+- **No native `<select>`, 44 px targets** — same as everywhere. The rig checks both.
+- **Reduced motion** kills the intro flight, the sea animation and the pulses; flights become
+  cuts. Keep every animation behind `reduced`.
+- **Flights run on the clock, not on frames.** Software WebGL renders at a few fps; if a
+  camera move is written as `t += dt/dur` with a capped `dt`, it takes seven seconds in the
+  rig and looks broken. Use `performance.now()`.
+- Anything drawn on the ground that is not from the data is a **lie in a proposal about
+  verified title**. No roads, no plots, no view lines, however tempting.
+- Pixel ratio is capped at 1.75 (1.5 on touch). One instanced mesh for bodies, one for roofs,
+  one for shadows; the terrain is 232×216 vertices. It runs on a phone.
+
+### The hall — walk through the photographs
+
+`assets/tour.js`, loaded only when someone presses "Walk through" (residence pages, via
+`detail.js`) or "Walk through the photographs" on the coast. It hangs the listing's own
+photographs, at their true aspect, along a dark warm corridor; the layout drawings wait at the
+end, then a door with the enquiry. Wheel, swipe, arrow keys, dots, click-a-frame. `Esc`
+leaves; focus returns to the button that opened it. No WebGL → it falls back to the existing
+lightbox. It sits at `z-index:110`, deliberately **below** the lightbox (120) so "View larger"
+works from inside it.
+
+### Depth on every page
+
+`assets/depth.js` + the bottom of `immersive.css`: `.res` and `.homeProperty` cards tilt
+toward the pointer with a warm sheen (fine pointers only, no reduced motion); the home
+photograph carries slow sun dust and leans a few pixels toward the pointer (the `<picture>`
+moves, not the `<img>`, because the `<img>` already runs the `originDrift` animation and an
+inline transform would cancel it); saving a residence throws fourteen amber sparks and a
+two-second toast. The toast is fixed at `z-index:97`, above the dock.
+
+### Verifying it
+
+`node audit/tools/verify_3d.js` (server on :8810) launches Chrome with
+`--use-angle=swiftshader --enable-unsafe-swiftshader`, opens the coast at 1440 and — through the
+iframe harness — at a true 390, opens the hall from both entry points, runs the tour, reads the
+console, and writes screenshots to `audit/shots3d/`. **A shader compile error only shows in the
+console** — the page still "works", with a black sea. Read the console section of the output.
+Known gotcha: a three.js `#include <…>` must sit on its own line; a `}` after it on the same
+line breaks the preprocessor.
+
+## 9. Open items
 
 1. **Connect an approved lead endpoint.** Every form is intentionally a demonstration until
    Anjia provides the destination, consent language and spam-control requirements.
@@ -377,6 +468,6 @@ If it refuses, retry rather than assuming it is permanently unavailable.
 
 ---
 
-*Last updated 5 September 2026. If you change the palette, the type, or the breakpoint set,
-update this file in the same commit — it is the only thing standing between the next person
-and a slow drift back to eighteen breakpoints.*
+*Last updated 11 September 2026. If you change the palette, the type, the breakpoint set, or
+what the coast claims to show, update this file in the same commit — it is the only thing
+standing between the next person and a slow drift back to eighteen breakpoints.*

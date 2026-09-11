@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The coast in three dimensions — Anjia Residences</title>
+<meta name="description" content="Every one of the 169 residences in the collection, standing where its own coordinates put it on a three-dimensional Pattaya coast. Filter by tenure, kind, budget and bedrooms; fly to an area; walk through the photographs.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0f172a">
+<meta property="og:title" content="The coast in three dimensions — Anjia Residences">
+<meta property="og:description" content="Every one of the 169 residences in the collection, standing where its own coordinates put it on a three-dimensional Pattaya coast. Filter by tenure, kind, budget and bedrooms; fly to an area; walk through the photographs.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/parity.css">
+<link rel="stylesheet" href="assets/immersive.css">
+<link rel="modulepreload" href="assets/vendor/three.module.min.js">
+<link rel="modulepreload" href="assets/vendor/three.core.min.js">
+</head>
+<body data-base="" class="explore">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="notice" role="note">
+  <span><b>Redesign concept</b> — an independent proposal for anjia-home.net. Not the official Anjia Property website.</span>
+  <a href="compare.html">Compare with the live site</a>
+</div>
+
+<header class="hdr" id="hdr">
+  <div class="wrap hdr__in">
+    <a class="mark" href="index.html" aria-label="Anjia, home">
+      <img class="mark__glyph" src="assets/brand/anjia-mark-128.png"
+           srcset="assets/brand/anjia-mark-128.png 128w, assets/brand/anjia-mark-256.png 256w"
+           sizes="52px" width="562" height="450" alt="" aria-hidden="true">
+      <span class="mark__word">Anjia<em>Residences</em></span>
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      <a href="residences.html">Thailand</a>
+      <a href="explore.html" aria-current="page">Explore</a>
+      <a href="about.html">About</a>
+      <a href="process.html">Process</a>
+      <a href="journal.html">News</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="hdr__act">
+      <button class="ibtn" id="themeBtn" aria-label="Switch colour theme" title="Switch colour theme">
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="ic-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>
+      </button>
+
+      <div class="lang lang--cur">
+        <button class="lang__btn" id="curBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="Change currency">
+          <span id="curCur">THB</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+        </button>
+        <ul class="menu" id="curMenu" role="listbox" aria-label="Currency">
+          <li><button role="option" aria-selected="true" data-cur="THB" data-rate="1.0" data-sym="฿">THB<i>฿</i></button></li>
+          <li><button role="option" aria-selected="false" data-cur="USD" data-rate="0.0274" data-sym="$">USD<i>$</i></button></li>
+          <li><button role="option" aria-selected="false" data-cur="CNY" data-rate="0.199" data-sym="¥">CNY<i>¥</i></button></li>
+          <li><button role="option" aria-selected="false" data-cur="JPY" data-rate="4.28" data-sym="¥">JPY<i>¥</i></button></li>
+        </ul>
+      </div>
+
+      <div class="lang">
+        <button class="lang__btn" id="langBtn" aria-expanded="false" aria-haspopup="listbox" aria-label="Change language">
+          <span id="langCur">EN</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+        </button>
+        <ul class="menu" id="langMenu" role="listbox" aria-label="Language">
+          <li><button role="option" aria-selected="true" data-code="EN">English<i>English</i></button></li>
+          <li><button role="option" aria-selected="false" data-code="TH">ไทย<i>Thai</i></button></li>
+          <li><button role="option" aria-selected="false" data-code="ZH">中文<i>Chinese</i></button></li>
+          <li><button role="option" aria-selected="false" data-code="JA">日本語<i>Japanese</i></button></li>
+        </ul>
+      </div>
+
+      <a class="btn btn--sm btn--primary hdr__cta" href="contact.html">Free consultation</a>
+
+      <button class="ibtn burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Menu" aria-hidden="true">
+  <div class="drawer__top">
+    <span class="micro">Menu</span>
+    <button class="ibtn" id="drawerClose" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <nav class="drawer__nav" aria-label="Mobile">
+    <a href="residences.html"><span>Thailand</span><i>169</i></a>
+    <a href="explore.html"><span>Explore</span></a>
+    <a href="about.html"><span>About</span></a>
+    <a href="process.html"><span>Process</span></a>
+    <a href="journal.html"><span>News</span></a>
+    <a href="contact.html"><span>Contact</span></a>
+    <a href="projects.html"><span>New projects</span></a>
+    <a href="houses.html"><span>Resale properties</span></a>
+    <a href="lands.html"><span>Land</span></a>
+    <a href="ownership.html"><span>Ownership guide</span></a>
+    <a href="saved.html"><span>Saved residences</span><i data-savecount>0</i></a>
+  </nav>
+  <div class="drawer__foot">
+    <a class="btn btn--primary btn--block" href="contact.html">Free consultation</a>
+    <a class="btn btn--outline btn--block" href="tel:+66612343888">+66 61 234 3888</a>
+    <p class="drawer__langs">
+      <button class="drawer__lang" data-code="EN" aria-pressed="true">English</button>
+      <button class="drawer__lang" data-code="TH">ไทย</button>
+      <button class="drawer__lang" data-code="ZH">中文</button>
+      <button class="drawer__lang" data-code="JA">日本語</button>
+    </p>
+  </div>
+</aside>
+
+<main id="main">
+  <section class="coast" id="coast" aria-label="The coast in three dimensions">
+    <div class="coast__stage" id="stage">
+      <canvas id="coastCanvas" role="img" aria-label="A three-dimensional plan of the Pattaya coast. Every residence in the collection stands where its own coordinates put it, as a building whose height follows its floor count."></canvas>
+      <div class="coast__veil" id="veil" aria-hidden="true">
+        <div><img src="assets/brand/anjia-mark-256.png" width="562" height="450" alt="">
+          <p>Laying out the coast<b>169 residences, where they stand</b><i></i></p></div>
+      </div>
+      <div class="coast__fallback" id="fallback" hidden>
+        <div><p class="micro">Three dimensions need WebGL</p>
+          <h2>This browser cannot draw the coast.</h2>
+          <p>Every residence is still here in two dimensions, plotted from exactly the same coordinates.</p>
+          <a class="btn btn--primary" href="residences.html?view=map">Open the plan</a></div>
+      </div>
+      <div class="hud">
+        <div class="hud__top">
+          <div class="hud__title glass">
+            <p class="micro">Pattaya · Jomtien · Naklua</p>
+            <h1>The coast, in three dimensions</h1>
+            <p class="hud__count" id="coastCount" role="status" aria-live="polite"><b>169</b> residences</p>
+            <p class="hud__count" id="timeNote"></p>
+          </div>
+          <div class="hud__tools">
+            <div class="seg glass" role="group" aria-label="Time of day" id="timeSeg">
+              <button type="button" data-time="now" aria-pressed="true">Now</button>
+              <button type="button" data-time="dawn" aria-pressed="false">Dawn</button>
+              <button type="button" data-time="day" aria-pressed="false">Day</button>
+              <button type="button" data-time="golden" aria-pressed="false">Golden</button>
+              <button type="button" data-time="night" aria-pressed="false">Night</button>
+            </div>
+            <button class="hudBtn glass" type="button" id="tourBtn" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5v14l11-7L7 5Z"/></svg>Take the tour</button>
+          </div>
+        </div>
+        <div class="hud__side">
+          <button class="hudBtn glass" type="button" id="filtersBtn" aria-expanded="false" aria-controls="coastFilters"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10m4 0h2M4 17h4m4 0h8M14 5v4M8 15v4"/></svg>Filters</button>
+          <button class="hudBtn glass" type="button" id="listBtn" aria-expanded="false" aria-controls="coastList"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>List</button>
+          <button class="hudBtn glass hudBtn--icon" type="button" id="resetBtn" aria-label="Reset the view" title="Reset the view"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v5h5"/></svg></button>
+          <div class="compass glass" id="compass" aria-hidden="true"><i>N</i></div>
+        </div>
+        <aside class="hud__filters glass" id="coastFilters" aria-label="Filters">
+          <div class="fgroup"><p class="micro">You want to</p>
+            <div class="seg seg--big" role="group" aria-label="Buy or rent">
+              <button type="button" data-f="intent" data-v="buy" aria-pressed="true">Buy</button>
+              <button type="button" data-f="intent" data-v="rent" aria-pressed="false">Rent</button>
+            </div></div>
+          <div class="fgroup"><label class="fsearch" for="coastQ"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m15.5 15.5 4 4"/></svg>
+            <input id="coastQ" type="search" placeholder="Name, developer, facility, what is nearby" autocomplete="off" aria-label="Search the coast"></label></div>
+          <div class="fgroup"><p class="micro">Tenure</p><div class="chips3"><button class="chip3" type="button" data-f="tenure" data-v="" aria-pressed="true">Any</button><button class="chip3" type="button" data-f="tenure" data-v="Freehold" aria-pressed="false">Freehold</button><button class="chip3" type="button" data-f="tenure" data-v="Foreign quota" aria-pressed="false">Foreign quota</button><button class="chip3" type="button" data-f="tenure" data-v="Thai quota" aria-pressed="false">Thai quota</button><button class="chip3" type="button" data-f="tenure" data-v="Leasehold" aria-pressed="false">Leasehold</button></div></div>
+          <div class="fgroup"><p class="micro">Kind</p><div class="chips3"><button class="chip3" type="button" data-f="type" data-v="" aria-pressed="true">All</button><button class="chip3" type="button" data-f="type" data-v="Condominium" aria-pressed="false">Condominium</button><button class="chip3" type="button" data-f="type" data-v="Villa" aria-pressed="false">Villa</button><button class="chip3" type="button" data-f="type" data-v="House" aria-pressed="false">House</button><button class="chip3" type="button" data-f="type" data-v="Townhouse" aria-pressed="false">Townhouse</button><button class="chip3" type="button" data-f="type" data-v="Land" aria-pressed="false">Land</button></div></div>
+          <div class="fgroup" id="budgetSale"><p class="micro">Budget</p><div class="chips3"><button class="chip3" type="button" data-f="price" data-v="" aria-pressed="true">Any</button><button class="chip3" type="button" data-f="price" data-v="0-3" aria-pressed="false">Under 3M</button><button class="chip3" type="button" data-f="price" data-v="3-8" aria-pressed="false">3–8M</button><button class="chip3" type="button" data-f="price" data-v="8-20" aria-pressed="false">8–20M</button><button class="chip3" type="button" data-f="price" data-v="20-60" aria-pressed="false">20–60M</button><button class="chip3" type="button" data-f="price" data-v="60-9999" aria-pressed="false">60M+</button></div></div>
+          <div class="fgroup" id="budgetRent" hidden><p class="micro">Monthly budget</p><div class="chips3"><button class="chip3" type="button" data-f="price" data-v="" aria-pressed="true">Any</button><button class="chip3" type="button" data-f="price" data-v="0-0.02" aria-pressed="false">Under 20K</button><button class="chip3" type="button" data-f="price" data-v="0.02-0.04" aria-pressed="false">20–40K</button><button class="chip3" type="button" data-f="price" data-v="0.04-0.08" aria-pressed="false">40–80K</button><button class="chip3" type="button" data-f="price" data-v="0.08-9999" aria-pressed="false">80K+</button></div></div>
+          <div class="fgroup"><p class="micro">Bedrooms</p><div class="chips3"><button class="chip3" type="button" data-f="beds" data-v="" aria-pressed="true">Any</button><button class="chip3" type="button" data-f="beds" data-v="1" aria-pressed="false">1</button><button class="chip3" type="button" data-f="beds" data-v="2" aria-pressed="false">2</button><button class="chip3" type="button" data-f="beds" data-v="3" aria-pressed="false">3</button><button class="chip3" type="button" data-f="beds" data-v="4" aria-pressed="false">4+</button></div></div>
+          <div class="fgroup"><p class="micro">Stage</p><div class="chips3"><button class="chip3" type="button" data-f="status" data-v="" aria-pressed="true">Any</button><button class="chip3" type="button" data-f="status" data-v="ready" aria-pressed="false">Ready to move in</button><button class="chip3" type="button" data-f="status" data-v="offplan" aria-pressed="false">Off-plan</button></div></div>
+          <div class="fgroup fgroup--time"><p class="micro">The light</p><div class="chips3">
+            <button class="chip3" type="button" data-time="now" aria-pressed="true">Now</button>
+            <button class="chip3" type="button" data-time="dawn" aria-pressed="false">Dawn</button>
+            <button class="chip3" type="button" data-time="day" aria-pressed="false">Day</button>
+            <button class="chip3" type="button" data-time="golden" aria-pressed="false">Golden</button>
+            <button class="chip3" type="button" data-time="night" aria-pressed="false">Night</button></div></div>
+          <div class="fgroup"><div class="chips3">
+            <button class="chip3" type="button" data-f="saved" aria-pressed="false">Saved only</button>
+            <button class="chip3" type="button" data-f="clear">Clear all</button></div></div>
+        </aside>
+        <aside class="hud__list glass" id="coastList" aria-label="Every residence on the coast">
+          <p class="micro" id="coastListCount">169 residences</p>
+          <ul id="coastListItems"></ul>
+        </aside>
+        <aside class="hud__panel glass" id="coastPanel" aria-label="The selected residence"></aside>
+        <div class="hud__hover glass" id="hoverTag" hidden></div>
+        <p class="hud__hint glass" id="hint">Drag to look around · scroll to move closer · click a building</p>
+        <div class="tourbar glass" id="tourBar" hidden>
+          <span id="tourStop"></span><i><b id="tourProg"></b></i>
+          <button type="button" id="tourPause">Pause</button>
+          <button type="button" id="tourStopBtn">End</button>
+        </div>
+        <p class="hud__legend glass"><i class="sig"></i><b>Freehold or foreign quota</b> · <i class="thai"></i>Thai quota · <i class="lease"></i>leasehold.
+          Positions from each residence's own coordinates; heights from its floor count; the shoreline is drawn for orientation and is approximate.</p>
+        <div class="hud__areas" id="areaChips" role="group" aria-label="Fly to an area"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec coastNotes">
+    <div class="wrap coastNotes__grid">
+      <div>
+        <p class="kicker">What you are looking at</p>
+        <h3>Real positions. Symbolic buildings. An approximate shore.</h3>
+        <p>Each of the 169 residences in the collection stands where its own recorded coordinates put it, so
+           relative positions and distances between them are true. Its height follows the floor count in
+           the record, exaggerated so a tower still reads from across the bay; the footprint and the
+           shape are symbolic. An amber roof means the residence is currently offered with a
+           foreign-ownership route — freehold, or a unit inside the building's foreign quota.</p>
+        <p>The shoreline was drawn by hand and fitted to where the beachfront residences actually stand.
+           It is there for orientation. There is no street, no plot boundary and no view line, because
+           none of those were measured. Where a resale record names its floor, that floor is lit.</p>
+        <p>The light is the light in Pattaya now, unless you choose another hour. Nothing in the
+           collection changes with the hour — only the sky.</p>
+      </div>
+      <div>
+        <p class="kicker">Said plainly</p>
+        <h3>Where the record and the map disagree</h3>
+        <p>A few records carry coordinates that cannot be where the residence is. They are listed here
+           rather than quietly placed somewhere plausible, and the desk confirms the location on request.</p>
+        <ul id="coastUnplaced"><li><span>Reading the coordinates…</span></li></ul>
+        <a class="tlink" href="residences.html?view=map">The same coordinates in two dimensions →</a>
+      </div>
+    </div>
+  </section>
+
+<section class="enquiry" id="enquiry">
+    <div class="enquiry__media" aria-hidden="true">
+      <img src="assets/img/enquiry-1200.jpg" width="1200" height="675" loading="lazy" decoding="async" alt="">
+    </div>
+    <div class="wrap enquiry__in">
+      <div class="enquiry__text rv">
+        <p class="kicker kicker--plain" style="color:var(--on-dark-accent)">No obligation</p>
+        <h2 class="enquiry__h">Seen one from the air?</h2>
+        <p class="enquiry__b">Say which residence and what you are trying to do. An adviser replies within one working day with the current quota position and the true all-in cost.</p>
+        <ul class="enquiry__pts">
+          <li>Counsel in English, Thai, Chinese and Japanese</li>
+          <li>Title and foreign-quota checked before you travel</li>
+          <li>Purchase completed in your absence, if you prefer</li>
+        </ul>
+      </div>
+      <form class="enquiry__form rv rv--d1" id="enquiryForm" novalidate>
+        <div class="field">
+          <label for="eName">Your name</label>
+          <input class="input" id="eName" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="ePhone">Your phone</label>
+          <div class="phone">
+            <div class="pick pick--code" data-pick data-filter="dial">
+              <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-label="Country calling code">
+                <span class="pick__val">+66</span>
+                <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+              </button>
+              <ul class="pick__menu" role="listbox">
+                <li><button class="pick__opt" role="option" aria-selected="true">+66</button></li>
+                <li><button class="pick__opt" role="option">+86</button></li>
+                <li><button class="pick__opt" role="option">+852</button></li>
+                <li><button class="pick__opt" role="option">+886</button></li>
+                <li><button class="pick__opt" role="option">+81</button></li>
+                <li><button class="pick__opt" role="option">+65</button></li>
+                <li><button class="pick__opt" role="option">+44</button></li>
+                <li><button class="pick__opt" role="option">+1</button></li>
+              </ul>
+            </div>
+            <input class="input" id="ePhone" name="phone" type="tel" autocomplete="tel" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="eEmail">Your email</label>
+          <input class="input" id="eEmail" name="email" type="email" autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="eBudget">Your budget</label>
+          <input class="input" id="eBudget" name="budget" type="text" inputmode="numeric" placeholder="e.g. 6,000,000 THB">
+        </div>
+        <div class="field">
+          <label id="lblPurpose">What is this for?</label>
+          <div class="pick" data-pick>
+            <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lblPurpose">
+              <span class="pick__val">Select a purpose</span>
+              <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+            </button>
+            <ul class="pick__menu" role="listbox">
+              <li><button class="pick__opt" role="option" aria-selected="true">Select a purpose</button></li>
+              <li><button class="pick__opt" role="option">Rental income</button></li>
+              <li><button class="pick__opt" role="option">Somewhere to live</button></li>
+              <li><button class="pick__opt" role="option">Retirement or holidays</button></li>
+              <li><button class="pick__opt" role="option">Children's education</button></li>
+              <li><button class="pick__opt" role="option">Business use</button></li>
+              <li><button class="pick__opt" role="option">Stewardship of a property I own</button></li>
+            </ul>
+          </div>
+        </div>
+        <div class="field">
+          <label id="lblPropertyType">Property type</label>
+          <div class="pick" data-pick>
+            <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lblPropertyType">
+              <span class="pick__val">Any property type</span>
+              <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+            </button>
+            <ul class="pick__menu" role="listbox">
+              <li><button class="pick__opt" role="option" aria-selected="true">Any property type</button></li>
+              <li><button class="pick__opt" role="option">Condominium</button></li>
+              <li><button class="pick__opt" role="option">Villa</button></li>
+              <li><button class="pick__opt" role="option">House or townhouse</button></li>
+              <li><button class="pick__opt" role="option">Land</button></li>
+            </ul>
+          </div>
+        </div>
+        <div class="field">
+          <label id="lblTransaction">Transaction</label>
+          <div class="pick" data-pick>
+            <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lblTransaction">
+              <span class="pick__val">Buy, rent or manage</span>
+              <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+            </button>
+            <ul class="pick__menu" role="listbox">
+              <li><button class="pick__opt" role="option" aria-selected="true">Buy, rent or manage</button></li>
+              <li><button class="pick__opt" role="option">Buy</button></li>
+              <li><button class="pick__opt" role="option">Rent</button></li>
+              <li><button class="pick__opt" role="option">Sell</button></li>
+              <li><button class="pick__opt" role="option">Property management</button></li>
+            </ul>
+          </div>
+        </div>
+        <div class="field">
+          <label id="lblCountry">Where you are</label>
+          <div class="pick" data-pick>
+            <button class="pick__btn" type="button" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="lblCountry">
+              <span class="pick__val">Country or region</span>
+              <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 5.5 6-5.5"/></svg>
+            </button>
+            <ul class="pick__menu" role="listbox">
+              <li><button class="pick__opt" role="option" aria-selected="true">Country or region</button></li>
+              <li><button class="pick__opt" role="option">Thailand</button></li>
+              <li><button class="pick__opt" role="option">China</button></li>
+              <li><button class="pick__opt" role="option">Hong Kong</button></li>
+              <li><button class="pick__opt" role="option">Taiwan</button></li>
+              <li><button class="pick__opt" role="option">Japan</button></li>
+              <li><button class="pick__opt" role="option">Singapore</button></li>
+              <li><button class="pick__opt" role="option">United Kingdom</button></li>
+              <li><button class="pick__opt" role="option">Elsewhere</button></li>
+            </ul>
+          </div>
+        </div>
+        <div class="field">
+          <label for="eCity">Preferred city or area</label>
+          <input class="input" id="eCity" name="city" autocomplete="address-level2" placeholder="e.g. Pattaya, Wongamat">
+        </div>
+        <div class="field field--full">
+          <label for="eNote">Anything else we should know</label>
+          <textarea class="input" id="eNote" name="note" rows="3"></textarea>
+        </div>
+        <div class="field--full">
+          <button class="btn btn--solidLight btn--block" type="submit">Request a consultation</button>
+          <p class="formNote" id="formNote">Demonstration form — this concept sends nothing anywhere.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr__top">
+      <div class="ftr__brand">
+        <span class="mark mark--ftr">
+      <img class="mark__glyph" src="assets/brand/anjia-mark-128.png"
+           srcset="assets/brand/anjia-mark-128.png 128w, assets/brand/anjia-mark-256.png 256w"
+           sizes="52px" width="562" height="450" alt="" aria-hidden="true">
+      <span class="mark__word">Anjia<em>Residences</em></span>
+    </span>
+        <p class="ftr__addr">AnJia Property Management Co., Ltd<br>
+          Company registration 0205567072170<br>
+          153/7-8 Moo 12, Thepprasit Road<br>
+          Nong Prue, Bang Lamung<br>
+          Chon Buri 20150, Thailand</p>
+        <a class="tlink" href="tel:+66612343888">+66 61 234 3888</a>
+        <a class="tlink" href="mailto:anjiaproperty@anjia-home.net" style="margin-top:8px">anjiaproperty@anjia-home.net</a>
+        <div class="ftr__social" aria-label="Follow Anjia">
+          <a href="https://line.me/R/ti/p/%40120wmvbb" rel="noopener nofollow">LINE</a>
+          <a href="https://wa.me/66612343888" rel="noopener nofollow">WhatsApp</a>
+          <a href="https://facebook.com/share/1DGHoZ6xjt/" rel="noopener nofollow">Facebook</a>
+          <a href="https://ig.me/m/anjiaproperty888" rel="noopener nofollow">Instagram</a>
+        </div>
+      </div>
+      <nav class="ftr__col" aria-label="Residences">
+        <h4 class="micro">Residences</h4>
+        <a href="residences.html">Every residence</a>
+        <a href="explore.html">The coast in 3D</a>
+        <a href="residences.html?type=Condominium">Condominiums</a>
+        <a href="houses.html">Resale residences</a>
+        <a href="projects.html">New developments</a>
+        <a href="lands.html">Land</a>
+      </nav>
+      <nav class="ftr__col" aria-label="Counsel">
+        <h4 class="micro">Counsel</h4>
+        <a href="ownership.html">Owning as a foreigner</a>
+        <a href="process.html">The process</a>
+        <a href="about.html">About Anjia</a>
+        <a href="journal.html">Journal</a>
+      </nav>
+      <nav class="ftr__col" aria-label="Practice">
+        <h4 class="micro">Practice</h4>
+        <a href="contact.html">Free consultation</a>
+        <a href="saved.html">Saved residences</a>
+        <a href="compare.html">Old vs new</a>
+        <a href="privacy.html">Privacy policy</a>
+        <a href="terms.html">Terms of service</a>
+      </nav>
+    </div>
+    <div class="ftr__bot">
+      <span>Redesign concept. Not affiliated with, endorsed by, or operated by Anjia Property Management Co., Ltd.</span>
+      <span>Content and photography from the live site, used to illustrate the proposal.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="svc" id="svc" aria-label="Customer service">
+  <button class="svc__b" id="conciergeBtn" aria-expanded="false" aria-controls="concierge">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 16 0M4 12v3.5a2 2 0 0 0 2 2h1v-6H6a2 2 0 0 0-2 2Zm16 0v3.5a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2Zm-3 5.5v.6a2.4 2.4 0 0 1-2.4 2.4H12"/></svg>
+    <span>Concierge</span>
+  </button>
+  <a class="svc__b" href="contact.html">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5h16v11H4zM4 7l8 6 8-6"/></svg>
+    <span>Contact</span>
+  </a>
+  <a class="svc__b" href="saved.html">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.2A3.8 3.8 0 0 1 12 8a3.8 3.8 0 0 1 7 2.8C19 15.6 12 20 12 20Z"/></svg>
+    <span>Saved</span><i class="svc__n" data-savecount hidden>0</i>
+  </a>
+  <button class="svc__b" id="followBtn" aria-expanded="false" aria-controls="followPop">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7.5 10.5 12 15l4.5-4.5M5 19h14"/></svg>
+    <span>Follow</span>
+  </button>
+  <button class="svc__b svc__b--top" id="toTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V5M6.5 10.5 12 5l5.5 5.5"/></svg>
+    <span>Top</span>
+  </button>
+</div>
+
+<div class="pop" id="followPop" hidden>
+  <p class="micro">Anjia Property</p>
+  <a href="tel:+66612343888">+66 61 234 3888</a>
+  <a href="https://line.me/R/ti/p/%40120wmvbb" rel="noopener nofollow">LINE&nbsp;— add the desk</a>
+  <a href="https://wa.me/66612343888" rel="noopener nofollow">WhatsApp</a>
+  <a href="https://facebook.com/share/1DGHoZ6xjt/" rel="noopener nofollow">Facebook</a>
+  <a href="https://ig.me/m/anjiaproperty888" rel="noopener nofollow">Instagram</a>
+  <a href="mailto:anjiaproperty@anjia-home.net">anjiaproperty@anjia-home.net</a>
+</div>
+
+<aside class="cx" id="concierge" aria-label="Concierge" hidden>
+  <div class="cx__top">
+    <div>
+      <p class="cx__t">Concierge</p>
+      <p class="cx__s">Answers drawn from Anjia's own guidance</p>
+    </div>
+    <button class="ibtn" id="cxClose" aria-label="Close concierge">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="cx__log" id="cxLog" role="log" aria-live="polite"></div>
+  <div class="cx__ask" id="cxAsk"></div>
+  <div class="cx__foot">
+    <a class="btn btn--sm btn--primary btn--block" href="contact.html">Speak to an adviser</a>
+  </div>
+</aside>
+
+<div class="cookie" id="cookie" role="region" aria-label="Cookie notice" hidden>
+  <div class="cookie__in">
+    <p><b>Cookie notice.</b> This site keeps only what it needs to remember your
+      theme, currency and saved residences. Nothing is shared with anyone.
+      <a href="privacy.html">Privacy policy</a></p>
+    <div class="cookie__act">
+      <button class="btn btn--sm btn--outline" data-cookie="essential">Essential only</button>
+      <button class="btn btn--sm btn--primary" data-cookie="all">Accept all</button>
+    </div>
+  </div>
+</div>
+
+<div class="dock" id="dock">
+  <a class="dock__b" href="tel:+66612343888" aria-label="Call the desk">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4h3l1.5 4-2 1.4a11 11 0 0 0 5.6 5.6L16 13l4 1.5v3a2 2 0 0 1-2.2 2A15.5 15.5 0 0 1 4.5 6.2 2 2 0 0 1 6.5 4Z"/></svg>
+    <span>Call</span>
+  </a>
+  <a class="dock__b" href="residences.html" aria-label="Search residences">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m15.5 15.5 4 4"/></svg>
+    <span>Search</span>
+  </a>
+  <a class="dock__b" href="saved.html" aria-label="Saved residences">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.2A3.8 3.8 0 0 1 12 8a3.8 3.8 0 0 1 7 2.8C19 15.6 12 20 12 20Z"/></svg>
+    <span>Saved</span><i class="dock__n" data-savecount hidden>0</i>
+  </a>
+  <a class="dock__b dock__b--cta" href="contact.html">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5h16v11H4zM4 7l8 6 8-6"/></svg>
+    <span>Enquire</span>
+  </a>
+</div>
+
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/parity.js"></script>
+<script src="assets/depth.js"></script>
+<script type="module" src="assets/coast.js"></script>
+</body>
+</html>

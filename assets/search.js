@@ -42,6 +42,9 @@
     });
     const url = location.pathname + (p.toString() ? '?' + p : '');
     history[push ? 'pushState' : 'replaceState'](null, '', url);
+    // the same filters, carried onto the coast
+    const to3d = $('#to3d');
+    if (to3d) to3d.href = `${BASE}explore.html` + (p.toString() ? '?' + p : '');
   }
 
   /* ---- matching -------------------------------------------------------- */

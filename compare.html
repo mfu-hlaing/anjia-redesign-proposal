@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="assets/system.css">
 <link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="assets/parity.css">
+<link rel="stylesheet" href="assets/immersive.css">
 <style>
 /* ---- comparison-only components ------------------------------------- */
 .devbar{position:sticky; top:var(--hdr); z-index:30; padding-block:var(--s-4);
@@ -79,6 +80,7 @@
 
     <nav class="nav" aria-label="Primary">
       <a href="residences.html">Thailand</a>
+      <a href="explore.html">Explore</a>
       <a href="about.html">About</a>
       <a href="process.html">Process</a>
       <a href="journal.html">News</a>
@@ -135,6 +137,7 @@
   </div>
   <nav class="drawer__nav" aria-label="Mobile">
     <a href="residences.html"><span>Thailand</span><i>169</i></a>
+    <a href="explore.html"><span>Explore</span></a>
     <a href="about.html"><span>About</span></a>
     <a href="process.html"><span>Process</span></a>
     <a href="journal.html"><span>News</span></a>
@@ -233,6 +236,7 @@
             <tr><td>Breakpoints</td><td class="was">18</td><td class="now">3</td><td>The page reflows as one design</td></tr>
             <tr><td>Code before the first picture</td><td class="was">1.08 MB</td><td class="now">no framework</td><td>The page paints immediately</td></tr>
             <tr><td>Listings visible to search</td><td class="was">0</td><td class="now">all 169</td><td>Organic enquiries become possible</td></tr>
+            <tr><td>Seeing the place before you fly</td><td class="was">photographs</td><td class="now">a 3D coast + walk-throughs</td><td>A buyer abroad can picture where the residence stands</td></tr>
           </tbody>
         </table>
       </div>
@@ -271,6 +275,7 @@
       <nav class="ftr__col" aria-label="Residences">
         <h4 class="micro">Residences</h4>
         <a href="residences.html">Every residence</a>
+        <a href="explore.html">The coast in 3D</a>
         <a href="residences.html?type=Condominium">Condominiums</a>
         <a href="houses.html">Resale residences</a>
         <a href="projects.html">New developments</a>
@@ -383,6 +388,7 @@
 <script src="assets/data.js"></script>
 <script src="assets/site.js"></script>
 <script src="assets/parity.js"></script>
+<script src="assets/depth.js"></script>
 <script>
 (() => {
   const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];

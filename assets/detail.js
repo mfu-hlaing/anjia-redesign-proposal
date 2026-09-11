@@ -20,6 +20,17 @@
   };
   $$('.gallery__strip button').forEach((b, k) => b.addEventListener('click', () => select(k)));
   $('#galZoom')?.addEventListener('click', () => window.Anjia?.lightbox(shots, i));
+  $('#galTour')?.addEventListener('click', async e => {
+    const base = document.body.dataset.base || '';
+    const plans = $$('.unitThumb').map(a => ({ src: a.getAttribute('href'),
+      name: (a.getAttribute('aria-label') || 'Layout').replace(/^Open /, '').replace(/ layout$/, '') }));
+    const title = $('.detail__h')?.textContent.trim() || document.title;
+    const subtitle = ($('.detail__loc')?.textContent || '').replace(/\s+/g, ' ').trim();
+    try {
+      const mod = await import(`${base}assets/tour.js`);
+      mod.openTour({ title, subtitle, shots, plans, base, trigger: e.currentTarget });
+    } catch (err) { window.Anjia?.lightbox(shots, i); }
+  });
   main?.addEventListener('click', () => window.Anjia?.lightbox(shots, i));
   if (main) { main.style.cursor = 'zoom-in'; }
 })();

@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="../assets/system.css">
 <link rel="stylesheet" href="../assets/site.css">
 <link rel="stylesheet" href="../assets/parity.css">
+<link rel="stylesheet" href="../assets/immersive.css">
 </head>
 <body data-base="../">
 
@@ -34,6 +35,7 @@
 
     <nav class="nav" aria-label="Primary">
       <a href="../residences.html" aria-current="page">Thailand</a>
+      <a href="../explore.html">Explore</a>
       <a href="../about.html">About</a>
       <a href="../process.html">Process</a>
       <a href="../journal.html">News</a>
@@ -90,6 +92,7 @@
   </div>
   <nav class="drawer__nav" aria-label="Mobile">
     <a href="../residences.html"><span>Thailand</span><i>169</i></a>
+    <a href="../explore.html"><span>Explore</span></a>
     <a href="../about.html"><span>About</span></a>
     <a href="../process.html"><span>Process</span></a>
     <a href="../journal.html"><span>News</span></a>
@@ -147,6 +150,8 @@
                alt="Level Pratumnak" decoding="async">
           <button class="btn btn--sm btn--outline" type="button" id="galZoom"
                   style="position:absolute;right:12px;bottom:12px;background:var(--card)">View larger</button>
+          <button class="btn btn--sm btn--outline" type="button" id="galTour" aria-label="Walk through the photographs in three dimensions">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Zm0 0v9m8-4.5L12 12 4 7.5"/></svg>Walk through</button>
         </figure>
         <div class="gallery__strip" role="group" aria-label="Photographs"><button type="button" data-i="0" data-stem="r390889114" aria-current="true" aria-label="Photograph 1"><img src="../assets/img/r390889114-400.jpg" alt="" loading="lazy" decoding="async"></button><button type="button" data-i="1" data-stem="r390889114-g0" aria-current="false" aria-label="Photograph 2"><img src="../assets/img/r390889114-g0-600.jpg" alt="" loading="lazy" decoding="async"></button><button type="button" data-i="2" data-stem="r390889114-g1" aria-current="false" aria-label="Photograph 3"><img src="../assets/img/r390889114-g1-600.jpg" alt="" loading="lazy" decoding="async"></button><button type="button" data-i="3" data-stem="r390889114-g2" aria-current="false" aria-label="Photograph 4"><img src="../assets/img/r390889114-g2-600.jpg" alt="" loading="lazy" decoding="async"></button><button type="button" data-i="4" data-stem="r390889114-g3" aria-current="false" aria-label="Photograph 5"><img src="../assets/img/r390889114-g3-600.jpg" alt="" loading="lazy" decoding="async"></button></div>
       </div>
@@ -164,7 +169,7 @@
 
 
 
-            <h3>Where it is</h3><p><a class="tlink" href="https://www.google.com/maps?q=12.91708132,100.8658096" rel="noopener">Open in maps</a></p>
+            <h3>Where it is</h3><p style="display:flex;gap:18px;flex-wrap:wrap"><a class="tlink" href="../explore.html?id=875025154390889114">See it on the coast in 3D</a><a class="tlink" href="https://www.google.com/maps?q=12.91708132,100.8658096" rel="noopener">Open in maps</a></p>
           </div>
         </div>
 
@@ -413,6 +418,7 @@
       <nav class="ftr__col" aria-label="Residences">
         <h4 class="micro">Residences</h4>
         <a href="../residences.html">Every residence</a>
+        <a href="../explore.html">The coast in 3D</a>
         <a href="../residences.html?type=Condominium">Condominiums</a>
         <a href="../houses.html">Resale residences</a>
         <a href="../projects.html">New developments</a>
@@ -525,6 +531,7 @@
 <script src="../assets/data.js"></script>
 <script src="../assets/site.js"></script>
 <script src="../assets/parity.js"></script>
+<script src="../assets/depth.js"></script>
 <script src="../assets/detail.js"></script>
 </body>
 </html>
