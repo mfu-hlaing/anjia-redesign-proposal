@@ -56,6 +56,10 @@ page by page, and matched here before anything new was added. The parity matrix 
   cards and controls, smooth rails and cross-page transitions, all disabled under
   `prefers-reduced-motion`.
 - **167 pages a search engine can read**, each with its own title and full public detail copy.
+- **A preview card on every link.** Paste any page into Messenger, WhatsApp, Telegram, LINE,
+  iMessage or X and the thumbnail attaches: full Open Graph and Twitter-card tags with a
+  generated 1200×630 card per page — each residence with its own photograph, area, tenure and
+  price.
 - **The coast in three dimensions.** Every residence with coordinates stands on a 3D Pattaya
   coast as a building whose height follows its floor count; amber roofs mark a foreign-ownership
   route, a resale's own floor is lit, and the light is Pattaya's clock unless you choose dawn,

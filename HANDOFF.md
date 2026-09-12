@@ -486,6 +486,35 @@ asserts the image fits at every size. Escape closes it; a swipe moves.
 All of it is skipped under `prefers-reduced-motion`; `.ambient` and `.spot` are `display:none`
 there.
 
+### Link previews — the card that appears when a URL is pasted
+
+Every page carries a `<!--#c:social-->` block from `chrome.social()`: canonical URL,
+Open Graph (`og:url`, `og:title`, `og:description`, `og:image` + width/height/alt/type,
+`og:site_name`, `og:locale`), a Twitter `summary_large_image` card, and the tab icons.
+Messenger, WhatsApp, Telegram, LINE, iMessage, Instagram and X read these to attach the
+thumbnail. Three rules:
+
+- **`chrome.ORIGIN` is the one place the public origin lives.** Preview images must be
+  absolute URLs, so if the site moves to another domain or account, change `ORIGIN`, rebuild,
+  and every page follows. Nothing else hard-codes the host.
+- **The cards are generated, not hand-made.** `build/make_og.py` writes `assets/og/`: one
+  1200×630 JPEG per page (a photograph with the wordmark and the page title on a warm scrim,
+  or a warm brand card where there is no photograph), one per residence from its own cover
+  photograph with area, tenure and price, one per article, and the icons. Every file is kept
+  under 300 KB because WhatsApp and LINE go quiet above that. The coast card comes from
+  `audit/tools/og_capture.js` (a clean golden-hour render, needs the server + Chrome); if
+  `audit/og/explore-raw.png` is missing, a photograph stands in.
+- **Previews are cached by the platforms.** After changing a card, Facebook/Messenger need the
+  Sharing Debugger (developers.facebook.com/tools/debug) to re-scrape; Telegram re-fetches on
+  its own after a while, or via @WebpageBot; X via its card validator. `?v=2` on the shared
+  URL is the quick way to see the new card in any of them.
+
+Hand-written pages (`index`, `residences`, `ownership`, `contact`, `compare`) get the block
+from `apply_chrome.apply_social`, which replaces an existing block, an old run of `og:` lines,
+or inserts before the stylesheets. The build's audit (in the session notes) checks every page
+has exactly one block, an absolute image that exists at 1200×630 under 300 KB, and a canonical
+that matches its path.
+
 ### Verifying it
 
 `node audit/tools/verify_3d.js` (server on :8810) launches Chrome with
